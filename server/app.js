@@ -1,12 +1,15 @@
 const express = require("express");
 const app = express();
+const bodyparser = require("body-parser");
+const cors = require("cors");
 const { sequelize } = require("./models/index");
 const router = require("./routers/index");
 
-const PORT = process.env.PORT || 3000;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(cors());
+require("dotenv").config({ path: "./.env" });
+const PORT = process.env.PORT || 9000;
+app.use(bodyparser.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
 app.listen(PORT, () => {

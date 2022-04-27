@@ -1,5 +1,6 @@
 import Head from "next/head";
-import Form from "../components/Form";
+import Form from "../components/form/Form";
+
 import Layout from "../components/Layout";
 
 export default function Home() {
