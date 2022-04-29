@@ -1,7 +1,10 @@
 import React from "react";
 import Image from "next/image";
 
+
 export default function Navbar() {
+  
+
   return (
     <div className="w-full font-mono bg-green-500">
       <div className="flex flex-row items-center justify-center py-4">

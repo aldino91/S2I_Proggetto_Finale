@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Form from "../components/form/Form";
+
 
 import Layout from "../components/Layout";
 
@@ -12,9 +12,7 @@ export default function Home() {
         <link rel="icon" href="/icono-app.ico" />
       </Head>
 
-      <Layout>
-        <Form />
-      </Layout>
+      <Layout />
     </div>
   );
 }
