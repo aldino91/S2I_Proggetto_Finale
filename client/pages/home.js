@@ -1,30 +1,44 @@
 import React, { useEffect, useState } from "react";
 
 import AddRestaurant from "../components/AddRestaurant";
-import useAuth from "../hooks/useAuth";
+
 import { useRouter } from "next/router";
-import jwtDecode from "jwt-decode";
-import { getToken } from "../utils/token";
+
 import NavBarUser from "../components/navbar/NavBarUser";
+import { getAuthentication, fetchGetRestaurant } from "../AllFetchApi";
 
 export default function home() {
   const [name, setName] = useState("");
+  const [allRestaurant, setAllRestaurant] = useState([]);
   const router = useRouter();
-  const token = getToken();
-  const { auth } = useAuth();
 
   useEffect(() => {
-    if (auth) {
-      setName(jwtDecode(token).user.name);
-    } else {
-      router.push("/");
-    }
+    getAuthentication()
+      .then((resp) => {
+        const idUser = resp.user.id;
+        fetchGetRestaurant(idUser, setAllRestaurant);
+        setName(resp.user.name);
+      })
+      .catch((e) => {
+        console.log(e);
+        router.push("/");
+      });
   }, []);
 
+  console.log(allRestaurant);
+
   return (
-    <div>
+    <div className="relative w-full h-screen">
       <NavBarUser name={name} />
-      <AddRestaurant />
+      {allRestaurant === undefined ? (
+        <AddRestaurant />
+      ) : (
+        <div>
+          {allRestaurant.map((rest) => (
+            <div key={rest.id}>{rest.name}</div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

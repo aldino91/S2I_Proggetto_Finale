@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
       setAuth(null);
     }
     setReloadUser(false);
-  }, []);
+  }, [reloadUser]);
 
   const login = (token) => {
     setToken(token);

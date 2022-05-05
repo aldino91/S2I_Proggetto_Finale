@@ -1,5 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { getToken } from "../utils/token";
+import jwtDecode from "jwt-decode";
 
 export const fetchRegister = async (e, name, email, password, changeForm) => {
   try {
@@ -40,6 +42,64 @@ export const fetchLogin = async (e, email, password, login) => {
     e.target.reset();
   } catch (error) {
     toast.error("Email o password errata!");
+    console.log(error);
+  }
+};
+
+export const getAuthentication = () => {
+  const token = getToken();
+
+  const url = `${process.env.NEXT_PUBLIC_URL_AUTHENTICATION}`;
+
+  return axios
+    .get(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((resp) => {
+      return resp.data;
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+export const fetchAddRestaurant = async (
+  e,
+  name,
+  city,
+  telephone,
+  address,
+  setOpenModal
+) => {
+  const token = getToken();
+  const idUser = jwtDecode(token).user.id;
+  const url = process.env.NEXT_PUBLIC_URL_ADD_RESTAURANT;
+
+  try {
+    await axios.post(url, {
+      name: name,
+      city: city,
+      telephone: telephone,
+      address: address,
+      idUser,
+    });
+    toast.success("Il nuovo ristorante é stato salvato!");
+    setOpenModal(false);
+    e.target.reset();
+  } catch (error) {
+    console.log(error);
+    toast.error("Non é stato possibile registrare il nuovo ristorante!");
+  }
+};
+
+export const fetchGetRestaurant = async (idUser, setAllRestaurant) => {
+  const url = process.env.NEXT_PUBLIC_URL_GET_RESTAURANT;
+  try {
+    const resp = await axios.get(url + idUser);
+    console.log(resp);
+    setAllRestaurant(resp.data);
+    return resp;
+  } catch (error) {
     console.log(error);
   }
 };

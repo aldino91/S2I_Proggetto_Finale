@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import ModalAddRestaurant from "./modal/ModalAddRestaurant";
 
 export default function AddRestaurant() {
+  const [openModal, setOpenModal] = useState(false);
   return (
     <>
-      <div className="flex flex-row justify-center w-1/2 h-40 mx-auto my-24 border-2 rounded-md">
+      <div
+        className="flex flex-row justify-center w-1/2 h-40 mx-auto my-24 border-2 rounded-md"
+        onClick={() => setOpenModal(true)}
+      >
         <div className="flex flex-col justify-center w-auto h-auto">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -30,6 +35,8 @@ export default function AddRestaurant() {
           />
         </div>
       </div>
+      {/* Modal */}
+      {openModal ? <ModalAddRestaurant setOpenModal={setOpenModal} /> : null}
     </>
   );
 }

@@ -37,7 +37,6 @@ module.exports = {
   },
 
   singUp(req, res) {
-    console.log(req.body.name);
     // encryptamo la password
     const password = bcrypt.hashSync(
       req.body.password,
@@ -66,5 +65,9 @@ module.exports = {
       .catch((err) => {
         console.log(err);
       });
+  },
+
+  getUser(req, res) {
+    res.json({ user: req.user });
   },
 };
