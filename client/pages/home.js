@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 import AddRestaurant from "../components/AddRestaurant";
-
 import { useRouter } from "next/router";
 
 import NavBarUser from "../components/navbar/NavBarUser";
 import { getAuthentication, fetchGetRestaurant } from "../AllFetchApi";
+import GridAllRestaurant from "../components/GridAllRestaurant";
 
 export default function home() {
   const [name, setName] = useState("");
@@ -25,19 +25,13 @@ export default function home() {
       });
   }, []);
 
-  console.log(allRestaurant);
-
   return (
     <div className="relative w-full h-screen">
       <NavBarUser name={name} />
       {allRestaurant === undefined ? (
         <AddRestaurant />
       ) : (
-        <div>
-          {allRestaurant.map((rest) => (
-            <div key={rest.id}>{rest.name}</div>
-          ))}
-        </div>
+        <GridAllRestaurant allRestaurant={allRestaurant} />
       )}
     </div>
   );

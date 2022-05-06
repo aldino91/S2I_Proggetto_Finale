@@ -17,7 +17,7 @@ export default function NavBarUser({ name }) {
       </div>
       <div className="flex flex-row justify-around p-1">
         <div className="flex flex-col justify-center">
-          <div>Welcome {name}</div>
+          <div className="capitalize">Welcome {name}</div>
         </div>
         <div
           className="p-2 bg-white border-2 rounded-md hover:bg-slate-100"

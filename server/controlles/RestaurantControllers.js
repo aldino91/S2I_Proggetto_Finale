@@ -33,4 +33,13 @@ module.exports = {
       res.send(resp);
     });
   },
+
+  getDataRestaurant(req, res) {
+    const id = req.params.id;
+    Restaurant.findOne({
+      where: { id: id },
+    }).then((resp) => {
+      res.send(resp);
+    });
+  },
 };

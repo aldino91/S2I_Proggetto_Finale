@@ -21,5 +21,6 @@ router.get("/authentication", authentication, AuthControlles.getUser);
 
 router.post("/add-restaurant", RestaurantControllers.AddRestaurant);
 router.get("/restaurant/:idUser", RestaurantControllers.getAllRestaurant);
+router.get("/restaurant/data/:id", RestaurantControllers.getDataRestaurant);
 
 module.exports = router;

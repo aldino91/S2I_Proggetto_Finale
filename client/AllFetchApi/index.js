@@ -96,8 +96,19 @@ export const fetchGetRestaurant = async (idUser, setAllRestaurant) => {
   const url = process.env.NEXT_PUBLIC_URL_GET_RESTAURANT;
   try {
     const resp = await axios.get(url + idUser);
-    console.log(resp);
     setAllRestaurant(resp.data);
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchDataRestaurant = async (id, setData) => {
+  const url = process.env.NEXT_PUBLIC_URL_DATA_RESTAURANT;
+  try {
+    const resp = await axios.get(url + id);
+    console.log(resp.data);
+    setData(resp.data);
     return resp;
   } catch (error) {
     console.log(error);
