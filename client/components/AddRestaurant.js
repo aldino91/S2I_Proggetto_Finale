@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Image from "next/image";
 import ModalAddRestaurant from "./modal/ModalAddRestaurant";
 
-export default function AddRestaurant() {
+export default function AddRestaurant({ setReload }) {
   const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       <div
@@ -36,7 +37,9 @@ export default function AddRestaurant() {
         </div>
       </div>
       {/* Modal */}
-      {openModal ? <ModalAddRestaurant setOpenModal={setOpenModal} /> : null}
+      {openModal ? (
+        <ModalAddRestaurant setOpenModal={setOpenModal} setReload={setReload} />
+      ) : null}
     </>
   );
 }

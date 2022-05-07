@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { fetchAddRestaurant } from "../../AllFetchApi";
 
-export default function FormAddRestaurant({ setOpenModal }) {
+export default function FormAddRestaurant({ setOpenModal, setReload }) {
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [telephone, setTelephone] = useState("");
@@ -11,6 +11,7 @@ export default function FormAddRestaurant({ setOpenModal }) {
     e.preventDefault();
 
     fetchAddRestaurant(e, name, city, telephone, address, setOpenModal);
+    setReload(true);
   };
   return (
     <form className="w-full mx-auto my-20 lg:w-1/2" onSubmit={handleSubmit}>

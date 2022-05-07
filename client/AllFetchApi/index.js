@@ -114,3 +114,16 @@ export const fetchDataRestaurant = async (id, setData) => {
     console.log(error);
   }
 };
+
+export const fetchDeleteRestaurant = async (id, router) => {
+  const url = process.env.NEXT_PUBLIC_URL_DELETE_RESTAURANT;
+  try {
+    await axios.delete(url + id);
+    toast.success("I dati sono stati cancellati con successo!");
+    router.back();
+  } catch (error) {
+    toast.error("Abbiamo problemi ad eliminarlo!");
+    router.back();
+    console.log(error);
+  }
+};

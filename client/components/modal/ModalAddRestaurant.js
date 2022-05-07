@@ -1,9 +1,9 @@
 import React from "react";
 import FormAddRestaurant from "../form/FormAddRestaurant";
 
-export default function ModalAddRestaurant({ setOpenModal }) {
+export default function ModalAddRestaurant({ setOpenModal, setReload }) {
   return (
-    <div className="absolute inset-0 z-40 w-full h-full bg-white border-4 border-green-500 bg-opacity-80">
+    <div className="fixed inset-0 z-40 w-full h-full bg-white border-4 border-green-500 bg-opacity-80">
       <div
         onClick={() => setOpenModal(false)}
         className="absolute top-2 right-2"
@@ -23,7 +23,7 @@ export default function ModalAddRestaurant({ setOpenModal }) {
           />
         </svg>
       </div>
-      <FormAddRestaurant setOpenModal={setOpenModal} />
+      <FormAddRestaurant setOpenModal={setOpenModal} setReload={setReload} />
     </div>
   );
 }

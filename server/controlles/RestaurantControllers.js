@@ -42,4 +42,27 @@ module.exports = {
       res.send(resp);
     });
   },
+
+  deleteRestaurant(req, res) {
+    const id = req.params.id;
+    try {
+      const restaurant = Restaurant.findOne({
+        where: {
+          id: id,
+        },
+      });
+      if (!restaurant) {
+        res.send("Non abbiamo trovato il ristorante!");
+      } else {
+        Restaurant.destroy({
+          where: {
+            id: id,
+          },
+        });
+        res.json({ msg: "Ristorante calcellato con successo!" });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };

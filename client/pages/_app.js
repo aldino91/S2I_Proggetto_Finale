@@ -9,6 +9,9 @@ import AuthContext from "../context/AuthContext";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+
 function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState(undefined);
   const [reloadUser, setReloadUser] = useState(false);
@@ -60,16 +63,18 @@ function MyApp({ Component, pageProps }) {
   if (auth === undefined) return null;
   return (
     <AuthContext.Provider value={authData}>
-      <Component {...pageProps} />
-      <ToastContainer
-        position="top-right"
-        autoClose={2500}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        transition={Slide}
-      />
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Component {...pageProps} />
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          transition={Slide}
+        />
+      </MuiPickersUtilsProvider>
     </AuthContext.Provider>
   );
 }

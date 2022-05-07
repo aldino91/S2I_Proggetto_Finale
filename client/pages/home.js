@@ -9,6 +9,7 @@ import GridAllRestaurant from "../components/GridAllRestaurant";
 
 export default function home() {
   const [name, setName] = useState("");
+  const [reload, setReload] = useState(false);
   const [allRestaurant, setAllRestaurant] = useState([]);
   const router = useRouter();
 
@@ -23,16 +24,16 @@ export default function home() {
         console.log(e);
         router.push("/");
       });
-  }, []);
+  }, [reload]);
+  console.log(reload);
 
   return (
-    <div className="relative w-full h-screen">
+    <div className="relative w-full h-screen overflow-y-auto">
       <NavBarUser name={name} />
-      {allRestaurant === undefined ? (
-        <AddRestaurant />
-      ) : (
-        <GridAllRestaurant allRestaurant={allRestaurant} />
-      )}
+
+      <AddRestaurant setReload={setReload} />
+
+      <GridAllRestaurant allRestaurant={allRestaurant} />
     </div>
   );
 }
