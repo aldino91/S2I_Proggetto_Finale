@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import ModalAddRestaurant from "./modal/ModalAddRestaurant";
+import IconPlusBig from "./icons/IconPlusBig";
 
 export default function AddRestaurant({ setReload }) {
   const [openModal, setOpenModal] = useState(false);
@@ -12,20 +13,7 @@ export default function AddRestaurant({ setReload }) {
         onClick={() => setOpenModal(true)}
       >
         <div className="flex flex-col justify-center w-auto h-auto">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
+          <IconPlusBig />
         </div>
         <div className="flex flex-col justify-center w-auto h-auto">
           <Image

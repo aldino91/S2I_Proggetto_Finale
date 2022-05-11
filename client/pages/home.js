@@ -25,7 +25,7 @@ export default function home() {
         router.push("/");
       });
   }, [reload]);
-  console.log(reload);
+
 
   return (
     <div className="relative w-full h-screen overflow-y-auto">

@@ -2,11 +2,23 @@ import React, { useEffect, useState } from "react";
 import { getAuthentication, fetchDataRestaurant } from "../../AllFetchApi";
 import { useRouter } from "next/router";
 import NavBarReserver from "../../components/navbar/NavBarReserver";
+import Lunch from "../../components/orari/Lunch";
+import Dinner from "../../components/orari/Dinner";
 
 export default function HomeRestaurant() {
   const router = useRouter();
   const { id } = router.query;
   const [data, setData] = useState([]);
+  const [timetables, setTimetables] = useState(true);
+  const [selectedDate, setSelectDate] = useState(new Date());
+
+  function startLunch() {
+    setTimetables(true);
+  }
+
+  function startDinner() {
+    setTimetables(false);
+  }
 
   useEffect(() => {
     getAuthentication()
@@ -20,7 +32,20 @@ export default function HomeRestaurant() {
   }, [id]);
   return (
     <>
-      <NavBarReserver data={data} />
+      <NavBarReserver
+        data={data}
+        startLunch={startLunch}
+        startDinner={startDinner}
+        timetables={timetables}
+        selectedDate={selectedDate}
+        setSelectDate={setSelectDate}
+      />
+
+      {timetables ? (
+        <Lunch selectedDate={selectedDate} />
+      ) : (
+        <Dinner selectedDate={selectedDate} />
+      )}
     </>
   );
 }

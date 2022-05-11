@@ -7,9 +7,20 @@ import { useRouter } from "next/router";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
+import IconLogout from "../icons/IconLogout";
+import IconDelete from "../icons/IconDelete";
+import IconClose from "../icons/IconClose";
+import BaseModal from "../modal/BaseModal";
 
-export default function NavBarReserver({ data }) {
-  const [selectedDate, handleDateChange] = useState(new Date());
+export default function NavBarReserver({
+  data,
+  startLunch,
+  startDinner,
+  timetables,
+  selectedDate,
+  setSelectDate,
+}) {
+  const [openModal, setOpenModal] = useState(false);
   const defaultMaterialTheme = createMuiTheme({
     spacing: 8,
     palette: {
@@ -24,6 +35,7 @@ export default function NavBarReserver({ data }) {
 
   function deleteRestaurant() {
     fetchDeleteRestaurant(id, router);
+    setOpenModal(false);
   }
 
   return (
@@ -45,10 +57,20 @@ export default function NavBarReserver({ data }) {
             Piantina
           </div>
           <div className="flex flex-row justify-around rounded-md">
-            <div className="p-2 bg-white border-2 rounded-l-md border-y-2 hover:bg-slate-100 ">
+            <div
+              className={`p-2 ${
+                timetables === true ? "bg-blue-300" : "bg-white"
+              } border-2 rounded-l-md border-y-2`}
+              onClick={startLunch}
+            >
               Pranzo
             </div>
-            <div className="p-2 bg-white border-2 rounded-r-md border-y-2 hover:bg-slate-100">
+            <div
+              className={`p-2 ${
+                timetables === false ? "bg-blue-300" : "bg-white"
+              } border-2 rounded-r-md border-y-2`}
+              onClick={startDinner}
+            >
               Cena
             </div>
           </div>
@@ -62,48 +84,52 @@ export default function NavBarReserver({ data }) {
                 inputVariant="standard"
                 value={selectedDate}
                 InputAdornmentProps={{ position: "start" }}
-                onChange={(date) => handleDateChange(date)}
+                onChange={(date) => setSelectDate(date)}
               />
             </ThemeProvider>
           </div>
 
           <Link href={"/home"}>
             <a className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:ml-10">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                />
-              </svg>
+              <IconLogout />
             </a>
           </Link>
           <div
             className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:ml-10"
-            onClick={deleteRestaurant}
+            onClick={() => setOpenModal(true)}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
+            <IconDelete />
           </div>
+          {openModal ? (
+            <BaseModal>
+              <div
+                className="absolute top-2 right-2"
+                onClick={() => setOpenModal(false)}
+              >
+                <IconClose />
+              </div>
+
+              <div className="flex flex-col justify-center w-2/3 mx-auto border-2 border-green-500 rounded-md my-28 bg-opacity-70 h-2/3 bg-zinc-200">
+                <div className="text-center mb-7">
+                  Sei sicuro di voler cancellare questo ristorante??
+                </div>
+                <div className="flex flex-row justify-around">
+                  <button
+                    className="w-1/3 border-2 border-green-500 rounded-md hover:bg-green-300"
+                    onClick={deleteRestaurant}
+                  >
+                    SI
+                  </button>
+                  <button
+                    className="w-1/3 border-2 border-green-500 rounded-md hover:bg-green-300"
+                    onClick={() => setOpenModal(false)}
+                  >
+                    NO
+                  </button>
+                </div>
+              </div>
+            </BaseModal>
+          ) : null}
         </div>
       </div>
     </div>
