@@ -127,3 +127,47 @@ export const fetchDeleteRestaurant = async (id, router) => {
     console.log(error);
   }
 };
+
+export const fetchAddReserved = async (
+  e,
+  name,
+  telephone,
+  hour,
+  day,
+  cameriere,
+  idRestaurant,
+  setOpenModal
+) => {
+  const url = process.env.NEXT_PUBLIC_URL_ADD_RESERVED;
+  try {
+    await axios.post(url, {
+      name: name,
+      telephone: telephone,
+      hour: hour,
+      data: day,
+      cameriere: cameriere,
+      idRestaurant: idRestaurant,
+    });
+    toast.success("La prenotazione é stata salvata!");
+    setOpenModal(false);
+    e.target.reset();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchAddWaiter = async (e, name, idRestaurant, setAddWaiter) => {
+  const url = process.env.NEXT_PUBLIC_URL_ADD_WAITER;
+
+  try {
+    await axios.post(url, {
+      name: name,
+      idRestaurant: idRestaurant,
+    });
+    toast.success("Il cameriere é stato salvato!!");
+    setAddWaiter(false);
+    e.target.reset();
+  } catch (error) {
+    console.log(error);
+  }
+};

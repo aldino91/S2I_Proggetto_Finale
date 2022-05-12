@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import itLocale from "date-fns/locale/it";
 
 function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState(undefined);
@@ -63,7 +64,7 @@ function MyApp({ Component, pageProps }) {
   if (auth === undefined) return null;
   return (
     <AuthContext.Provider value={authData}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={itLocale}>
         <Component {...pageProps} />
         <ToastContainer
           position="top-right"

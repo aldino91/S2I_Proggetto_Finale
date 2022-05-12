@@ -1,16 +1,15 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Link from "next/link";
-import { fetchDeleteRestaurant } from "../../AllFetchApi";
-import { useRouter } from "next/router";
 
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { ThemeProvider } from "@material-ui/styles";
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme } from "@material-ui/core/styles";
 import IconLogout from "../icons/IconLogout";
 import IconDelete from "../icons/IconDelete";
-import IconClose from "../icons/IconClose";
-import BaseModal from "../modal/BaseModal";
+import IconWaiter from "../icons/IconWaiter";
+import ModalDeleteRestaurant from "../modal/ModalDeleteRestaurant";
+import ModalAddWaiter from "../modal/ModalAddWaiter";
 
 export default function NavBarReserver({
   data,
@@ -19,8 +18,10 @@ export default function NavBarReserver({
   timetables,
   selectedDate,
   setSelectDate,
+  id,
 }) {
   const [openModal, setOpenModal] = useState(false);
+  const [addWaiter, setAddWaiter] = useState(false);
   const defaultMaterialTheme = createMuiTheme({
     spacing: 8,
     palette: {
@@ -29,14 +30,6 @@ export default function NavBarReserver({
       },
     },
   });
-
-  const router = useRouter();
-  const { id } = router.query;
-
-  function deleteRestaurant() {
-    fetchDeleteRestaurant(id, router);
-    setOpenModal(false);
-  }
 
   return (
     <div className="w-full font-mono bg-green-500">
@@ -55,6 +48,12 @@ export default function NavBarReserver({
         <div className="flex flex-row justify-between pb-2 md:pb-0">
           <div className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:mr-10">
             Piantina
+          </div>
+          <div
+            className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:mr-10"
+            onClick={() => setAddWaiter(true)}
+          >
+            <IconWaiter />
           </div>
           <div className="flex flex-row justify-around rounded-md">
             <div
@@ -101,34 +100,11 @@ export default function NavBarReserver({
             <IconDelete />
           </div>
           {openModal ? (
-            <BaseModal>
-              <div
-                className="absolute top-2 right-2"
-                onClick={() => setOpenModal(false)}
-              >
-                <IconClose />
-              </div>
+            <ModalDeleteRestaurant setOpenModal={setOpenModal} />
+          ) : null}
 
-              <div className="flex flex-col justify-center w-2/3 mx-auto border-2 border-green-500 rounded-md my-28 bg-opacity-70 h-2/3 bg-zinc-200">
-                <div className="text-center mb-7">
-                  Sei sicuro di voler cancellare questo ristorante??
-                </div>
-                <div className="flex flex-row justify-around">
-                  <button
-                    className="w-1/3 border-2 border-green-500 rounded-md hover:bg-green-300"
-                    onClick={deleteRestaurant}
-                  >
-                    SI
-                  </button>
-                  <button
-                    className="w-1/3 border-2 border-green-500 rounded-md hover:bg-green-300"
-                    onClick={() => setOpenModal(false)}
-                  >
-                    NO
-                  </button>
-                </div>
-              </div>
-            </BaseModal>
+          {addWaiter ? (
+            <ModalAddWaiter setAddWaiter={setAddWaiter} id={id} />
           ) : null}
         </div>
       </div>

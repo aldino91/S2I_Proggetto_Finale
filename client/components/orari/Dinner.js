@@ -7,7 +7,7 @@ import BaseModal from "../modal/BaseModal";
 import IconClose from "../icons/IconClose";
 import FormAddReserved from "../form/FormAddReserved";
 
-export default function Dinner({ selectedDate }) {
+export default function Dinner({ selectedDate, id }) {
   const [openModal, setOpenModal] = useState(false);
   const [dataHour, setDataHour] = useState(null);
 
@@ -58,7 +58,12 @@ export default function Dinner({ selectedDate }) {
           >
             <IconClose />
           </div>
-          <FormAddReserved dataHour={dataHour} data={data} />
+          <FormAddReserved
+            dataHour={dataHour}
+            data={data}
+            id={id}
+            setOpenModal={setOpenModal}
+          />
         </BaseModal>
       ) : null}
     </div>

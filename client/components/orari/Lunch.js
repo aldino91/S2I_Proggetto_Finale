@@ -7,7 +7,7 @@ import BaseModal from "../modal/BaseModal";
 import IconClose from "../icons/IconClose";
 import FormAddReserved from "../form/FormAddReserved";
 
-export default function Lunch({ selectedDate }) {
+export default function Lunch({ selectedDate, id }) {
   const [openModal, setOpenModal] = useState(false);
   const [dataHour, setDataHour] = useState(null);
 
@@ -58,7 +58,12 @@ export default function Lunch({ selectedDate }) {
           >
             <IconClose />
           </div>
-          <FormAddReserved dataHour={dataHour} data={data} />
+          <FormAddReserved
+            dataHour={dataHour}
+            data={data}
+            id={id}
+            setOpenModal={setOpenModal}
+          />
         </BaseModal>
       ) : null}
     </div>

@@ -39,12 +39,13 @@ export default function HomeRestaurant() {
         timetables={timetables}
         selectedDate={selectedDate}
         setSelectDate={setSelectDate}
+        id={id}
       />
 
       {timetables ? (
-        <Lunch selectedDate={selectedDate} />
+        <Lunch selectedDate={selectedDate} id={id} />
       ) : (
-        <Dinner selectedDate={selectedDate} />
+        <Dinner selectedDate={selectedDate} id={id} />
       )}
     </>
   );
