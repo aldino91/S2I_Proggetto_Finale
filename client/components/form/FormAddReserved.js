@@ -1,26 +1,34 @@
-import React, { useState } from "react";
-import { fetchAddReserved } from "../../AllFetchApi";
+import React, { useEffect, useState } from "react";
+import { fetchAddReserved, fetchGetWaiters } from "../../AllFetchApi";
 import IconPlusSmall from "../icons/IconPlusSmall";
 import IconReserved from "../icons/IconReserved";
 
 export default function FormAddReserved({ dataHour, data, id, setOpenModal }) {
   const [name, setName] = useState("");
+  const [pax, setPax] = useState(2);
   const [telephone, setTelephone] = useState("");
   const hour = dataHour;
   const day = data;
   const idRestaurant = id;
-  const [cameriere, setCameriere] = useState("");
+  const [waiter, setWaiter] = useState(null);
+
+  const [allWaiters, setAllWaiters] = useState();
+
+  useEffect(() => {
+    fetchGetWaiters(id, setAllWaiters);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     fetchAddReserved(
       e,
+      pax,
       name,
       telephone,
       hour,
       day,
-      cameriere,
+      waiter,
       idRestaurant,
       setOpenModal
     );
@@ -29,7 +37,18 @@ export default function FormAddReserved({ dataHour, data, id, setOpenModal }) {
     <form className="w-full mx-auto my-10 lg:w-1/2" onSubmit={handleSubmit}>
       <div className="flex flex-col w-2/3 p-3 mx-auto space-y-4 bg-white rounded-md shadow-md shadow-slate-400">
         <div className="text-center text-green-500">New Reserved</div>
-
+        <div className="flex flex-row justify-center p-2 border-2 rounded-md border-slate-300">
+          <input
+            type="number"
+            name="pax"
+            value={pax}
+            className="w-1/2 text-xl lg:w-1/3"
+            required
+            onChange={(e) => {
+              setPax(e.target.value);
+            }}
+          />
+        </div>
         <input
           type="text"
           name="name"
@@ -70,18 +89,21 @@ export default function FormAddReserved({ dataHour, data, id, setOpenModal }) {
         />
 
         <label className="flex flex-row justify-around p-2 bg-white border-2 rounded-md border-slate-300">
-          <p>Waiter</p>
-
+          waiter
           <select
             required
             className="bg-white border-2 rounded-md"
             onChange={(e) => {
-              setCameriere(e.target.value);
+              setWaiter(e.target.value);
             }}
           >
-            <option value="aldo">Aldo</option>
-            <option value="andres">Andres</option>
-            <option value="marco">Marco</option>
+            {" "}
+            <option value=""></option>
+            {allWaiters?.map((resp) => (
+              <option value={resp.name} key={resp.id}>
+                {resp.name}
+              </option>
+            ))}
           </select>
         </label>
 

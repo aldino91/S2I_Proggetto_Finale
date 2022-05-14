@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      pax: {
+        type: Sequelize.INTEGER,
+      },
       name: {
         type: Sequelize.STRING,
       },
@@ -20,13 +23,11 @@ module.exports = {
       data: {
         type: Sequelize.STRING,
       },
-      cameriere: {
+      waiter: {
         type: Sequelize.STRING,
       },
       idRestaurant: {
-        type: Sequelize.INTEGER,
-        references: { model: "restaurant", key: "id" },
-        onDelete: "CASCADE",
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import IconWaiter from "../icons/IconWaiter";
 import { fetchAddWaiter } from "../../AllFetchApi";
 
-export default function FormAddWaiter({ setAddWaiter, id }) {
+export default function FormAddWaiter({ setReload, reload, id }) {
   const [name, setName] = useState("");
   const idRestaurant = id;
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetchAddWaiter(e, name, idRestaurant, setAddWaiter);
+    fetchAddWaiter(e, name, idRestaurant, setReload, reload);
   };
   return (
-    <form className="w-full mx-auto my-20 lg:w-1/2" onSubmit={handleSubmit}>
-      <div className="flex flex-col w-2/3 p-3 mx-auto space-y-4 bg-white rounded-md shadow-md shadow-slate-400">
+    <form
+      className="w-full mx-auto mt-10 mb-10 lg:w-2/3"
+      onSubmit={handleSubmit}
+    >
+      <div className="flex flex-col w-5/6 p-3 mx-auto space-y-4 bg-white rounded-md shadow-md shadow-slate-400">
         <div className="text-center text-green-500">New Waiter</div>
 
         <input

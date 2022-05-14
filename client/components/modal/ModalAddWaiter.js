@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import FormAddWaiter from "../form/FormAddWaiter";
 import IconClose from "../icons/IconClose";
-import IconWaiter from "../icons/IconWaiter";
+
+import ListWaiters from "../waiters/ListWaiters";
 import BaseModal from "./BaseModal";
 
-export default function ModalAddWaiter({ setAddWaiter, id }) {
+export default function ModalAddWaiter({ id, setOpenAddWaiter }) {
+  const [reload, setReload] = useState(false);
   return (
     <BaseModal>
       <div
         className="absolute top-2 right-2"
-        onClick={() => setAddWaiter(false)}
+        onClick={() => setOpenAddWaiter(false)}
       >
         <IconClose />
       </div>
 
-      <FormAddWaiter setAddWaiter={setAddWaiter} id={id} />
+      <FormAddWaiter setReload={setReload} reload={reload} id={id} />
+      <ListWaiters id={id} reload={reload} setReload={setReload} />
     </BaseModal>
   );
 }

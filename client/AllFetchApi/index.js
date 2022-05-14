@@ -130,22 +130,25 @@ export const fetchDeleteRestaurant = async (id, router) => {
 
 export const fetchAddReserved = async (
   e,
+  pax,
   name,
   telephone,
   hour,
   day,
-  cameriere,
+  waiter,
   idRestaurant,
   setOpenModal
 ) => {
   const url = process.env.NEXT_PUBLIC_URL_ADD_RESERVED;
+  console.log(waiter);
   try {
     await axios.post(url, {
+      pax: pax,
       name: name,
       telephone: telephone,
       hour: hour,
       data: day,
-      cameriere: cameriere,
+      waiter: waiter,
       idRestaurant: idRestaurant,
     });
     toast.success("La prenotazione é stata salvata!");
@@ -156,7 +159,13 @@ export const fetchAddReserved = async (
   }
 };
 
-export const fetchAddWaiter = async (e, name, idRestaurant, setAddWaiter) => {
+export const fetchAddWaiter = async (
+  e,
+  name,
+  idRestaurant,
+  setReload,
+  reload
+) => {
   const url = process.env.NEXT_PUBLIC_URL_ADD_WAITER;
 
   try {
@@ -164,10 +173,34 @@ export const fetchAddWaiter = async (e, name, idRestaurant, setAddWaiter) => {
       name: name,
       idRestaurant: idRestaurant,
     });
+    setReload(!reload);
     toast.success("Il cameriere é stato salvato!!");
-    setAddWaiter(false);
     e.target.reset();
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const fetchGetWaiters = async (id, setAllWaiters) => {
+  const url = process.env.NEXT_PUBLIC_URL_GET_WAITERS;
+
+  try {
+    const resp = await axios.get(url + id);
+    setAllWaiters(resp.data);
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchDeleteWaiter = async (id, setReload, reload) => {
+  const url = process.env.NEXT_PUBLIC_URL_DELETE_WAITER;
+  try {
+    await axios.delete(url + id);
+    setReload(!reload);
+    toast.success("Cameriere eliminato!!");
+  } catch (error) {
+    console.log(error);
+    toast.error("Abbiamo problemi ad eliminarlo!");
   }
 };

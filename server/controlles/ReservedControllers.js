@@ -2,14 +2,15 @@ const { Reserved } = require("../models/index");
 
 module.exports = {
   AddReserved(req, res) {
-    const { name, telephone, hour, data, cameriere, idRestaurant } = req.body;
+    const { pax, name, telephone, hour, data, waiter, idRestaurant } = req.body;
 
     Reserved.create({
+      pax,
       name,
       telephone,
       hour,
       data,
-      cameriere,
+      waiter,
       idRestaurant,
     })
       .then((resp) => {

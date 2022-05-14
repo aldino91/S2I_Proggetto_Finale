@@ -21,7 +21,8 @@ export default function NavBarReserver({
   id,
 }) {
   const [openModal, setOpenModal] = useState(false);
-  const [addWaiter, setAddWaiter] = useState(false);
+  const [openAddWaiter, setOpenAddWaiter] = useState(false);
+
   const defaultMaterialTheme = createMuiTheme({
     spacing: 8,
     palette: {
@@ -51,7 +52,7 @@ export default function NavBarReserver({
           </div>
           <div
             className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:mr-10"
-            onClick={() => setAddWaiter(true)}
+            onClick={() => setOpenAddWaiter(true)}
           >
             <IconWaiter />
           </div>
@@ -103,8 +104,8 @@ export default function NavBarReserver({
             <ModalDeleteRestaurant setOpenModal={setOpenModal} />
           ) : null}
 
-          {addWaiter ? (
-            <ModalAddWaiter setAddWaiter={setAddWaiter} id={id} />
+          {openAddWaiter ? (
+            <ModalAddWaiter id={id} setOpenAddWaiter={setOpenAddWaiter} />
           ) : null}
         </div>
       </div>

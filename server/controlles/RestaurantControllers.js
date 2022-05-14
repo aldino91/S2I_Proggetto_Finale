@@ -29,18 +29,26 @@ module.exports = {
 
     Restaurant.findAll({
       where: { idUser: idUser },
-    }).then((resp) => {
-      res.send(resp);
-    });
+    })
+      .then((resp) => {
+        res.send(resp);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   },
 
   getDataRestaurant(req, res) {
     const id = req.params.id;
     Restaurant.findOne({
       where: { id: id },
-    }).then((resp) => {
-      res.send(resp);
-    });
+    })
+      .then((resp) => {
+        res.send(resp);
+      })
+      .catch((e) => {
+        console.log(e);
+      }); 
   },
 
   deleteRestaurant(req, res) {

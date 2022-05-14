@@ -3,20 +3,20 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Reserved extends Model {
     static associate(models) {
-      /* Reserved.belongsTo(models.restaurant, {
-        as: "author",
+      Reserved.belongsTo(models.Restaurant, {
         foreignKey: "idRestaurant",
-      }); */
+      });
     }
   }
   Reserved.init(
     {
+      pax: DataTypes.INTEGER,
       name: DataTypes.STRING,
       telephone: DataTypes.STRING,
       hour: DataTypes.STRING,
       data: DataTypes.STRING,
-      cameriere: DataTypes.STRING,
-      idRestaurant: DataTypes.INTEGER,
+      waiter: DataTypes.STRING,
+      idRestaurant: DataTypes.STRING,
     },
     {
       sequelize,

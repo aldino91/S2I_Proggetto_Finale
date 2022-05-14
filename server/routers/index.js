@@ -33,5 +33,7 @@ router.post("/add-reserved", ReservedControllers.AddReserved);
 // Waiter
 
 router.post("/add-waiter", WaiterControllers.AddWaiter);
+router.get("/waiter/:idRestaurant", WaiterControllers.GetWaiters);
+router.delete("/deletewaiter/:id", WaiterControllers.DeleteWaiter);
 
 module.exports = router;
