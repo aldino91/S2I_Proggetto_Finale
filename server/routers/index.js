@@ -28,7 +28,8 @@ router.delete("/restaurant/delete/:id", RestaurantControllers.deleteRestaurant);
 
 // Reserved
 
-router.post("/add-reserved", ReservedControllers.AddReserved);
+router.post("/reserved", ReservedControllers.AddReserved);
+router.get("/reserved", ReservedControllers.SearchReserved);
 
 // Waiter
 

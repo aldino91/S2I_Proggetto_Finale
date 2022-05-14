@@ -21,4 +21,18 @@ module.exports = {
         console.log("non siamo riusciti a salvare il ristorante!");
       });
   },
+
+  SearchReserved(req, res) {
+    const { idRestaurant, data, hour } = req.query;
+
+    Reserved.findAll({
+      where: { idRestaurant, data, hour },
+    })
+      .then((resp) => {
+        res.send(resp);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  },
 };

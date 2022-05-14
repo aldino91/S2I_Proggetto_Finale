@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import IconDown from "../../components/icons/IconDown";
-
-import IconPlusSmall from "../../components/icons/IconPlusSmall";
 import { orariPranzo } from "../../utils/mezzogiorno";
 import BaseModal from "../modal/BaseModal";
 import IconClose from "../icons/IconClose";
 import FormAddReserved from "../form/FormAddReserved";
+import ListReserved from "../listReserved/ListReserved";
 
 export default function Lunch({ selectedDate, id }) {
   const [openModal, setOpenModal] = useState(false);
   const [dataHour, setDataHour] = useState(null);
+  const [reload, setReload] = useState(false);
 
   const day = selectedDate.getDate();
   const month = selectedDate.getMonth() + 1;
@@ -17,37 +16,24 @@ export default function Lunch({ selectedDate, id }) {
 
   const data = `${day + "/" + month + "/" + year}`;
 
-  function AddReserved(data) {
-    setDataHour(data);
-    setOpenModal(!openModal);
-  }
   return (
     <div className="w-full">
       <div className="flex flex-row justify-between py-2 text-white w-ful bg-slate-500">
-        <button className="flex flex-row pl-2">
-          <IconDown />
-
-          <h2 className="pl-1 text-left">Reserved Tables</h2>
-        </button>
+        <h2 className="pl-2 text-left">Reserved Tables</h2>
         <div className="pr-2">Table / Pax</div>
       </div>
 
       <div className="w-full">
         {orariPranzo.map((orari) => (
-          <div
-            className="flex flex-row justify-between w-full px-2 py-1 border-b-2 bg-slate-200 border-b-gray-400"
-            key={orari}
-          >
-            <p>{orari}</p>
-            <div
-              className="flex flex-row items-center"
-              onClick={() => AddReserved(orari)}
-            >
-              <IconPlusSmall />
-              <p className="pl-1">Prenotazione</p>
-            </div>
-            <div className="">Tavoli / Pax</div>
-          </div>
+          <ListReserved
+            orari={orari}
+            setOpenModal={setOpenModal}
+            openModal={openModal}
+            setDataHour={setDataHour}
+            id={id}
+            data={data}
+            reload={reload}
+          />
         ))}
       </div>
       {openModal ? (
@@ -63,6 +49,7 @@ export default function Lunch({ selectedDate, id }) {
             data={data}
             id={id}
             setOpenModal={setOpenModal}
+            setReload={setReload}
           />
         </BaseModal>
       ) : null}

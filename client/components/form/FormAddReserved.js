@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { fetchAddReserved, fetchGetWaiters } from "../../AllFetchApi";
+import {
+  fetchAddReserved,
+  fetchGetWaiters,
+  GetReserved,
+} from "../../AllFetchApi";
 import IconPlusSmall from "../icons/IconPlusSmall";
 import IconReserved from "../icons/IconReserved";
 
-export default function FormAddReserved({ dataHour, data, id, setOpenModal }) {
+export default function FormAddReserved({
+  dataHour,
+  data,
+  id,
+  setOpenModal,
+  setReload,
+}) {
   const [name, setName] = useState("");
   const [pax, setPax] = useState(2);
   const [telephone, setTelephone] = useState("");
@@ -20,7 +30,6 @@ export default function FormAddReserved({ dataHour, data, id, setOpenModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     fetchAddReserved(
       e,
       pax,
@@ -30,11 +39,16 @@ export default function FormAddReserved({ dataHour, data, id, setOpenModal }) {
       day,
       waiter,
       idRestaurant,
-      setOpenModal
+      setOpenModal,
+      setReload
     );
   };
+
   return (
-    <form className="w-full mx-auto my-10 lg:w-1/2" onSubmit={handleSubmit}>
+    <form
+      className="w-full mx-auto my-2 md:my-10 lg:w-1/2"
+      onSubmit={handleSubmit}
+    >
       <div className="flex flex-col w-2/3 p-3 mx-auto space-y-4 bg-white rounded-md shadow-md shadow-slate-400">
         <div className="text-center text-green-500">New Reserved</div>
         <div className="flex flex-row justify-center p-2 border-2 rounded-md border-slate-300">

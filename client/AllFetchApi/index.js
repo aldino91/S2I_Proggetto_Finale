@@ -107,7 +107,7 @@ export const fetchDataRestaurant = async (id, setData) => {
   const url = process.env.NEXT_PUBLIC_URL_DATA_RESTAURANT;
   try {
     const resp = await axios.get(url + id);
-    console.log(resp.data);
+
     setData(resp.data);
     return resp;
   } catch (error) {
@@ -137,10 +137,11 @@ export const fetchAddReserved = async (
   day,
   waiter,
   idRestaurant,
-  setOpenModal
+  setOpenModal,
+  setReload
 ) => {
-  const url = process.env.NEXT_PUBLIC_URL_ADD_RESERVED;
-  console.log(waiter);
+  const url = process.env.NEXT_PUBLIC_URL_RESERVED;
+
   try {
     await axios.post(url, {
       pax: pax,
@@ -153,7 +154,21 @@ export const fetchAddReserved = async (
     });
     toast.success("La prenotazione é stata salvata!");
     setOpenModal(false);
+    setReload(true);
     e.target.reset();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const GetReserved = async (id, data, hour, setGetReserved) => {
+  const url = process.env.NEXT_PUBLIC_URL_RESERVED;
+  const query = `?idRestaurant=${id}&data=${data}&hour=${hour}`;
+  try {
+    const resp = await axios.get(url + query);
+    console.log(resp.data);
+    setGetReserved(resp.data);
+    return resp;
   } catch (error) {
     console.log(error);
   }
