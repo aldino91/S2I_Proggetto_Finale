@@ -19,6 +19,8 @@ export default function NavBarReserver({
   selectedDate,
   setSelectDate,
   id,
+  daySelected,
+  setDaySelected,
 }) {
   const [openModal, setOpenModal] = useState(false);
   const [openAddWaiter, setOpenAddWaiter] = useState(false);
@@ -31,6 +33,11 @@ export default function NavBarReserver({
       },
     },
   });
+
+  function showDay(data) {
+    setSelectDate(data);
+    setDaySelected(!daySelected);
+  }
 
   return (
     <div className="w-full font-mono bg-green-500">
@@ -63,7 +70,7 @@ export default function NavBarReserver({
               } border-2 rounded-l-md border-y-2`}
               onClick={startLunch}
             >
-              Pranzo
+              Lunch
             </div>
             <div
               className={`p-2 ${
@@ -71,7 +78,7 @@ export default function NavBarReserver({
               } border-2 rounded-r-md border-y-2`}
               onClick={startDinner}
             >
-              Cena
+              Dinner
             </div>
           </div>
         </div>
@@ -84,7 +91,7 @@ export default function NavBarReserver({
                 inputVariant="standard"
                 value={selectedDate}
                 InputAdornmentProps={{ position: "start" }}
-                onChange={(date) => setSelectDate(date)}
+                onChange={(date) => showDay(date)}
               />
             </ThemeProvider>
           </div>

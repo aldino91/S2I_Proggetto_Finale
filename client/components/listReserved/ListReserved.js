@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 
 import IconPlusSmall from "../icons/IconPlusSmall";
 import { GetReserved } from "../../AllFetchApi";
-import IconNotReserved from "../icons/IconNotReserved";
+
 import IconConfirmedReserved from "../icons/IconConfirmedReserved";
+import BaseModal from "../modal/BaseModal";
+import IconClose from "../icons/IconClose";
 
 export default function ListReserved({
   orari,
@@ -13,8 +15,14 @@ export default function ListReserved({
   id,
   data,
   reload,
+  daySelected,
 }) {
   const [getReserved, setGetReserved] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const totalPax = getReserved
+    .map((i) => i.pax)
+    .reduce((prev, curr) => prev + curr, 0);
 
   function AddReserved(data) {
     setDataHour(data);
@@ -23,31 +31,26 @@ export default function ListReserved({
 
   useEffect(() => {
     GetReserved(id, data, orari, setGetReserved);
-  }, [id, reload]);
+  }, [id, reload, daySelected]);
 
   return (
     <div key={orari} className="flex flex-col">
       <div className="flex flex-row justify-between w-full px-2 py-1 border-b-2 bg-slate-200 border-b-gray-400">
-        <button className="flex flex-row items-center">
+        <div className="flex flex-row items-center">
           <p>{orari}</p>
-        </button>
-        <div
+        </div>
+        <button
           className="flex flex-row items-center"
           onClick={() => AddReserved(orari)}
         >
           <IconPlusSmall />
           <p className="pl-1">Prenotazione</p>
-        </div>
-        <div className="">Tavoli / Pax</div>
+        </button>
+        <div className="">{`${getReserved.length} Table/${totalPax} Pax`}</div>
       </div>
       <div>
         {!getReserved[0] ? (
-          <div className="w-full p-4">
-            <div className="flex flex-col items-center w-1/2 mx-auto border-2 rounded-md">
-              <IconNotReserved />
-              <h2 className="text-center">Non ci sono prenotazioni!</h2>
-            </div>
-          </div>
+          <div className="pt-1"></div>
         ) : (
           <div className="grid w-full grid-cols-1 gap-2 p-4 md:grid-cols-2 md:gap-2">
             {getReserved.map((res) => (
@@ -56,7 +59,10 @@ export default function ListReserved({
                 className="flex flex-row items-center justify-between w-full p-2 border-2 rounded-md"
               >
                 <div className="flex flex-row items-center justify-start w-2/3 overflow-scroll">
-                  <button className="p-2 mr-4 border rounded-full bg-slate-200 hover:bg-slate-100">
+                  <button
+                    className="p-2 mr-4 border rounded-full bg-slate-200 hover:bg-slate-100"
+                    onClick={() => setShowModal(true)}
+                  >
                     <IconConfirmedReserved />
                   </button>
                   <div className="flex flex-col">
@@ -72,51 +78,35 @@ export default function ListReserved({
                   <p className="mr-3 text-xl font-semibold">{res.pax}</p>
                   <div className="p-2 border-2 rounded-md">tavolo</div>
                 </div>
+                {showModal ? (
+                  <BaseModal>
+                    <div className="w-full mx-auto mt-10 mb-10 lg:w-2/3">
+                      <div
+                        className="absolute top-2 right-2"
+                        onClick={() => setShowModal(false)}
+                      >
+                        <IconClose />
+                      </div>
+                      <div className="flex flex-col w-5/6 p-3 mx-auto space-y-4 bg-white rounded-md shadow-md shadow-slate-400">
+                        <div className="font-medium text-left">
+                          <div className="flex flex-row justify-center space-x-2 overflow-scroll">
+                            <div>{res.hour}</div>
+                            <div>|</div>
+                            <div>{res.pax}PAX</div>
+                            <div>|</div>
+                            <div className="capitalize">{res.name}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </BaseModal>
+                ) : null}
               </div>
             ))}
           </div>
         )}
       </div>
-
-      {/* {showAllReserved ? (
-        <div>
-          {!getReserved[0] ? (
-            <div className="w-full p-4">
-              <div className="flex flex-col items-center w-1/2 mx-auto border-2 rounded-md">
-                <IconNotReserved />
-                <h2>Non ci sono prenotazioni!</h2>
-              </div>
-            </div>
-          ) : (
-            <div className="grid w-full grid-cols-1 gap-2 p-4 md:grid-cols-2 md:gap-2">
-              {getReserved.map((res) => (
-                <div
-                  key={res.id}
-                  className="flex flex-row items-center justify-between w-full p-2 border-2 rounded-md"
-                >
-                  <div className="flex flex-row items-center justify-start w-1/2">
-                    <button className="p-2 mr-4 border rounded-full bg-slate-200 hover:bg-slate-100">
-                      <IconConfirmedReserved />
-                    </button>
-                    <div className="flex flex-col">
-                      <p className="text-xl font-semibold capitalize">
-                        {res.name}
-                      </p>
-                      <p className="text-base font-medium capitalize">
-                        {res.hour}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex flex-row items-center justify-end w-1/2">
-                    <p className="mr-3 text-xl font-semibold">{res.pax}</p>
-                    <div className="p-2 border-2 rounded-md">tavolo</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      ) : null} */}
     </div>
   );
 }
+

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       Restaurant.hasMany(models.Reserved, {
         foreignKey: "id",
       });
-      Restaurant.hasMany(models.waiter, {
+      Restaurant.hasMany(models.Waiter, {
         foreignKey: "id",
       });
     }

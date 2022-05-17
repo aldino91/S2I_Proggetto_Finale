@@ -1,22 +1,23 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class waiter extends Model {
+  class Waiter extends Model {
     static associate(models) {
-      waiter.belongsTo(models.Restaurant, {
+      Waiter.belongsTo(models.Restaurant, {
         foreignKey: "idRestaurant",
+        onDelete: "CASCADE",
       });
     }
   }
-  waiter.init(
+  Waiter.init(
     {
       name: DataTypes.STRING,
-      idRestaurant: DataTypes.STRING,
+      idRestaurant: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "waiter",
+      modelName: "Waiter",
     }
   );
-  return waiter;
+  return Waiter;
 };

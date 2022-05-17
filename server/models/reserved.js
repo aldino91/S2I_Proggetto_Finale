@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Reserved.belongsTo(models.Restaurant, {
         foreignKey: "idRestaurant",
+        onDelete: "CASCADE",
       });
     }
   }
@@ -16,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
       hour: DataTypes.STRING,
       data: DataTypes.STRING,
       waiter: DataTypes.STRING,
-      idRestaurant: DataTypes.STRING,
+      idRestaurant: DataTypes.INTEGER,
+      timezone: DataTypes.STRING,
     },
     {
       sequelize,

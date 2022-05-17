@@ -1,14 +1,13 @@
-const { waiter } = require("../models/index");
+const { Waiter } = require("../models/index");
 
 module.exports = {
   AddWaiter(req, res) {
     const { name, idRestaurant } = req.body;
 
-    waiter
-      .create({
-        name,
-        idRestaurant,
-      })
+    Waiter.create({
+      name,
+      idRestaurant,
+    })
       .then((resp) => {
         res.json({ msg: "dati salvati correttamente!" });
       })
@@ -21,10 +20,9 @@ module.exports = {
   GetWaiters(req, res) {
     const idRestaurant = req.params.idRestaurant;
 
-    waiter
-      .findAll({
-        where: { idRestaurant: idRestaurant },
-      })
+    Waiter.findAll({
+      where: { idRestaurant: idRestaurant },
+    })
       .then((resp) => {
         res.send(resp);
       })
@@ -36,7 +34,7 @@ module.exports = {
   DeleteWaiter(req, res) {
     const id = req.params.id;
     try {
-      const resp = waiter.findOne({
+      const resp = Waiter.findOne({
         where: {
           id: id,
         },

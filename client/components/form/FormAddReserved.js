@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  fetchAddReserved,
-  fetchGetWaiters,
-  GetReserved,
-} from "../../AllFetchApi";
+import { fetchAddReserved, fetchGetWaiters } from "../../AllFetchApi";
 import IconPlusSmall from "../icons/IconPlusSmall";
 import IconReserved from "../icons/IconReserved";
 
@@ -13,6 +9,8 @@ export default function FormAddReserved({
   id,
   setOpenModal,
   setReload,
+  reload,
+  timezone,
 }) {
   const [name, setName] = useState("");
   const [pax, setPax] = useState(2);
@@ -39,8 +37,10 @@ export default function FormAddReserved({
       day,
       waiter,
       idRestaurant,
+      timezone,
       setOpenModal,
-      setReload
+      setReload,
+      reload
     );
   };
 
@@ -84,23 +84,12 @@ export default function FormAddReserved({
             setTelephone(e.target.value);
           }}
         />
-        <input
-          type="text"
-          name="hour"
-          placeholder="Hour"
-          className="p-2 border-2 rounded-md border-slate-300"
-          required
-          defaultValue={dataHour}
-          value={dataHour}
-        />
-        <input
-          type="text"
-          name="Day"
-          placeholder="Day"
-          className="p-2 border-2 rounded-md border-slate-300"
-          defaultValue={data}
-          value={data}
-        />
+
+        <div className="p-2 border-2 rounded-md border-slate-300">
+          {dataHour}
+        </div>
+
+        <div className="p-2 border-2 rounded-md border-slate-300">{data}</div>
 
         <label className="flex flex-row justify-around p-2 bg-white border-2 rounded-md border-slate-300">
           waiter

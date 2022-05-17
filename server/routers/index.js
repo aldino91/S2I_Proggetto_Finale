@@ -30,6 +30,7 @@ router.delete("/restaurant/delete/:id", RestaurantControllers.deleteRestaurant);
 
 router.post("/reserved", ReservedControllers.AddReserved);
 router.get("/reserved", ReservedControllers.SearchReserved);
+router.get("/reserved/timezone", ReservedControllers.SearchReservedTimezone);
 
 // Waiter
 

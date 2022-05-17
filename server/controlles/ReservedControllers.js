@@ -2,7 +2,8 @@ const { Reserved } = require("../models/index");
 
 module.exports = {
   AddReserved(req, res) {
-    const { pax, name, telephone, hour, data, waiter, idRestaurant } = req.body;
+    const { pax, name, telephone, hour, data, waiter, idRestaurant, timezone } =
+      req.body;
 
     Reserved.create({
       pax,
@@ -12,6 +13,7 @@ module.exports = {
       data,
       waiter,
       idRestaurant,
+      timezone,
     })
       .then((resp) => {
         res.json({ msg: "dati salvati correttamente!" });
@@ -27,6 +29,19 @@ module.exports = {
 
     Reserved.findAll({
       where: { idRestaurant, data, hour },
+    })
+      .then((resp) => {
+        res.send(resp);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  },
+
+  SearchReservedTimezone(req, res) {
+    const { idRestaurant, data, timezone } = req.query;
+    Reserved.findAll({
+      where: { idRestaurant, data, timezone },
     })
       .then((resp) => {
         res.send(resp);

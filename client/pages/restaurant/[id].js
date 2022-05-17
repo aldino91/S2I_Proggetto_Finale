@@ -11,6 +11,7 @@ export default function HomeRestaurant() {
   const [data, setData] = useState([]);
   const [timetables, setTimetables] = useState(true);
   const [selectedDate, setSelectDate] = useState(new Date());
+  const [daySelected, setDaySelected] = useState(false);
 
   function startLunch() {
     setTimetables(true);
@@ -29,7 +30,8 @@ export default function HomeRestaurant() {
         console.log(e);
         router.push("/");
       });
-  }, [id]);
+  }, [id, daySelected]);
+
   return (
     <>
       <NavBarReserver
@@ -40,12 +42,14 @@ export default function HomeRestaurant() {
         selectedDate={selectedDate}
         setSelectDate={setSelectDate}
         id={id}
+        daySelected={daySelected}
+        setDaySelected={setDaySelected}
       />
 
       {timetables ? (
-        <Lunch selectedDate={selectedDate} id={id} />
+        <Lunch selectedDate={selectedDate} id={id} daySelected={daySelected} />
       ) : (
-        <Dinner selectedDate={selectedDate} id={id} />
+        <Dinner selectedDate={selectedDate} id={id} daySelected={daySelected} />
       )}
     </>
   );
