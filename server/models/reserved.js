@@ -4,7 +4,12 @@ module.exports = (sequelize, DataTypes) => {
   class Reserved extends Model {
     static associate(models) {
       Reserved.belongsTo(models.Restaurant, {
+        as: "author",
         foreignKey: "idRestaurant",
+        onDelete: "CASCADE",
+      });
+      Reserved.belongsTo(models.Client, {
+        foreignKey: "id",
         onDelete: "CASCADE",
       });
     }
@@ -12,12 +17,11 @@ module.exports = (sequelize, DataTypes) => {
   Reserved.init(
     {
       pax: DataTypes.INTEGER,
-      name: DataTypes.STRING,
-      telephone: DataTypes.STRING,
+      idClient: DataTypes.INTEGER,
       hour: DataTypes.STRING,
       data: DataTypes.STRING,
       waiter: DataTypes.STRING,
-      idRestaurant: DataTypes.INTEGER,
+      idRestaurant: DataTypes.STRING,
       timezone: DataTypes.STRING,
     },
     {

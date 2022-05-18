@@ -30,7 +30,7 @@ export default function HomeRestaurant() {
         console.log(e);
         router.push("/");
       });
-  }, [id, daySelected]);
+  }, [id, selectedDate, daySelected]);
 
   return (
     <>
@@ -47,9 +47,9 @@ export default function HomeRestaurant() {
       />
 
       {timetables ? (
-        <Lunch selectedDate={selectedDate} id={id} daySelected={daySelected} />
+        <Lunch daySelected={daySelected} />
       ) : (
-        <Dinner selectedDate={selectedDate} id={id} daySelected={daySelected} />
+        <Dinner daySelected={daySelected} />
       )}
     </>
   );

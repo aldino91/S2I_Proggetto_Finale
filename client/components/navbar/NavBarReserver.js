@@ -1,31 +1,52 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
+import { unstable_createMuiStrictModeTheme } from "@material-ui/core";
 import IconLogout from "../icons/IconLogout";
 import IconDelete from "../icons/IconDelete";
 import IconWaiter from "../icons/IconWaiter";
 import ModalDeleteRestaurant from "../modal/ModalDeleteRestaurant";
 import ModalAddWaiter from "../modal/ModalAddWaiter";
+import { useRouter } from "next/router";
 
 export default function NavBarReserver({
   data,
   startLunch,
   startDinner,
   timetables,
-  selectedDate,
   setSelectDate,
   id,
   daySelected,
   setDaySelected,
 }) {
+  const router = useRouter();
+  const { day } = router.query;
   const [openModal, setOpenModal] = useState(false);
   const [openAddWaiter, setOpenAddWaiter] = useState(false);
 
-  const defaultMaterialTheme = createMuiTheme({
+  const [chosenDay, setChosenDay] = useState(chosenDay);
+
+  useEffect(() => {
+    if (day) {
+      const arrDay = day.split(/-/);
+
+      const giorno = `${arrDay[2] + "/" + arrDay[1] + "/" + arrDay[0]}`;
+      setChosenDay(new Date(giorno));
+    } else {
+      null;
+    }
+  }, [day]);
+
+  const createTheme =
+    process.env.NODE_ENV === "production"
+      ? createMuiTheme
+      : unstable_createMuiStrictModeTheme;
+
+  const defaultMaterialTheme = createTheme({
     spacing: 8,
     palette: {
       primary: {
@@ -34,9 +55,17 @@ export default function NavBarReserver({
     },
   });
 
-  function showDay(data) {
-    setSelectDate(data);
+  function showDay(date) {
+    setSelectDate(date);
     setDaySelected(!daySelected);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const dayCurrent = `${day + "-" + month + "-" + year}`;
+    const dayReplace = `${year + "/" + month + "/" + day}`;
+
+    setChosenDay(new Date(dayReplace));
+    router.push(`/${id}/${dayCurrent}`);
   }
 
   return (
@@ -87,9 +116,9 @@ export default function NavBarReserver({
             <ThemeProvider theme={defaultMaterialTheme}>
               <KeyboardDatePicker
                 variant="inline"
-                format="dd/MM/yyyy"
+                format="dd-MM-yyyy"
                 inputVariant="standard"
-                value={selectedDate}
+                value={chosenDay}
                 InputAdornmentProps={{ position: "start" }}
                 onChange={(date) => showDay(date)}
               />

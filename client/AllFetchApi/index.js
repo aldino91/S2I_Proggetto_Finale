@@ -166,12 +166,12 @@ export const fetchAddReserved = async (
 
 export const GetReservedTimeZone = async (
   id,
-  data,
+  day,
   timezone,
   setallReservedTimeZone
 ) => {
   const url = process.env.NEXT_PUBLIC_URL_RESERVED_TIMEZONE;
-  const query = `?idRestaurant=${id}&data=${data}&timezone=${timezone}`;
+  const query = `?idRestaurant=${id}&data=${day}&timezone=${timezone}`;
   try {
     const resp = await axios.get(url + query);
     setallReservedTimeZone(resp.data);

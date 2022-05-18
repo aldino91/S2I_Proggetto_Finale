@@ -5,28 +5,25 @@ import IconClose from "../icons/IconClose";
 import FormAddReserved from "../form/FormAddReserved";
 import ListReserved from "../listReserved/ListReserved";
 import { GetReservedTimeZone } from "../../AllFetchApi";
+import { useRouter } from "next/router";
 
-export default function Lunch({ selectedDate, id, daySelected }) {
+export default function Lunch({ daySelected }) {
+  const router = useRouter();
+  const { day, id } = router.query;
   const [openModal, setOpenModal] = useState(false);
   const [dataHour, setDataHour] = useState(null);
   const [reload, setReload] = useState(false);
   const [allReservedTimeZone, setallReservedTimeZone] = useState([]);
-
+  console.log(allReservedTimeZone);
   const totalPax = allReservedTimeZone
     .map((i) => i.pax)
     .reduce((prev, curr) => prev + curr, 0);
 
-  const day = selectedDate.getDate();
-  const month = selectedDate.getMonth() + 1;
-  const year = selectedDate.getFullYear();
-
   const timezone = "lunch";
 
-  const data = `${day + "/" + month + "/" + year}`;
-
   useEffect(() => {
-    GetReservedTimeZone(id, data, timezone, setallReservedTimeZone);
-  }, [reload]);
+    GetReservedTimeZone(id, day, timezone, setallReservedTimeZone);
+  }, [reload, day, id]);
 
   return (
     <div className="w-full">
@@ -44,7 +41,7 @@ export default function Lunch({ selectedDate, id, daySelected }) {
             openModal={openModal}
             setDataHour={setDataHour}
             id={id}
-            data={data}
+            setReload={setReload}
             reload={reload}
             daySelected={daySelected}
           />
@@ -60,7 +57,7 @@ export default function Lunch({ selectedDate, id, daySelected }) {
           </div>
           <FormAddReserved
             dataHour={dataHour}
-            data={data}
+            data={day}
             id={id}
             setOpenModal={setOpenModal}
             setReload={setReload}

@@ -5,8 +5,11 @@ import IconClose from "../icons/IconClose";
 import FormAddReserved from "../form/FormAddReserved";
 import ListReserved from "../listReserved/ListReserved";
 import { GetReservedTimeZone } from "../../AllFetchApi";
+import { useRouter } from "next/router";
 
-export default function Dinner({ selectedDate, id, daySelected }) {
+export default function Dinner({ daySelected }) {
+  const router = useRouter();
+  const { day, id } = router.query;
   const [openModal, setOpenModal] = useState(false);
   const [dataHour, setDataHour] = useState(null);
   const [reload, setReload] = useState(false);
@@ -16,16 +19,10 @@ export default function Dinner({ selectedDate, id, daySelected }) {
     .map((i) => i.pax)
     .reduce((prev, curr) => prev + curr, 0);
 
-  const day = selectedDate.getDate();
-  const month = selectedDate.getMonth() + 1;
-  const year = selectedDate.getFullYear();
-
   const timezone = "dinner";
 
-  const data = `${day + "/" + month + "/" + year}`;
-
   useEffect(() => {
-    GetReservedTimeZone(id, data, timezone, setallReservedTimeZone);
+    GetReservedTimeZone(id, day, timezone, setallReservedTimeZone);
   }, [reload]);
 
   return (
@@ -44,7 +41,6 @@ export default function Dinner({ selectedDate, id, daySelected }) {
             openModal={openModal}
             setDataHour={setDataHour}
             id={id}
-            data={data}
             reload={reload}
             daySelected={daySelected}
           />
@@ -60,7 +56,7 @@ export default function Dinner({ selectedDate, id, daySelected }) {
           </div>
           <FormAddReserved
             dataHour={dataHour}
-            data={data}
+            data={day}
             id={id}
             setOpenModal={setOpenModal}
             setReload={setReload}

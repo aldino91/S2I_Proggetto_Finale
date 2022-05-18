@@ -1,27 +1,51 @@
-const { Reserved } = require("../models/index");
+const { Reserved, Client } = require("../models/index");
 
 module.exports = {
   AddReserved(req, res) {
     const { pax, name, telephone, hour, data, waiter, idRestaurant, timezone } =
       req.body;
 
-    Reserved.create({
-      pax,
-      name,
-      telephone,
-      hour,
-      data,
-      waiter,
-      idRestaurant,
-      timezone,
+    Client.findOne({
+      where: { telephone: telephone, name: name },
     })
-      .then((resp) => {
-        res.json({ msg: "dati salvati correttamente!" });
+      .then(async (res) => {
+        if (!res) {
+          await Client.create({
+            name,
+            telephone,
+            idRestaurant,
+          });
+
+          await Client.findOne({
+            where: { telephone: telephone, name: name },
+          }).then((res) => {
+            Reserved.create({
+              pax,
+              idClient: res.id,
+              hour,
+              data,
+              waiter,
+              idRestaurant,
+              timezone,
+            });
+          });
+        } else {
+          Reserved.create({
+            pax,
+            idClient: res.id,
+            hour,
+            data,
+            waiter,
+            idRestaurant,
+            timezone,
+          });
+        }
       })
-      .catch((err) => {
-        console.log(err);
-        console.log("non siamo riusciti a salvare il ristorante!");
-      });
+      .then(
+        (usuario) => res.status(200).send(usuario),
+        res.json({ msg: "dati salvati correttamente!" })
+      )
+      .catch((error) => res.status(400).send(error));
   },
 
   SearchReserved(req, res) {

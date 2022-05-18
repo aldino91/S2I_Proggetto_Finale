@@ -6,6 +6,7 @@ import { GetReserved } from "../../AllFetchApi";
 import IconConfirmedReserved from "../icons/IconConfirmedReserved";
 import BaseModal from "../modal/BaseModal";
 import IconClose from "../icons/IconClose";
+import { useRouter } from "next/router";
 
 export default function ListReserved({
   orari,
@@ -13,10 +14,12 @@ export default function ListReserved({
   openModal,
   setDataHour,
   id,
-  data,
+  setReload,
   reload,
   daySelected,
 }) {
+  const router = useRouter();
+  const { day } = router.query;
   const [getReserved, setGetReserved] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
@@ -27,11 +30,12 @@ export default function ListReserved({
   function AddReserved(data) {
     setDataHour(data);
     setOpenModal(!openModal);
+    setReload(!reload);
   }
 
   useEffect(() => {
-    GetReserved(id, data, orari, setGetReserved);
-  }, [id, reload, daySelected]);
+    GetReserved(id, day, orari, setGetReserved);
+  }, [id, reload, daySelected, day]);
 
   return (
     <div key={orari} className="flex flex-col">
@@ -67,7 +71,7 @@ export default function ListReserved({
                   </button>
                   <div className="flex flex-col">
                     <div className="text-xl capitalize font-base">
-                      {res.name}
+                      {res.idClient}
                     </div>
                     <p className="capitalize font-base text-normal">
                       {res.hour}

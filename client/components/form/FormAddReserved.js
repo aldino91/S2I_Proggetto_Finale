@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { fetchAddReserved, fetchGetWaiters } from "../../AllFetchApi";
 import IconPlusSmall from "../icons/IconPlusSmall";
 import IconReserved from "../icons/IconReserved";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 
 export default function FormAddReserved({
   dataHour,
@@ -14,7 +16,7 @@ export default function FormAddReserved({
 }) {
   const [name, setName] = useState("");
   const [pax, setPax] = useState(2);
-  const [telephone, setTelephone] = useState("");
+  const [telephone, setTelephone] = useState();
   const hour = dataHour;
   const day = data;
   const idRestaurant = id;
@@ -74,14 +76,14 @@ export default function FormAddReserved({
           }}
         />
 
-        <input
-          type="text"
+        <PhoneInput
           name="telephone"
+          defaultCountry="ES"
           placeholder="Telephone number"
           className="p-2 border-2 rounded-md border-slate-300"
-          required
+          value={telephone}
           onChange={(e) => {
-            setTelephone(e.target.value);
+            setTelephone(e);
           }}
         />
 
