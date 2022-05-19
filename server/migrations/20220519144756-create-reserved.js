@@ -33,6 +33,11 @@ module.exports = {
       timezone: {
         type: Sequelize.STRING,
       },
+      idState: {
+        type: Sequelize.INTEGER,
+        references: { model: "states", key: "id" },
+        onDelete: "CASCADE",
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -9,7 +9,12 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
       });
       Reserved.belongsTo(models.Client, {
-        foreignKey: "id",
+        foreignKey: "idClient",
+        onDelete: "CASCADE",
+      });
+
+      Reserved.belongsTo(models.State, {
+        foreignKey: "idState",
         onDelete: "CASCADE",
       });
     }
@@ -23,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       waiter: DataTypes.STRING,
       idRestaurant: DataTypes.STRING,
       timezone: DataTypes.STRING,
+      idState: DataTypes.INTEGER,
     },
     {
       sequelize,

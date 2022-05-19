@@ -12,33 +12,24 @@ import IconWaiter from "../icons/IconWaiter";
 import ModalDeleteRestaurant from "../modal/ModalDeleteRestaurant";
 import ModalAddWaiter from "../modal/ModalAddWaiter";
 import { useRouter } from "next/router";
+import { dateSetting, showDay } from "../../utils/function";
 
 export default function NavBarReserver({
   data,
-  startLunch,
-  startDinner,
-  timetables,
   setSelectDate,
   id,
   daySelected,
   setDaySelected,
 }) {
   const router = useRouter();
-  const { day } = router.query;
+  const { day, timezone } = router.query;
   const [openModal, setOpenModal] = useState(false);
   const [openAddWaiter, setOpenAddWaiter] = useState(false);
 
   const [chosenDay, setChosenDay] = useState(chosenDay);
 
   useEffect(() => {
-    if (day) {
-      const arrDay = day.split(/-/);
-
-      const giorno = `${arrDay[2] + "/" + arrDay[1] + "/" + arrDay[0]}`;
-      setChosenDay(new Date(giorno));
-    } else {
-      null;
-    }
+    dateSetting(day, setChosenDay);
   }, [day]);
 
   const createTheme =
@@ -55,17 +46,12 @@ export default function NavBarReserver({
     },
   });
 
-  function showDay(date) {
-    setSelectDate(date);
-    setDaySelected(!daySelected);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const dayCurrent = `${day + "-" + month + "-" + year}`;
-    const dayReplace = `${year + "/" + month + "/" + day}`;
+  function timeDinner() {
+    router.push(`/${id}/dinner/${day}`);
+  }
 
-    setChosenDay(new Date(dayReplace));
-    router.push(`/${id}/${dayCurrent}`);
+  function timeLunch() {
+    router.push(`/${id}/lunch/${day}`);
   }
 
   return (
@@ -95,17 +81,17 @@ export default function NavBarReserver({
           <div className="flex flex-row justify-around rounded-md">
             <div
               className={`p-2 ${
-                timetables === true ? "bg-blue-300" : "bg-white"
+                timezone === "lunch" ? "bg-blue-300" : "bg-white"
               } border-2 rounded-l-md border-y-2`}
-              onClick={startLunch}
+              onClick={timeLunch}
             >
               Lunch
             </div>
             <div
               className={`p-2 ${
-                timetables === false ? "bg-blue-300" : "bg-white"
+                timezone === "dinner" ? "bg-blue-300" : "bg-white"
               } border-2 rounded-r-md border-y-2`}
-              onClick={startDinner}
+              onClick={timeDinner}
             >
               Dinner
             </div>
@@ -120,7 +106,18 @@ export default function NavBarReserver({
                 inputVariant="standard"
                 value={chosenDay}
                 InputAdornmentProps={{ position: "start" }}
-                onChange={(date) => showDay(date)}
+                onChange={(date) =>
+                  showDay(
+                    date,
+                    setSelectDate,
+                    setDaySelected,
+                    daySelected,
+                    setChosenDay,
+                    id,
+                    timezone,
+                    router
+                  )
+                }
               />
             </ThemeProvider>
           </div>

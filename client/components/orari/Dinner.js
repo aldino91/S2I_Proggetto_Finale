@@ -41,6 +41,7 @@ export default function Dinner({ daySelected }) {
             openModal={openModal}
             setDataHour={setDataHour}
             id={id}
+            setReload={setReload}
             reload={reload}
             daySelected={daySelected}
           />

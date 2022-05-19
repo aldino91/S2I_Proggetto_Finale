@@ -22,6 +22,7 @@ export default function ListReserved({
   const { day } = router.query;
   const [getReserved, setGetReserved] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  console.log(getReserved);
 
   const totalPax = getReserved
     .map((i) => i.pax)
@@ -32,10 +33,9 @@ export default function ListReserved({
     setOpenModal(!openModal);
     setReload(!reload);
   }
-
   useEffect(() => {
     GetReserved(id, day, orari, setGetReserved);
-  }, [id, reload, daySelected, day]);
+  }, [id, day, reload, daySelected]);
 
   return (
     <div key={orari} className="flex flex-col">
@@ -71,7 +71,7 @@ export default function ListReserved({
                   </button>
                   <div className="flex flex-col">
                     <div className="text-xl capitalize font-base">
-                      {res.idClient}
+                      {res.Client.name}
                     </div>
                     <p className="capitalize font-base text-normal">
                       {res.hour}

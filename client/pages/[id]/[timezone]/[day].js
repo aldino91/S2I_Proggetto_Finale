@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { getAuthentication, fetchDataRestaurant } from "../../AllFetchApi";
+import {
+  getAuthentication,
+  fetchDataRestaurant,
+} from "../../../AllFetchApi/index";
 import { useRouter } from "next/router";
-import NavBarReserver from "../../components/navbar/NavBarReserver";
-import Lunch from "../../components/orari/Lunch";
-import Dinner from "../../components/orari/Dinner";
+import NavBarReserver from "../../../components/navbar/NavBarReserver";
+import Lunch from "../../../components/orari/Lunch";
+import Dinner from "../../../components/orari/Dinner";
 
 export default function HomeRestaurant() {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, timezone } = router.query;
   const [data, setData] = useState([]);
-  const [timetables, setTimetables] = useState(true);
   const [selectedDate, setSelectDate] = useState(new Date());
   const [daySelected, setDaySelected] = useState(false);
-
-  function startLunch() {
-    setTimetables(true);
-  }
-
-  function startDinner() {
-    setTimetables(false);
-  }
 
   useEffect(() => {
     getAuthentication()
@@ -36,9 +30,6 @@ export default function HomeRestaurant() {
     <>
       <NavBarReserver
         data={data}
-        startLunch={startLunch}
-        startDinner={startDinner}
-        timetables={timetables}
         selectedDate={selectedDate}
         setSelectDate={setSelectDate}
         id={id}
@@ -46,7 +37,7 @@ export default function HomeRestaurant() {
         setDaySelected={setDaySelected}
       />
 
-      {timetables ? (
+      {timezone === "lunch" ? (
         <Lunch daySelected={daySelected} />
       ) : (
         <Dinner daySelected={daySelected} />

@@ -14,7 +14,7 @@ export default function Lunch({ daySelected }) {
   const [dataHour, setDataHour] = useState(null);
   const [reload, setReload] = useState(false);
   const [allReservedTimeZone, setallReservedTimeZone] = useState([]);
-  console.log(allReservedTimeZone);
+
   const totalPax = allReservedTimeZone
     .map((i) => i.pax)
     .reduce((prev, curr) => prev + curr, 0);
