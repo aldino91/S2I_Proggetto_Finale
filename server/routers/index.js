@@ -6,6 +6,7 @@ const AuthControlles = require("../controlles/AuthControlles");
 const RestaurantControllers = require("../controlles/RestaurantControllers");
 const ReservedControllers = require("../controlles/ReservedControllers");
 const WaiterControllers = require("../controlles/WaiterControllers");
+const StateReserved = require("../controlles/StateReserved");
 
 router.get("/", (req, res) => {
   res.json({ messagge: "funziona" });
@@ -37,5 +38,10 @@ router.get("/reserved/timezone", ReservedControllers.SearchReservedTimezone);
 router.post("/add-waiter", WaiterControllers.AddWaiter);
 router.get("/waiter/:idRestaurant", WaiterControllers.GetWaiters);
 router.delete("/deletewaiter/:id", WaiterControllers.DeleteWaiter);
+
+
+// State reserved
+
+router.put("/state-reserved", StateReserved.updateStateReserved)
 
 module.exports = router;

@@ -155,11 +155,11 @@ export const fetchAddReserved = async (
       idRestaurant: idRestaurant,
       timezone: timezone,
     });
-    toast.success("La prenotazione é stata salvata!");
-    setOpenModal(false);
     setReload(!reload);
+    setOpenModal(false);
     e.target.reset();
   } catch (error) {
+    toast.error("Abbiamo problemi a realizzare la prenotazione!");
     console.log(error);
   }
 };
@@ -236,5 +236,23 @@ export const fetchDeleteWaiter = async (id, setReload, reload) => {
   } catch (error) {
     console.log(error);
     toast.error("Abbiamo problemi ad eliminarlo!");
+  }
+};
+
+export const fetchUpdateStateReserved = async (
+  id,
+  statereserved,
+  reload,
+  setReload,
+  setShowModal
+) => {
+  const url = process.env.NEXT_PUBLIC_URL_UPDATE_RESERVED;
+  const query = `?id=${id}&statereserved=${statereserved}`;
+  try {
+    await axios.put(url + query);
+    await setReload(!reload);
+    setShowModal(false);
+  } catch (error) {
+    console.log(error);
   }
 };

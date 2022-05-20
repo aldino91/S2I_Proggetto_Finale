@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
-
 import IconPlusSmall from "../icons/IconPlusSmall";
 import { GetReserved } from "../../AllFetchApi";
-
-import IconConfirmedReserved from "../icons/IconConfirmedReserved";
-import BaseModal from "../modal/BaseModal";
-import IconClose from "../icons/IconClose";
 import { useRouter } from "next/router";
+import StateReserved from "./StateReserved";
 
 export default function ListReserved({
   orari,
@@ -21,8 +17,6 @@ export default function ListReserved({
   const router = useRouter();
   const { day } = router.query;
   const [getReserved, setGetReserved] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  console.log(getReserved);
 
   const totalPax = getReserved
     .map((i) => i.pax)
@@ -63,12 +57,12 @@ export default function ListReserved({
                 className="flex flex-row items-center justify-between w-full p-2 border-2 rounded-md"
               >
                 <div className="flex flex-row items-center justify-start w-2/3 overflow-scroll">
-                  <button
-                    className="p-2 mr-4 border rounded-full bg-slate-200 hover:bg-slate-100"
-                    onClick={() => setShowModal(true)}
-                  >
-                    <IconConfirmedReserved />
-                  </button>
+                  <StateReserved
+                    state={res.State}
+                    res={res}
+                    reload={reload}
+                    setReload={setReload}
+                  />
                   <div className="flex flex-col">
                     <div className="text-xl capitalize font-base">
                       {res.Client.name}
@@ -82,29 +76,6 @@ export default function ListReserved({
                   <p className="mr-3 text-xl font-semibold">{res.pax}</p>
                   <div className="p-2 border-2 rounded-md">tavolo</div>
                 </div>
-                {showModal ? (
-                  <BaseModal>
-                    <div className="w-full mx-auto mt-10 mb-10 lg:w-2/3">
-                      <div
-                        className="absolute top-2 right-2"
-                        onClick={() => setShowModal(false)}
-                      >
-                        <IconClose />
-                      </div>
-                      <div className="flex flex-col w-5/6 p-3 mx-auto space-y-4 bg-white rounded-md shadow-md shadow-slate-400">
-                        <div className="font-medium text-left">
-                          <div className="flex flex-row justify-center space-x-2 overflow-scroll">
-                            <div>{res.hour}</div>
-                            <div>|</div>
-                            <div>{res.pax}PAX</div>
-                            <div>|</div>
-                            <div className="capitalize">{res.name}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </BaseModal>
-                ) : null}
               </div>
             ))}
           </div>
@@ -113,4 +84,3 @@ export default function ListReserved({
     </div>
   );
 }
-

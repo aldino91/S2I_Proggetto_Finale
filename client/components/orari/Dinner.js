@@ -23,7 +23,7 @@ export default function Dinner({ daySelected }) {
 
   useEffect(() => {
     GetReservedTimeZone(id, day, timezone, setallReservedTimeZone);
-  }, [reload]);
+  }, [reload, day, id, daySelected]);
 
   return (
     <div className="w-full">

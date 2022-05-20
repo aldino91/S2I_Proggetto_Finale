@@ -4,14 +4,13 @@ module.exports = (sequelize, DataTypes) => {
   class State extends Model {
     static associate(models) {
       State.belongsTo(models.Reserved, {
-        foreignKey: "idReserved",
+        foreignKey: "id",
       });
     }
   }
   State.init(
     {
       statereserved: DataTypes.STRING,
-      idReserved: DataTypes.INTEGER,
     },
     {
       sequelize,
