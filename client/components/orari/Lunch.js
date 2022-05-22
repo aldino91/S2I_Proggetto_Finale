@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { orariPranzo } from "../../utils/mezzogiorno";
 import BaseModal from "../modal/BaseModal";
 import IconClose from "../icons/IconClose";
@@ -34,17 +34,22 @@ export default function Lunch({ daySelected }) {
 
       <div className="w-full">
         {orariPranzo.map((orari) => (
-          <ListReserved
-            key={orari}
-            orari={orari}
-            setOpenModal={setOpenModal}
-            openModal={openModal}
-            setDataHour={setDataHour}
-            id={id}
-            setReload={setReload}
-            reload={reload}
-            daySelected={daySelected}
-          />
+          <div key={orari}>
+            <div>
+              <ListReserved
+                key={orari}
+                orari={orari}
+                setOpenModal={setOpenModal}
+                openModal={openModal}
+                setDataHour={setDataHour}
+                id={id}
+                setReload={setReload}
+                reload={reload}
+                daySelected={daySelected}
+                allReservedTimeZone={allReservedTimeZone}
+              />
+            </div>
+          </div>
         ))}
       </div>
       {openModal ? (
@@ -68,4 +73,19 @@ export default function Lunch({ daySelected }) {
       ) : null}
     </div>
   );
+}
+
+{
+  /* <ListReserved
+            key={orari}
+            orari={orari}
+            setOpenModal={setOpenModal}
+            openModal={openModal}
+            setDataHour={setDataHour}
+            id={id}
+            setReload={setReload}
+            reload={reload}
+            daySelected={daySelected}
+            allReservedTimeZone={allReservedTimeZone}
+          /> */
 }

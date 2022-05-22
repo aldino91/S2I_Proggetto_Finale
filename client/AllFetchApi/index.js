@@ -155,8 +155,8 @@ export const fetchAddReserved = async (
       idRestaurant: idRestaurant,
       timezone: timezone,
     });
-    setReload(!reload);
-    setOpenModal(false);
+    await setReload(!reload);
+    await setOpenModal(false);
     e.target.reset();
   } catch (error) {
     toast.error("Abbiamo problemi a realizzare la prenotazione!");
@@ -181,17 +181,7 @@ export const GetReservedTimeZone = async (
   }
 };
 
-export const GetReserved = async (id, data, hour, setGetReserved) => {
-  const url = process.env.NEXT_PUBLIC_URL_RESERVED;
-  const query = `?idRestaurant=${id}&data=${data}&hour=${hour}`;
-  try {
-    const resp = await axios.get(url + query);
-    setGetReserved(resp.data);
-    return resp;
-  } catch (error) {
-    console.log(error);
-  }
-};
+
 
 export const fetchAddWaiter = async (
   e,

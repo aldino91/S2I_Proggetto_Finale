@@ -44,6 +44,7 @@ export default function Dinner({ daySelected }) {
             setReload={setReload}
             reload={reload}
             daySelected={daySelected}
+            allReservedTimeZone={allReservedTimeZone}
           />
         ))}
       </div>

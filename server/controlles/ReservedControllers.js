@@ -62,25 +62,11 @@ module.exports = {
       .catch((error) => res.status(400).send(error));
   },
 
-  SearchReserved(req, res) {
-    const { idRestaurant, data, hour } = req.query;
-
-    Reserved.findAll({
-      where: { idRestaurant, data, hour },
-      include: [{ model: Client }, { model: State }],
-    })
-      .then((resp) => {
-        res.send(resp);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  },
-
   SearchReservedTimezone(req, res) {
     const { idRestaurant, data, timezone } = req.query;
     Reserved.findAll({
       where: { idRestaurant, data, timezone },
+      include: [{ model: Client }, { model: State }],
     })
       .then((resp) => {
         res.send(resp);

@@ -9,6 +9,7 @@ import { unstable_createMuiStrictModeTheme } from "@material-ui/core";
 import IconLogout from "../icons/IconLogout";
 import IconDelete from "../icons/IconDelete";
 import IconWaiter from "../icons/IconWaiter";
+import IconRefresh from "../icons/IconRefresh";
 import ModalDeleteRestaurant from "../modal/ModalDeleteRestaurant";
 import ModalAddWaiter from "../modal/ModalAddWaiter";
 import { useRouter } from "next/router";
@@ -71,6 +72,12 @@ export default function NavBarReserver({
         <div className="flex flex-row justify-between pb-2 md:pb-0">
           <div className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:mr-10">
             Piantina
+          </div>
+          <div
+            className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:mr-10"
+            onClick={() => router.reload()}
+          >
+            <IconRefresh />
           </div>
           <div
             className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:mr-10"
