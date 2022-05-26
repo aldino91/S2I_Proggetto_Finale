@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { orariPranzo } from "../../utils/mezzogiorno";
+import { hourLunch } from "../../utils/hourLunch";
 import BaseModal from "../modal/BaseModal";
 import IconClose from "../icons/IconClose";
 import FormAddReserved from "../form/FormAddReserved";
@@ -33,7 +33,7 @@ export default function Lunch({ daySelected }) {
       </div>
 
       <div className="w-full">
-        {orariPranzo.map((orari) => (
+        {hourLunch.map((orari) => (
           <div key={orari}>
             <div>
               <ListReserved
@@ -68,6 +68,7 @@ export default function Lunch({ daySelected }) {
             setReload={setReload}
             reload={reload}
             timezone={timezone}
+            router={router}
           />
         </BaseModal>
       ) : null}
@@ -75,17 +76,4 @@ export default function Lunch({ daySelected }) {
   );
 }
 
-{
-  /* <ListReserved
-            key={orari}
-            orari={orari}
-            setOpenModal={setOpenModal}
-            openModal={openModal}
-            setDataHour={setDataHour}
-            id={id}
-            setReload={setReload}
-            reload={reload}
-            daySelected={daySelected}
-            allReservedTimeZone={allReservedTimeZone}
-          /> */
-}
+

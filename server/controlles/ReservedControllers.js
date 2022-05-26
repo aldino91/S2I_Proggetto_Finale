@@ -75,4 +75,48 @@ module.exports = {
         console.log(e);
       });
   },
+
+  UpdateResereved(req, res) {
+    const { pax, hour, data, waiter, idRestaurant, timezone, idReserved } =
+      req.body;
+    Reserved.findOne({
+      where: {
+        id: idReserved,
+        idRestaurant: idRestaurant,
+      },
+    })
+      .then(async (resp) => {
+        await Reserved.update(
+          {
+            pax: pax,
+            hour: hour,
+            data: data,
+            waiter: waiter,
+            timezone: timezone,
+          },
+          {
+            where: {
+              id: resp.id,
+            },
+          }
+        );
+
+        await State.update(
+          {
+            statereserved: "reservation made",
+          },
+          {
+            where: {
+              id: resp.idState,
+            },
+          }
+        );
+
+        res.send("prenotazione aggiornata");
+      })
+      .catch((err) => {
+        res.send("problema per aggiornarlo!!");
+        console.log(err);
+      });
+  },
 };

@@ -1,4 +1,4 @@
-export const orariCena = [
+export const hourDinner = [
   "19:00",
   "19:15",
   "19:30",

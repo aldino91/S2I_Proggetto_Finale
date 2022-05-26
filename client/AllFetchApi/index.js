@@ -139,8 +139,7 @@ export const fetchAddReserved = async (
   idRestaurant,
   timezone,
   setOpenModal,
-  setReload,
-  reload
+  router
 ) => {
   const url = process.env.NEXT_PUBLIC_URL_RESERVED;
 
@@ -155,11 +154,46 @@ export const fetchAddReserved = async (
       idRestaurant: idRestaurant,
       timezone: timezone,
     });
-    await setReload(!reload);
+
     await setOpenModal(false);
+    await router.reload();
     e.target.reset();
   } catch (error) {
     toast.error("Abbiamo problemi a realizzare la prenotazione!");
+    console.log(error);
+  }
+};
+
+export const fetchUpdateReserved = async (
+  pax,
+  hour,
+  data,
+  waiter,
+  idRestaurant,
+  timezone,
+  idReserved,
+  idState,
+  setShowIconEdit,
+  router
+) => {
+  const url = process.env.NEXT_PUBLIC_URL_RESERVED;
+
+  try {
+    await axios.put(url, {
+      pax,
+      hour,
+      data,
+      waiter,
+      idRestaurant,
+      timezone,
+      idReserved,
+      idState,
+    });
+    await setShowIconEdit(false);
+    await toast.success("prenotazione aggiornata!!");
+    await router.reload();
+  } catch (error) {
+    toast.error("Non riusciamo ad aggiornarlo!!");
     console.log(error);
   }
 };
@@ -180,8 +214,6 @@ export const GetReservedTimeZone = async (
     console.log(error);
   }
 };
-
-
 
 export const fetchAddWaiter = async (
   e,
@@ -236,7 +268,7 @@ export const fetchUpdateStateReserved = async (
   setReload,
   setShowModal
 ) => {
-  const url = process.env.NEXT_PUBLIC_URL_UPDATE_RESERVED;
+  const url = process.env.NEXT_PUBLIC_URL_UPDATE_STATE_RESERVED;
   const query = `?id=${id}&statereserved=${statereserved}`;
   try {
     await axios.put(url + query);

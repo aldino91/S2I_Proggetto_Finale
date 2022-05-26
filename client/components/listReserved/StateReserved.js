@@ -59,47 +59,54 @@ export default function StateReserved({ state, res, reload, setReload }) {
                   <div>|</div>
                   <div>{res.pax}PAX</div>
                   <div>|</div>
-                  <div className="capitalize">{}</div>
+                  <div className="capitalize">{res.Client.name}</div>
                 </div>
               </div>
               <div className="flex flex-col space-y-4">
                 {stateReserved.map((resp) => (
                   <div key={resp}>
                     {resp === "reservation made" ? (
-                      <div
+                      <button
+                        onClick={() =>
+                          fetchUpdateStateReserved(
+                            state.id,
+                            "reservation made",
+                            reload,
+                            setReload,
+                            setShowModal
+                          )
+                        }
                         className={`flex flex-row items-center w-full p-2 border-2 rounded-md ${
                           stateCurrent === "reservation made"
-                            ? "bg-cyan-300"
+                            ? "bg-teal-300"
                             : "bg-white"
                         }`}
                       >
-                        <button
-                          className="p-2 mr-4 border rounded-full bg-slate-200 hover:bg-slate-100"
-                          onClick={() =>
-                            fetchUpdateStateReserved(
-                              state.id,
-                              "reservation made",
-                              reload,
-                              setReload,
-                              setShowModal
-                            )
-                          }
-                        >
+                        <div className="p-2 mr-4 border rounded-full bg-slate-200 hover:bg-slate-100">
                           <IconConfirmedReserved />
-                        </button>
+                        </div>
                         <div className="font-semibold capitalize">
                           Confirmed reservation
                         </div>
-                      </div>
+                      </button>
                     ) : resp === "sitting table" ? (
-                      <div
+                      <button
+                        onClick={() =>
+                          fetchUpdateStateReserved(
+                            state.id,
+                            "sitting table",
+                            reload,
+                            setReload,
+                            setShowModal
+                          )
+                        }
                         className={`flex flex-row items-center w-full p-2 border-2 rounded-md ${
                           stateCurrent === "sitting table"
-                            ? "bg-cyan-300"
+                            ? "bg-teal-300"
                             : "bg-white"
                         }`}
                       >
-                        <button
+                        <div
                           className="p-2 mr-4 bg-green-500 border rounded-full hover:bg-green-400"
                           onClick={() =>
                             fetchUpdateStateReserved(
@@ -112,61 +119,57 @@ export default function StateReserved({ state, res, reload, setReload }) {
                           }
                         >
                           <IconSittingTable />
-                        </button>
+                        </div>
                         <div className="font-semibold capitalize">
                           seated customer
                         </div>
-                      </div>
+                      </button>
                     ) : resp === "cancelled reservation" ? (
-                      <div
+                      <button
+                        onClick={() =>
+                          fetchUpdateStateReserved(
+                            state.id,
+                            "cancelled reservation",
+                            reload,
+                            setReload,
+                            setShowModal
+                          )
+                        }
                         className={`flex flex-row items-center w-full p-2 border-2 rounded-md ${
                           stateCurrent === "cancelled reservation"
-                            ? "bg-cyan-300"
+                            ? "bg-teal-300"
                             : "bg-white"
                         }`}
                       >
-                        <button
-                          className="p-2 mr-4 bg-red-500 border rounded-full hover:bg-red-300"
-                          onClick={() =>
-                            fetchUpdateStateReserved(
-                              state.id,
-                              "cancelled reservation",
-                              reload,
-                              setReload,
-                              setShowModal
-                            )
-                          }
-                        >
+                        <div className="p-2 mr-4 bg-red-500 border rounded-full hover:bg-red-300">
                           <IconCancelledReservatio />
-                        </button>
+                        </div>
                         <div className="font-semibold capitalize">
                           canceled reserved
                         </div>
-                      </div>
+                      </button>
                     ) : resp === "no show" ? (
-                      <div
+                      <button
+                        onClick={() =>
+                          fetchUpdateStateReserved(
+                            state.id,
+                            "no show",
+                            reload,
+                            setReload,
+                            setShowModal
+                          )
+                        }
                         className={`flex flex-row items-center w-full p-2 border-2 rounded-md ${
                           stateCurrent === "no show"
-                            ? "bg-cyan-300"
+                            ? "bg-teal-300"
                             : "bg-white"
                         }`}
                       >
-                        <button
-                          className="p-2 mr-4 bg-red-500 border rounded-full hover:bg-red-300"
-                          onClick={() =>
-                            fetchUpdateStateReserved(
-                              state.id,
-                              "no show",
-                              reload,
-                              setReload,
-                              setShowModal
-                            )
-                          }
-                        >
+                        <div className="p-2 mr-4 bg-red-500 border rounded-full hover:bg-red-300">
                           <IconNoShow />
-                        </button>
+                        </div>
                         <div className="font-semibold capitalize">No Show!</div>
-                      </div>
+                      </button>
                     ) : null}
                   </div>
                 ))}

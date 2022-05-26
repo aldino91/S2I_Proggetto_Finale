@@ -10,9 +10,8 @@ export default function FormAddReserved({
   data,
   id,
   setOpenModal,
-  setReload,
-  reload,
   timezone,
+  router,
 }) {
   const [name, setName] = useState("");
   const [pax, setPax] = useState(2);
@@ -41,8 +40,7 @@ export default function FormAddReserved({
       idRestaurant,
       timezone,
       setOpenModal,
-      setReload,
-      reload
+      router
     );
   };
 

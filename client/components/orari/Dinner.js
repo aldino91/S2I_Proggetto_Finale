@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { orariCena } from "../../utils/cena";
+import { hourDinner } from "../../utils/hourDinner";
 import BaseModal from "../modal/BaseModal";
 import IconClose from "../icons/IconClose";
 import FormAddReserved from "../form/FormAddReserved";
@@ -33,7 +33,7 @@ export default function Dinner({ daySelected }) {
       </div>
 
       <div className="w-full">
-        {orariCena.map((orari) => (
+        {hourDinner.map((orari) => (
           <ListReserved
             key={orari}
             orari={orari}
@@ -64,6 +64,7 @@ export default function Dinner({ daySelected }) {
             setReload={setReload}
             reload={reload}
             timezone={timezone}
+            router={router}
           />
         </BaseModal>
       ) : null}

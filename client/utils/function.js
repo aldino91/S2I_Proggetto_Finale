@@ -11,11 +11,11 @@ export const dateSetting = (day, setChosenDay) => {
 
 export const showDay = (
   date,
+  setChosenDay,
+  id,
   setSelectDate,
   setDaySelected,
   daySelected,
-  setChosenDay,
-  id,
   timezone,
   router
 ) => {
@@ -29,4 +29,24 @@ export const showDay = (
 
   setChosenDay(new Date(dayReplace));
   router.push(`/${id}/${timezone}/${dayCurrent}`);
+};
+
+export const changeDay = (date, setChosenDay, setSelectDay) => {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const dayCurrent = `${day + "-" + month + "-" + year}`;
+  const dayReplace = `${year + "/" + month + "/" + day}`;
+
+  setSelectDay(dayCurrent);
+  setChosenDay(new Date(dayReplace));
+};
+
+export const updateDaySelected = (chosenDay, setSelectDay) => {
+  const day = chosenDay.getDate();
+  const month = chosenDay.getMonth() + 1;
+  const year = chosenDay.getFullYear();
+  const dayCurrent = `${day + "-" + month + "-" + year}`;
+
+  setSelectDay(dayCurrent);
 };

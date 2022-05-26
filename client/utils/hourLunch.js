@@ -1,4 +1,4 @@
-export const orariPranzo = [
+export const hourLunch = [
   "12:00",
   "12:15",
   "12:30",

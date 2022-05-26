@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import IconPlusSmall from "../icons/IconPlusSmall";
+import IconEditReserved from "../icons/IconEditReserved";
+
 import StateReserved from "./StateReserved";
+import ModalEditResereved from "../modal/ModalEditResereved";
 
 export default function ListReserved({
   orari,
@@ -11,6 +14,13 @@ export default function ListReserved({
   reload,
   allReservedTimeZone,
 }) {
+  const [showIconEdit, setShowIconEdit] = useState(false);
+  const [dataFormEdit, setDataFormEdit] = useState();
+
+  function openModalEdit(res) {
+    setShowIconEdit(true);
+    setDataFormEdit(res);
+  }
   function AddReserved(data) {
     setOpenModal(!openModal);
     setDataHour(data);
@@ -38,31 +48,47 @@ export default function ListReserved({
             .reduce((prev, curr) => prev + curr, 0)}Pax`}
         </div>
       </div>
-      <div className="grid w-full grid-cols-1 gap-2 pb-1 md:grid-cols-2 md:gap-2">
+      <div className="grid w-full grid-cols-1 gap-2 px-2 pb-1 md:grid-cols-2 md:gap-2">
         {allReservedTimeZone
           ?.filter((item) => item.hour === orari)
           .map((res) => (
-            <div
-              key={res.id}
-              className="flex flex-row items-center justify-between w-full p-2 my-1 border-2 rounded-md"
-            >
-              <div className="flex flex-row items-center justify-start w-2/3 overflow-scroll">
-                <StateReserved
-                  state={res.State}
-                  res={res}
-                  reload={reload}
-                  setReload={setReload}
-                />
-                <div className="flex flex-col">
-                  <div className="text-xl capitalize font-base">
-                    {res.Client.name}
+            <div key={res.id} className="p-1 my-1">
+              <div className="flex flex-row items-center justify-between w-full p-2 border-2 rounded-md">
+                <div className="flex flex-row items-center justify-start w-2/3 overflow-scroll">
+                  <StateReserved
+                    state={res.State}
+                    res={res}
+                    reload={reload}
+                    setReload={setReload}
+                  />
+                  <div className="flex flex-col">
+                    <div className="text-xl capitalize font-base">
+                      {res.Client.name}
+                    </div>
+                    <div className="flex flex-row items-center">
+                      <p className="capitalize font-base text-normal">
+                        {res.hour}
+                      </p>
+                      <button
+                        className="pl-2"
+                        onClick={() => openModalEdit(res)}
+                      >
+                        <IconEditReserved />
+                      </button>
+                    </div>
+                    <div className="text-sm">({res.waiter})</div>
                   </div>
-                  <p className="capitalize font-base text-normal">{res.hour}</p>
                 </div>
-              </div>
-              <div className="flex flex-row items-center justify-end w-1/3">
-                <p className="mr-3 text-xl font-semibold">{res.pax}</p>
-                <div className="p-2 border-2 rounded-md">tavolo</div>
+                <div className="flex flex-row items-center justify-end w-1/3">
+                  <p className="mr-3 text-xl font-semibold">{res.pax}</p>
+                  <div className="p-2 border-2 rounded-md">tavolo</div>
+                </div>
+                {showIconEdit ? (
+                  <ModalEditResereved
+                    res={dataFormEdit}
+                    setShowIconEdit={setShowIconEdit}
+                  />
+                ) : null}
               </div>
             </div>
           ))}
