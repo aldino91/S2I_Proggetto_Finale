@@ -20,7 +20,12 @@ export default function ModalTables({ setShowModalTable, res }) {
   }, [id]);
 
   function chosenTables(tab) {
-    setBusyTable([...busyTable, tab]);
+    if (busyTable.includes(tab)) {
+      const filterArray = busyTable.filter((item) => item !== tab);
+      setBusyTable(filterArray);
+    } else {
+      setBusyTable([...busyTable, tab]);
+    }
   }
 
   return (
@@ -50,21 +55,29 @@ export default function ModalTables({ setShowModalTable, res }) {
               <p>{res.hour}</p>
             </div>
             <div className="space-y-2">
-              <div className="flex flex-row w-full p-2 overflow-scroll bg-green-400 rounded-md">
+              <div className="flex flex-row justify-center w-full p-2 overflow-scroll text-center bg-green-400 rounded-md">
                 {busyTable.length > 0 ? (
-                  busyTable?.map((tab) => <div key={tab.id}>{tab},</div>)
+                  busyTable?.map((tab) => (
+                    <div key={tab.id} className="text-white">
+                      {tab},
+                    </div>
+                  ))
                 ) : (
                   <div>nessun tavolo</div>
                 )}
               </div>
-              <div className="w-full p-2 bg-green-400 rounded-md">
+              <div className="w-full p-2 text-center text-white bg-green-400 rounded-md">
                 cancellare
               </div>
             </div>
           </div>
         </div>
         <div className="w-2/3 h-2/3 bg-slate-100">
-          <GridAllTables allTables={allTables} chosenTables={chosenTables} />
+          <GridAllTables
+            allTables={allTables}
+            chosenTables={chosenTables}
+            busyTable={busyTable}
+          />
         </div>
       </div>
     </BaseModal>
