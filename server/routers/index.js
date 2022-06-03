@@ -7,6 +7,7 @@ const RestaurantControllers = require("../controlles/RestaurantControllers");
 const ReservedControllers = require("../controlles/ReservedControllers");
 const WaiterControllers = require("../controlles/WaiterControllers");
 const StateReserved = require("../controlles/StateReserved");
+const TableControllers = require("../controlles/TableControllers");
 
 router.get("/", (req, res) => {
   res.json({ messagge: "funziona" });
@@ -39,9 +40,13 @@ router.post("/add-waiter", WaiterControllers.AddWaiter);
 router.get("/waiter/:idRestaurant", WaiterControllers.GetWaiters);
 router.delete("/deletewaiter/:id", WaiterControllers.DeleteWaiter);
 
-
 // State reserved
 
-router.put("/state-reserved", StateReserved.updateStateReserved)
+router.put("/state-reserved", StateReserved.updateStateReserved);
+
+// Tables
+
+router.post("/tables", TableControllers.AddTables);
+router.get("/tables/:id", TableControllers.GetTables);
 
 module.exports = router;

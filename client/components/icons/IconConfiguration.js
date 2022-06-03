@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function IconToday() {
+export default function IconConfiguration() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,12 +13,7 @@ export default function IconToday() {
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-      />
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
       />
     </svg>
   );

@@ -6,15 +6,12 @@ import { KeyboardDatePicker } from "@material-ui/pickers";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { unstable_createMuiStrictModeTheme } from "@material-ui/core";
-import IconLogout from "../icons/IconLogout";
-import IconDelete from "../icons/IconDelete";
-import IconWaiter from "../icons/IconWaiter";
 import IconRefresh from "../icons/IconRefresh";
 import IconToday from "../icons/IconToday";
-import ModalDeleteRestaurant from "../modal/ModalDeleteRestaurant";
-import ModalAddWaiter from "../modal/ModalAddWaiter";
+import IconConfiguration from "../icons/IconConfiguration";
 import { useRouter } from "next/router";
 import { dateSetting, showDay, updateDaySelected } from "../../utils/function";
+import ModalConfiguration from "../modal/ModalConfiguration";
 
 export default function NavBarReserver({
   data,
@@ -27,11 +24,11 @@ export default function NavBarReserver({
   const { day, timezone } = router.query;
   const [openModal, setOpenModal] = useState(false);
   const [openAddWaiter, setOpenAddWaiter] = useState(false);
+  const [showConfiguration, setShowConfiguration] = useState(false);
 
   const [chosenDay, setChosenDay] = useState(chosenDay);
 
   const [toDay, setToDay] = useState();
-  console.log(toDay);
 
   const today = new Date();
 
@@ -75,27 +72,25 @@ export default function NavBarReserver({
       </div>
 
       <div className="flex flex-col justify-around p-1 lg:flex-row">
-        <div className="p-2 text-center underline capitalize">{data.name}</div>
-        <div className="flex flex-row justify-around md:pb-0">
-          <div className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:mr-10">
-            Piantina
+        <div className="flex flex-row justify-between w-full lg:w-1/4">
+          <div
+            className="p-2 rounded-md hover:bg-green-300 md:mr-10"
+            onClick={() => setShowConfiguration(true)}
+          >
+            <IconConfiguration />
           </div>
-          <div className="flex flex-row">
-            <div
-              className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:mr-10"
-              onClick={() => router.reload()}
-            >
-              <IconRefresh />
-            </div>
-            <div
-              className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:mr-10"
-              onClick={() => setOpenAddWaiter(true)}
-            >
-              <IconWaiter />
-            </div>
+          <div className="w-5/6 p-2 text-center underline capitalize">
+            {data.name}
           </div>
         </div>
-        <div className="flex flex-row justify-around p-1 lg:p-0">
+
+        <div className="flex flex-row justify-between w-full py-1 lg:justify-around lg:w-2/4 lg:py-0">
+          <div
+            className="p-2 rounded-md hover:bg-green-300 md:mr-10"
+            onClick={() => router.reload()}
+          >
+            <IconRefresh />
+          </div>
           <div className="bg-white rounded-md bg-opacity-60">
             <ThemeProvider theme={defaultMaterialTheme}>
               <KeyboardDatePicker
@@ -121,25 +116,18 @@ export default function NavBarReserver({
           </div>
 
           <Link href={`/${id}/${timezone}/${toDay}`}>
-            <a className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:ml-10">
+            <a className="p-2 rounded-md hover:bg-green-300 md:mr-10">
               <IconToday />
             </a>
           </Link>
-
-          {openModal ? (
-            <ModalDeleteRestaurant setOpenModal={setOpenModal} />
-          ) : null}
-
-          {openAddWaiter ? (
-            <ModalAddWaiter id={id} setOpenAddWaiter={setOpenAddWaiter} />
-          ) : null}
         </div>
-        <div className="flex flex-row justify-around rounded-md">
-          <div className="flex flex-row">
+
+        <div className="flex flex-row justify-around w-full rounded-md lg:w-1/4">
+          <div className="flex flex-row w-full">
             <div
               className={`p-2 ${
                 timezone === "lunch" ? "bg-blue-300" : "bg-white"
-              } border-2 rounded-l-md border-y-2`}
+              } border-2 rounded-l-md border-y-2 w-1/2 text-center`}
               onClick={timeLunch}
             >
               Lunch
@@ -147,27 +135,24 @@ export default function NavBarReserver({
             <div
               className={`p-2 ${
                 timezone === "dinner" ? "bg-blue-300" : "bg-white"
-              } border-2 rounded-r-md border-y-2`}
+              } border-2 rounded-r-md border-y-2 w-1/2 text-center`}
               onClick={timeDinner}
             >
               Dinner
             </div>
           </div>
-          <div className="flex flex-row">
-            <Link href={"/home"}>
-              <a className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:ml-10">
-                <IconLogout />
-              </a>
-            </Link>
-            <div
-              className="p-2 bg-white border-2 rounded-md hover:bg-slate-100 md:ml-10"
-              onClick={() => setOpenModal(true)}
-            >
-              <IconDelete />
-            </div>
-          </div>
         </div>
       </div>
+      {showConfiguration ? (
+        <ModalConfiguration
+          setShowConfiguration={setShowConfiguration}
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          openAddWaiter={openAddWaiter}
+          setOpenAddWaiter={setOpenAddWaiter}
+          id={id}
+        />
+      ) : null}
     </div>
   );
 }

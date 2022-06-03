@@ -4,6 +4,7 @@ import IconEditReserved from "../icons/IconEditReserved";
 
 import StateReserved from "./StateReserved";
 import ModalEditResereved from "../modal/ModalEditResereved";
+import ModalTables from "../modal/ModalTables";
 
 export default function ListReserved({
   orari,
@@ -15,11 +16,17 @@ export default function ListReserved({
   allReservedTimeZone,
 }) {
   const [showIconEdit, setShowIconEdit] = useState(false);
-  const [dataFormEdit, setDataFormEdit] = useState();
+  const [dataReserved, setDataReserved] = useState();
+  const [showModalTable, setShowModalTable] = useState(false);
 
   function openModalEdit(res) {
     setShowIconEdit(true);
-    setDataFormEdit(res);
+    setDataReserved(res);
+  }
+
+  function openModalTables(res) {
+    setShowModalTable(true);
+    setDataReserved(res);
   }
   function AddReserved(data) {
     setOpenModal(!openModal);
@@ -81,12 +88,23 @@ export default function ListReserved({
                 </div>
                 <div className="flex flex-row items-center justify-end w-1/3">
                   <p className="mr-3 text-xl font-semibold">{res.pax}</p>
-                  <div className="p-2 border-2 rounded-md">tavolo</div>
+                  <button
+                    className="p-2 border-2 rounded-md"
+                    onClick={() => openModalTables(res)}
+                  >
+                    Tables
+                  </button>
                 </div>
                 {showIconEdit ? (
                   <ModalEditResereved
-                    res={dataFormEdit}
+                    res={dataReserved}
                     setShowIconEdit={setShowIconEdit}
+                  />
+                ) : null}
+                {showModalTable ? (
+                  <ModalTables
+                    setShowModalTable={setShowModalTable}
+                    res={dataReserved}
                   />
                 ) : null}
               </div>

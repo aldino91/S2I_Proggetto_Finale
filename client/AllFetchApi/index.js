@@ -190,7 +190,6 @@ export const fetchUpdateReserved = async (
       idState,
     });
     await setShowIconEdit(false);
-    await toast.success("prenotazione aggiornata!!");
     await router.reload();
   } catch (error) {
     toast.error("Non riusciamo ad aggiornarlo!!");
@@ -276,5 +275,27 @@ export const fetchUpdateStateReserved = async (
     setShowModal(false);
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const fetchAddTable = async (name, id) => {
+  const url = process.env.NEXT_PUBLIC_URL_TABLE;
+
+  try {
+    await axios.post(url, { name: name, idRestaurant: id });
+    toast.success("tavolo salvato");
+  } catch (error) {
+    console.log(error);
+    toast.error("Non riusciamo a salvare il tavolo!");
+  }
+};
+
+export const fetchGetTable = async (id, setAllTables) => {
+  const url = `${process.env.NEXT_PUBLIC_URL_TABLE}/${id}`;
+  try {
+    const tables = await axios.get(url);
+    await setAllTables(tables.data);
+  } catch (error) {
+    console.log(tables);
   }
 };
