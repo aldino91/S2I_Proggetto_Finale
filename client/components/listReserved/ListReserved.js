@@ -88,12 +88,16 @@ export default function ListReserved({
                 </div>
                 <div className="flex flex-row items-center justify-end w-1/3">
                   <p className="mr-3 text-xl font-semibold">{res.pax}</p>
-                  <button
-                    className="p-2 border-2 rounded-md"
+                  <div
+                    className="flex flex-row p-2 overflow-y-scroll border-2 rounded-md"
                     onClick={() => openModalTables(res)}
                   >
-                    Tables
-                  </button>
+                    {res.tables ? (
+                      res.tables.split(" ").map((arr) => <p key={arr}>{arr}</p>)
+                    ) : (
+                      <p>tavoli</p>
+                    )}
+                  </div>
                 </div>
                 {showIconEdit ? (
                   <ModalEditResereved

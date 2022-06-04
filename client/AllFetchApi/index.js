@@ -299,3 +299,21 @@ export const fetchGetTable = async (id, setAllTables) => {
     console.log(tables);
   }
 };
+
+export const fetchSaveTables = async (
+  idReserved,
+  idRestaurant,
+  tables,
+  setShowModalTable,
+  router
+) => {
+  const url = process.env.NEXT_PUBLIC_URL_SAVE_TABLES;
+  const query = `?idReserved=${idReserved}&idRestaurant=${idRestaurant}&tables=${tables}`;
+  try {
+    await axios.put(url + query);
+    await setShowModalTable(false);
+    await router.reload();
+  } catch (error) {
+    console.log(error);
+  }
+};

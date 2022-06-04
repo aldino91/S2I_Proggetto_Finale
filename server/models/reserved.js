@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       idRestaurant: DataTypes.STRING,
       timezone: DataTypes.STRING,
       idState: DataTypes.INTEGER,
+      tables: DataTypes.STRING,
     },
     {
       sequelize,

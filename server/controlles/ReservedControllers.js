@@ -119,4 +119,32 @@ module.exports = {
         console.log(err);
       });
   },
+
+  AddTablesReserved(req, res) {
+    const { tables, idReserved, idRestaurant } = req.query;
+
+    Reserved.findOne({
+      where: {
+        id: idReserved,
+        idRestaurant: idRestaurant,
+      },
+    })
+      .then(async (resp) => {
+        await Reserved.update(
+          {
+            tables: tables,
+          },
+          {
+            where: {
+              id: resp.id,
+            },
+          }
+        );
+        await res.send("tavoli aggiunti");
+      })
+      .catch((err) => {
+        res.send("abbiamo problemi per aggiungere il tavolo");
+        console.log(err);
+      });
+  },
 };

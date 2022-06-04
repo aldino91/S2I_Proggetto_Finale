@@ -1,19 +1,23 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { fetchGetTable } from "../../AllFetchApi";
+import { fetchGetTable, fetchSaveTables } from "../../AllFetchApi";
 import GridAllTables from "../GridAllTables";
 
 import IconClose from "../icons/IconClose";
 import StateCurrent from "../listReserved/StateCurrent";
-
 import BaseModal from "./BaseModal";
+
 export default function ModalTables({ setShowModalTable, res }) {
   const router = useRouter();
+  const { id } = router.query;
 
   const [allTables, setAllTables] = useState();
-  const [busyTable, setBusyTable] = useState([]);
 
-  const { id } = router.query;
+  const tablesSelected = !res.tables ? [] : res.tables.split(",");
+
+  const [busyTable, setBusyTable] = useState(
+    tablesSelected ? tablesSelected : []
+  );
 
   useEffect(() => {
     fetchGetTable(id, setAllTables);
@@ -22,10 +26,24 @@ export default function ModalTables({ setShowModalTable, res }) {
   function chosenTables(tab) {
     if (busyTable.includes(tab)) {
       const filterArray = busyTable.filter((item) => item !== tab);
+
       setBusyTable(filterArray);
     } else {
       setBusyTable([...busyTable, tab]);
     }
+  }
+
+  async function saveTables(idReserved) {
+    const tables = await busyTable.toString();
+
+    const idRestaurant = id;
+    await fetchSaveTables(
+      idReserved,
+      idRestaurant,
+      tables,
+      setShowModalTable,
+      router
+    );
   }
 
   return (
@@ -56,14 +74,22 @@ export default function ModalTables({ setShowModalTable, res }) {
             </div>
             <div className="space-y-2">
               <div className="flex flex-row justify-center w-full p-2 overflow-scroll text-center bg-green-400 rounded-md">
-                {busyTable.length > 0 ? (
-                  busyTable?.map((tab) => (
-                    <div key={tab.id} className="text-white">
-                      {tab},
-                    </div>
-                  ))
+                {busyTable?.length > 0 ? (
+                  <div className="flex flex-row text-white">
+                    {busyTable.map((select) => (
+                      <div key={select} onClick={() => saveTables(res.id)}>
+                        <p className="mr-2">{select}</p>
+                        <p></p>
+                      </div>
+                    ))}
+                  </div>
                 ) : (
-                  <div>nessun tavolo</div>
+                  <div
+                    className="text-white"
+                    onClick={() => saveTables(res.id)}
+                  >
+                    nessun tavolo
+                  </div>
                 )}
               </div>
               <div className="w-full p-2 text-center text-white bg-green-400 rounded-md">
