@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function GridAllTables({ allTables, chosenTables, busyTable }) {
+export default function GridAllTables({
+  allTables,
+  chosenTables,
+  busyTable,
+  localStorageTables,
+}) {
   return (
     <div className="grid w-full grid-cols-4 gap-1 p-4 bg-gray-100 md:grid-cols-7 lg:grid-cols-8 lg:gap-2">
       {chosenTables
@@ -13,6 +18,10 @@ export default function GridAllTables({ allTables, chosenTables, busyTable }) {
                 className={`flex flex-col justify-center w-5/6 mx-auto rounded-md h-5/6 ${
                   busyTable?.find((tab) => tab == rest.name)
                     ? "bg-green-400"
+                    : localStorageTables?.find((tab) => tab == rest.name)
+                    ? "bg-gray-400"
+                    : !localStorageTables?.find((tab) => tab == rest.name)
+                    ? "bg-gray-100"
                     : null
                 }`}
                 onClick={() => chosenTables(rest.name)}

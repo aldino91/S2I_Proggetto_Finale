@@ -93,7 +93,11 @@ export default function ListReserved({
                     onClick={() => openModalTables(res)}
                   >
                     {res.tables ? (
-                      res.tables.split(" ").map((arr) => <p key={arr}>{arr}</p>)
+                      res.tables.split(",").map((arr) => (
+                        <div key={arr}>
+                          <p className="mr-1">{arr}</p>
+                        </div>
+                      ))
                     ) : (
                       <p>tavoli</p>
                     )}
@@ -109,6 +113,7 @@ export default function ListReserved({
                   <ModalTables
                     setShowModalTable={setShowModalTable}
                     res={dataReserved}
+                    allReservedTimeZone={allReservedTimeZone}
                   />
                 ) : null}
               </div>

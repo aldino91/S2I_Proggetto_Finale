@@ -311,7 +311,7 @@ export const fetchSaveTables = async (
   const query = `?idReserved=${idReserved}&idRestaurant=${idRestaurant}&tables=${tables}`;
   try {
     await axios.put(url + query);
-    await setShowModalTable(false);
+     await setShowModalTable(false);
     await router.reload();
   } catch (error) {
     console.log(error);
