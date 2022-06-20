@@ -34,21 +34,22 @@ module.exports = {
   DeleteWaiter(req, res) {
     const id = req.params.id;
     try {
-      const resp = Waiter.findOne({
+      Waiter.findOne({
         where: {
           id: id,
         },
+      }).then((resp) => {
+        if (!resp) {
+          res.send("Non abbiamo trovato il cameriere");
+        } else {
+          Waiter.destroy({
+            where: {
+              id: id,
+            },
+          });
+          res.json({ msg: "Cameriere eliminato con successo!" });
+        }
       });
-      if (!resp) {
-        res.send("Non abbiamo trovato il cameriere");
-      } else {
-        waiter.destroy({
-          where: {
-            id: id,
-          },
-        });
-        res.json({ msg: "Cameriere eliminato con successo!" });
-      }
     } catch (error) {
       console.log(error);
     }
