@@ -4,9 +4,9 @@ const bodyparser = require("body-parser");
 const cors = require("cors");
 const { sequelize } = require("./models/index");
 const router = require("./routers/index");
+require("dotenv").config({ path: "./.env" });
 
 app.use(cors());
-require("dotenv").config({ path: "./.env" });
 const PORT = process.env.PORT || 9000;
 app.use(bodyparser.json());
 app.use(express.urlencoded({ extended: true }));
