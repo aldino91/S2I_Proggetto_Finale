@@ -1,4 +1,4 @@
-# Report Pollution
+# Reserved Tables
 
 Questa é un'applicazione realizzata con next.js per il frontend e per il backend con node.js e come database Mysql.
 È un app.web che serve per gestire le prenotazioni di un ristorante.
