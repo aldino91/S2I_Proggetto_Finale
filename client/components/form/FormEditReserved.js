@@ -166,11 +166,6 @@ export default function FormEditReserved({
             <IconPlusSmall />
             <IconReserved />
           </div>
-          {/* {!loading ? (
-      "Send"
-    ) : (
-      <ClipLoader color="#ffffff" loading={loading} size={20} />
-    )} */}
         </button>
       </div>
     </form>

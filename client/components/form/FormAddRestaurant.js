@@ -64,11 +64,6 @@ export default function FormAddRestaurant({ setOpenModal, setReload }) {
           className="p-2 text-white bg-green-500 rounded-md"
         >
           Add
-          {/* {!loading ? (
-      "Send"
-    ) : (
-      <ClipLoader color="#ffffff" loading={loading} size={20} />
-    )} */}
         </button>
       </div>
     </form>

@@ -49,11 +49,6 @@ export default function FormLogin({ changeForm }) {
             className="p-2 text-white bg-green-500 rounded-md"
           >
             Login
-            {/* {!loading ? (
-          "Send"
-        ) : (
-          <ClipLoader color="#ffffff" loading={loading} size={20} />
-        )} */}
           </button>
         </div>
       </form>

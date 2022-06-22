@@ -35,12 +35,6 @@ export default function FormAddWaiter({ setReload, reload, id }) {
           className="flex flex-row justify-center p-2 text-white bg-teal-400 rounded-md"
         >
           <IconWaiter />
-
-          {/* {!loading ? (
-      "Send"
-    ) : (
-      <ClipLoader color="#ffffff" loading={loading} size={20} />
-    )} */}
         </button>
       </div>
     </form>

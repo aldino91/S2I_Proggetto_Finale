@@ -59,11 +59,6 @@ export default function FormRegister({ changeForm }) {
             className="p-2 text-white bg-green-500 rounded-md"
           >
             Register
-            {/* {!loading ? (
-          "Send"
-        ) : (
-          <ClipLoader color="#ffffff" loading={loading} size={20} />
-        )} */}
           </button>
         </div>
       </form>
