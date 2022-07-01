@@ -1,16 +1,28 @@
 import React, { useState } from "react";
 import { fetchAddRestaurant } from "../../AllFetchApi";
+import RingLoader from "react-spinners/RingLoader";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 
 export default function FormAddRestaurant({ setOpenModal, setReload }) {
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [telephone, setTelephone] = useState("");
   const [address, setAddress] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetchAddRestaurant(e, name, city, telephone, address, setOpenModal);
+    fetchAddRestaurant(
+      e,
+      name,
+      city,
+      telephone,
+      address,
+      setOpenModal,
+      setLoading
+    );
     setReload(true);
   };
   return (
@@ -38,14 +50,14 @@ export default function FormAddRestaurant({ setOpenModal, setReload }) {
             setCity(e.target.value);
           }}
         />
-        <input
-          type="text"
+        <PhoneInput
           name="telephone"
+          defaultCountry="ES"
           placeholder="Telephone number"
           className="p-2 border-2 rounded-md border-slate-300"
-          required
+          value={telephone}
           onChange={(e) => {
-            setTelephone(e.target.value);
+            setTelephone(e);
           }}
         />
         <input
@@ -61,9 +73,13 @@ export default function FormAddRestaurant({ setOpenModal, setReload }) {
 
         <button
           type="submit"
-          className="p-2 text-white bg-green-500 rounded-md"
+          className="p-2 text-white bg-green-500 rounded-md flex flex-row justify-center"
         >
-          Add
+          {!loading ? (
+            <div>Add</div>
+          ) : (
+            <RingLoader color="#ffffff" loading={loading} size={20} />
+          )}
         </button>
       </div>
     </form>

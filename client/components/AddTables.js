@@ -26,7 +26,7 @@ export default function AddTables() {
         </div>
         <div className="flex flex-col justify-center w-auto h-auto">
           <Image
-            src="/icon-table.png"
+            src="/Icon-table.png"
             alt="Picture of the author"
             width={80}
             height={80}

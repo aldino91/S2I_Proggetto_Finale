@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { fetchLogin } from "../../AllFetchApi";
+import RingLoader from "react-spinners/RingLoader";
 
 export default function FormLogin({ changeForm }) {
   const { login } = useAuth();
 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    fetchLogin(e, email, password, login);
+    fetchLogin(e, email, password, login, setLoading);
   };
   return (
     <div className="w-full font-mono">
@@ -46,9 +48,13 @@ export default function FormLogin({ changeForm }) {
 
           <button
             type="submit"
-            className="p-2 text-white bg-green-500 rounded-md"
+            className="p-2 text-white bg-green-500 rounded-md flex flex-row justify-center"
           >
-            Login
+            {!loading ? (
+              <div>Login</div>
+            ) : (
+              <RingLoader color="#ffffff" loading={loading} size={20} />
+            )}
           </button>
         </div>
       </form>

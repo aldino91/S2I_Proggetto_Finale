@@ -68,7 +68,7 @@ export default function NavBarReserver({
           width={40}
           height={40}
         />
-        <div className="px-2 text-xl text-white">Reserved Tables</div>
+        <div className="px-2 text-xl text-white">TControl</div>
       </div>
 
       <div className="flex flex-col justify-around p-1 lg:flex-row">

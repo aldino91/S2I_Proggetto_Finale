@@ -3,8 +3,9 @@ import { toast } from "react-toastify";
 import { getToken } from "../utils/token";
 import jwtDecode from "jwt-decode";
 
-export const fetchRegister = async (e, name, email, password, changeForm) => {
+export const fetchRegister = async (e, name, email, password, setLoading) => {
   try {
+    await setLoading(true);
     const url = `${process.env.NEXT_PUBLIC_URL_REGISTER}`;
     await axios
       .post(url, {
@@ -13,19 +14,24 @@ export const fetchRegister = async (e, name, email, password, changeForm) => {
         password: password,
       })
       .then((resp) => {
-        console.log("usuario registrato correttamente!");
+        setLoading(false);
+        toast.success("Usuario registrato! Vai al Login!");
+        e.target.reset();
       });
-    toast.success("I dati sono stati registrati");
-    e.target.reset();
-    changeForm(false);
   } catch (error) {
-    toast.error("C'é stato un errore nella registarzione!");
-    console.log(error);
+    if (error.response.status === 404) {
+      toast.error("Usuario giá registrato! Vai al Login!");
+      setLoading(false);
+    } else {
+      toast.error("C'é stato un errore nella registrazione!");
+      setLoading(false);
+    }
   }
 };
 
-export const fetchLogin = async (e, email, password, login) => {
+export const fetchLogin = async (e, email, password, login, setLoading) => {
   try {
+    await setLoading(true);
     const url = `${process.env.NEXT_PUBLIC_URL_LOGIN}`;
     await axios
       .post(url, {
@@ -35,13 +41,16 @@ export const fetchLogin = async (e, email, password, login) => {
       .then((resp) => {
         if (resp?.data.token) {
           login(resp.data.token);
+          setLoading(false);
+          e.target.reset();
         } else {
           toast.error("Email o password errata!");
+          setLoading(false);
         }
       });
-    e.target.reset();
   } catch (error) {
     toast.error("Email o password errata!");
+    setLoading(false);
     console.log(error);
   }
 };
@@ -69,13 +78,15 @@ export const fetchAddRestaurant = async (
   city,
   telephone,
   address,
-  setOpenModal
+  setOpenModal,
+  setLoading
 ) => {
   const token = getToken();
   const idUser = jwtDecode(token).user.id;
   const url = process.env.NEXT_PUBLIC_URL_ADD_RESTAURANT;
 
   try {
+    await setLoading(true);
     await axios.post(url, {
       name: name,
       city: city,
@@ -84,11 +95,13 @@ export const fetchAddRestaurant = async (
       idUser,
     });
     toast.success("Il nuovo ristorante é stato salvato!");
+    setLoading(false);
     setOpenModal(false);
     e.target.reset();
   } catch (error) {
     console.log(error);
     toast.error("Non é stato possibile registrare il nuovo ristorante!");
+    setLoading(false);
   }
 };
 
@@ -311,7 +324,7 @@ export const fetchSaveTables = async (
   const query = `?idReserved=${idReserved}&idRestaurant=${idRestaurant}&tables=${tables}`;
   try {
     await axios.put(url + query);
-     await setShowModalTable(false);
+    await setShowModalTable(false);
     await router.reload();
   } catch (error) {
     console.log(error);

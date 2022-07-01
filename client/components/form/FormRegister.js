@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { fetchRegister } from "../../AllFetchApi";
+import RingLoader from "react-spinners/RingLoader";
 
 export default function FormRegister({ changeForm }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    fetchRegister(e, name, email, password, changeForm);
+    fetchRegister(e, name, email, password, setLoading);
   };
 
   return (
@@ -29,17 +31,6 @@ export default function FormRegister({ changeForm }) {
           />
 
           <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="p-2 border-2 rounded-md border-slate-300"
-            required
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-
-          <input
             type="email"
             name="email"
             placeholder="Email"
@@ -50,15 +41,30 @@ export default function FormRegister({ changeForm }) {
             }}
           />
 
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="p-2 border-2 rounded-md border-slate-300"
+            required
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+
           <div className="text-green-500" onClick={() => changeForm(false)}>
             Login
           </div>
 
           <button
             type="submit"
-            className="p-2 text-white bg-green-500 rounded-md"
+            className="p-2 text-white bg-green-500 rounded-md flex flex-row justify-center"
           >
-            Register
+            {!loading ? (
+              <div>Register</div>
+            ) : (
+              <RingLoader color="#ffffff" loading={loading} size={20} />
+            )}
           </button>
         </div>
       </form>

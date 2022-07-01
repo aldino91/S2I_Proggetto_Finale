@@ -37,30 +37,44 @@ module.exports = {
   },
 
   singUp(req, res) {
-    // encryptamo la password
-    const password = bcrypt.hashSync(
-      req.body.password,
-      Number.parseInt(AuthConfig.rounds)
-    );
+    const { email } = req.body;
 
-    // registro usuario
     users
-      .create({
-        name: req.body.name,
-        email: req.body.email,
-        password: password,
+      .findOne({
+        where: { email: email },
       })
       .then((user) => {
-        // creazione token
-        const token = jwt.sign({ user: user }, AuthConfig.secret, {
-          expiresIn: AuthConfig.expires,
-        });
+        if (!user) {
+          // encryptamo la password
+          const password = bcrypt.hashSync(
+            req.body.password,
+            Number.parseInt(AuthConfig.rounds)
+          );
 
-        // ritorno del token
-        res.json({
-          user: user,
-          token: token,
-        });
+          // registro usuario
+          users
+            .create({
+              name: req.body.name,
+              email: req.body.email,
+              password: password,
+            })
+            .then((user) => {
+              // creazione token
+              const token = jwt.sign({ user: user }, AuthConfig.secret, {
+                expiresIn: AuthConfig.expires,
+              });
+
+              // ritorno del token
+              res.json({
+                user: user,
+                token: token,
+              });
+            });
+        } else {
+          return res.status(404).json({
+            msg: "Usuario giá registrato!",
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
