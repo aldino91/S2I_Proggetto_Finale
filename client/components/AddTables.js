@@ -18,7 +18,7 @@ export default function AddTables() {
         <IconBack />
       </div>
       <div
-        className="flex flex-row justify-center w-2/3 mx-auto my-16 border-2 rounded-md md:w-1/2 h-28"
+        className="flex flex-row justify-center w-2/3 mx-auto my-16 border-2 rounded-md md:w-1/2 h-28 cursor-pointer"
         onClick={() => setOpenModal(true)}
       >
         <div className="flex flex-col justify-center w-auto h-auto">

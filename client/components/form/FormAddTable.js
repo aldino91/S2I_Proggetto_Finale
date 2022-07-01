@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { fetchAddTable } from "../../AllFetchApi";
+import RingLoader from "react-spinners/RingLoader";
 
 export default function FormAddTable({ id }) {
   const [name, setName] = useState();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetchAddTable(name, id);
+    fetchAddTable(name, id, setLoading);
   };
   return (
     <form className="w-full mx-auto my-20 lg:w-1/2" onSubmit={handleSubmit}>
@@ -27,9 +29,13 @@ export default function FormAddTable({ id }) {
 
         <button
           type="submit"
-          className="p-2 text-white bg-green-500 rounded-md"
+          className="p-2 text-white bg-green-500 rounded-md flex flex-row justify-center"
         >
-          Add
+          {!loading ? (
+            <div>Add</div>
+          ) : (
+            <RingLoader color="#008000" loading={loading} size={20} />
+          )}
         </button>
       </div>
     </form>

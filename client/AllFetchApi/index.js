@@ -293,15 +293,18 @@ export const fetchUpdateStateReserved = async (
   }
 };
 
-export const fetchAddTable = async (name, id) => {
+export const fetchAddTable = async (name, id, setLoading) => {
   const url = process.env.NEXT_PUBLIC_URL_TABLE;
 
   try {
+    setLoading(true);
     await axios.post(url, { name: name, idRestaurant: id });
     toast.success("tavolo salvato");
+    setLoading(false);
   } catch (error) {
     console.log(error);
     toast.error("Non riusciamo a salvare il tavolo!");
+    setLoading(false);
   }
 };
 
