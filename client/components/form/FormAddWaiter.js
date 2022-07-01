@@ -17,13 +17,13 @@ export default function FormAddWaiter({ setReload, reload, id }) {
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col w-5/6 p-3 mx-auto space-y-4 bg-white rounded-md shadow-md shadow-slate-400">
-        <div className="text-center text-teal-500">New Waiter</div>
+        <div className="text-center text-green-500">New Waiter</div>
 
         <input
           type="text"
           name="name"
           placeholder="Name Waiter"
-          className="p-2 border-2 rounded-md border-slate-300"
+          className="p-2 border-2 rounded-md border-green-300"
           required
           onChange={(e) => {
             setName(e.target.value);
@@ -32,7 +32,7 @@ export default function FormAddWaiter({ setReload, reload, id }) {
 
         <button
           type="submit"
-          className="flex flex-row justify-center p-2 text-white bg-teal-400 rounded-md"
+          className="flex flex-row justify-center p-2 text-white bg-green-400 rounded-md"
         >
           <IconWaiter />
         </button>
