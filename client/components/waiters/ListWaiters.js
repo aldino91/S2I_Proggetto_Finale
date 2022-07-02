@@ -10,7 +10,6 @@ export default function ListWaiters({ id, reload, setReload }) {
   }, [reload]);
 
   function deleteWaiter(idWaiter, setReload, reload) {
-    console.log(idWaiter);
     fetchDeleteWaiter(idWaiter, setReload, reload);
   }
 

@@ -24,7 +24,7 @@ export default function ModalConfiguration({
         <div className="flex flex-col justify-between h-2/3">
           <Link href={`/${id}/restaurant`}>
             <a className="w-3/4 p-2 text-white transition-all duration-300 ease-in bg-green-400 rounded-r-md hover:bg-green-300">
-              Piantina
+              Add Tables
             </a>
           </Link>
           <div
@@ -41,7 +41,7 @@ export default function ModalConfiguration({
           </div>
           <Link href={"/home"}>
             <a className="w-3/4 p-2 text-white transition-all duration-300 ease-in bg-green-400 rounded-r-md hover:bg-green-300 cursor-pointer">
-              Logout
+              Exit
             </a>
           </Link>
         </div>

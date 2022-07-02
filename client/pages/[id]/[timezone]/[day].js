@@ -3,6 +3,8 @@ import Head from "next/head";
 import {
   getAuthentication,
   fetchDataRestaurant,
+  fetchGetTable,
+  fetchGetWaiters,
 } from "../../../AllFetchApi/index";
 import { useRouter } from "next/router";
 import NavBarReserver from "../../../components/navbar/NavBarReserver";
@@ -15,14 +17,17 @@ export default function HomeRestaurant() {
   const [data, setData] = useState([]);
   const [selectedDate, setSelectDate] = useState(new Date());
   const [daySelected, setDaySelected] = useState(false);
+  const [allWaiters, setAllWaiters] = useState();
+  const [allTables, setAllTables] = useState();
 
   useEffect(() => {
     getAuthentication()
       .then((resp) => {
         fetchDataRestaurant(id, setData);
+        fetchGetTable(id, setAllTables);
+        fetchGetWaiters(id, setAllWaiters);
       })
       .catch((e) => {
-        console.log(e);
         router.push("/");
       });
   }, [id, selectedDate, daySelected]);
@@ -44,9 +49,17 @@ export default function HomeRestaurant() {
       />
 
       {timezone === "lunch" ? (
-        <Lunch daySelected={daySelected} />
+        <Lunch
+          daySelected={daySelected}
+          allTables={allTables}
+          allWaiters={allWaiters}
+        />
       ) : (
-        <Dinner daySelected={daySelected} />
+        <Dinner
+          daySelected={daySelected}
+          allTables={allTables}
+          allWaiters={allWaiters}
+        />
       )}
     </>
   );

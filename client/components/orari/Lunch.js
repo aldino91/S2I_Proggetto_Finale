@@ -4,16 +4,23 @@ import BaseModal from "../modal/BaseModal";
 import IconClose from "../icons/IconClose";
 import FormAddReserved from "../form/FormAddReserved";
 import ListReserved from "../listReserved/ListReserved";
-import { GetReservedTimeZone } from "../../AllFetchApi";
+import { toast } from "react-toastify";
+import {
+  fetchGetTable,
+  fetchGetWaiters,
+  GetReservedTimeZone,
+} from "../../AllFetchApi";
 import { useRouter } from "next/router";
+import ModalWarnig from "../modal/ModalWarnig";
 
-export default function Lunch({ daySelected }) {
+export default function Lunch({ daySelected, allTables, allWaiters }) {
   const router = useRouter();
   const { day, id } = router.query;
   const [openModal, setOpenModal] = useState(false);
   const [dataHour, setDataHour] = useState(null);
   const [reload, setReload] = useState(false);
   const [allReservedTimeZone, setallReservedTimeZone] = useState([]);
+  const [showModalWarning, setShowModalWarning] = useState(false);
 
   const totalPax = allReservedTimeZone
     .map((i) => i.pax)
@@ -23,6 +30,21 @@ export default function Lunch({ daySelected }) {
 
   useEffect(() => {
     GetReservedTimeZone(id, day, timezone, setallReservedTimeZone);
+
+    allWaiters.length > 0
+      ? setShowModalWarning(false)
+      : allWaiters.length < 1
+      ? setShowModalWarning(true)
+      : allWaiters.length === undefined
+      ? setShowModalWarning(false)
+      : null;
+    /*  if (allWaiters === undefined ) {
+      console.log("risposta falsa");
+      setShowModalWarning(false);
+    } else {
+      console.log("risposta vera");
+      setShowModalWarning(true);
+    } */
   }, [reload, day, id, daySelected]);
 
   return (
@@ -72,8 +94,10 @@ export default function Lunch({ daySelected }) {
           />
         </BaseModal>
       ) : null}
+
+      {showModalWarning === false ? null : (
+        <ModalWarnig setShowModalWarning={setShowModalWarning} />
+      )}
     </div>
   );
 }
-
-

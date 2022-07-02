@@ -25,7 +25,7 @@ export default function FormAddReserved({
 
   useEffect(() => {
     fetchGetWaiters(id, setAllWaiters);
-  }, []);
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -94,7 +94,7 @@ export default function FormAddReserved({
         <label className="flex flex-row justify-around p-2 bg-white border-2 rounded-md border-slate-300">
           waiter
           <select
-            required
+            /* required */
             className="bg-white border-2 rounded-md"
             onChange={(e) => {
               setWaiter(e.target.value);

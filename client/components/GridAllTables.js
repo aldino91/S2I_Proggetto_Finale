@@ -31,7 +31,10 @@ export default function GridAllTables({
             </div>
           ))
         : allTables?.map((rest) => (
-            <div className="flex flex-col justify-around w-16 h-16 mx-auto border-2 border-green-500 rounded-md md:w-25 md:h-25 lg:w-35 lg:h-35 ">
+            <div
+              key={rest.id}
+              className="flex flex-col justify-around w-16 h-16 mx-auto border-2 border-green-500 rounded-md md:w-25 md:h-25 lg:w-35 lg:h-35 "
+            >
               <div className="flex flex-col justify-center w-5/6 mx-auto rounded-md h-5/6 hover:bg-green-200">
                 <div className="w-full text-center">{rest.name}</div>
               </div>

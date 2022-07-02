@@ -6,6 +6,7 @@ import FormAddReserved from "../form/FormAddReserved";
 import ListReserved from "../listReserved/ListReserved";
 import { GetReservedTimeZone } from "../../AllFetchApi";
 import { useRouter } from "next/router";
+import ModalWarnig from "../modal/ModalWarnig";
 
 export default function Dinner({ daySelected }) {
   const router = useRouter();
@@ -14,6 +15,7 @@ export default function Dinner({ daySelected }) {
   const [dataHour, setDataHour] = useState(null);
   const [reload, setReload] = useState(false);
   const [allReservedTimeZone, setallReservedTimeZone] = useState([]);
+  const [showModalWarning, setshowModalWarning] = useState(false);
 
   const totalPax = allReservedTimeZone
     .map((i) => i.pax)
@@ -23,6 +25,7 @@ export default function Dinner({ daySelected }) {
 
   useEffect(() => {
     GetReservedTimeZone(id, day, timezone, setallReservedTimeZone);
+    /* setshowModalWarning(true); */
   }, [reload, day, id, daySelected]);
 
   return (
@@ -68,6 +71,10 @@ export default function Dinner({ daySelected }) {
           />
         </BaseModal>
       ) : null}
+
+      {/* {showModalWarning ? (
+        <ModalWarnig setshowModalWarning={setshowModalWarning} />
+      ) : null} */}
     </div>
   );
 }
