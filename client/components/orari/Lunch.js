@@ -31,13 +31,13 @@ export default function Lunch({ daySelected, allTables, allWaiters }) {
   useEffect(() => {
     GetReservedTimeZone(id, day, timezone, setallReservedTimeZone);
 
-    allWaiters.length > 0
+    /* allWaiters.length > 0
       ? setShowModalWarning(false)
       : allWaiters.length < 1
       ? setShowModalWarning(true)
       : allWaiters.length === undefined
       ? setShowModalWarning(false)
-      : null;
+      : null; */
     /*  if (allWaiters === undefined ) {
       console.log("risposta falsa");
       setShowModalWarning(false);
@@ -95,9 +95,9 @@ export default function Lunch({ daySelected, allTables, allWaiters }) {
         </BaseModal>
       ) : null}
 
-      {showModalWarning === false ? null : (
+      {/* {showModalWarning === false ? null : (
         <ModalWarnig setShowModalWarning={setShowModalWarning} />
-      )}
+      )} */}
     </div>
   );
 }

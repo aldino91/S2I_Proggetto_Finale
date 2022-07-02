@@ -17,15 +17,15 @@ export default function HomeRestaurant() {
   const [data, setData] = useState([]);
   const [selectedDate, setSelectDate] = useState(new Date());
   const [daySelected, setDaySelected] = useState(false);
-  const [allWaiters, setAllWaiters] = useState();
-  const [allTables, setAllTables] = useState();
+  /*  const [allWaiters, setAllWaiters] = useState();
+  const [allTables, setAllTables] = useState(); */
 
   useEffect(() => {
     getAuthentication()
       .then((resp) => {
         fetchDataRestaurant(id, setData);
-        fetchGetTable(id, setAllTables);
-        fetchGetWaiters(id, setAllWaiters);
+        /* fetchGetTable(id, setAllTables);
+        fetchGetWaiters(id, setAllWaiters); */
       })
       .catch((e) => {
         router.push("/");
@@ -51,14 +51,14 @@ export default function HomeRestaurant() {
       {timezone === "lunch" ? (
         <Lunch
           daySelected={daySelected}
-          allTables={allTables}
-          allWaiters={allWaiters}
+          /*  allTables={allTables}
+          allWaiters={allWaiters} */
         />
       ) : (
         <Dinner
           daySelected={daySelected}
-          allTables={allTables}
-          allWaiters={allWaiters}
+          /* allTables={allTables}
+          allWaiters={allWaiters} */
         />
       )}
     </>

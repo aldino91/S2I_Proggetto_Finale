@@ -59,7 +59,7 @@ module.exports = {
         (usuario) => res.status(200).send(usuario),
         res.json({ msg: "dati salvati correttamente!" })
       )
-      .catch((error) => res.status(400).send(error));
+      .catch((error) => res.send(error.messagge));
   },
 
   SearchReservedTimezone(req, res) {
