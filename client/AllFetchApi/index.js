@@ -170,8 +170,8 @@ export const fetchAddReserved = async (
       timezone: timezone,
     });
 
-    await setOpenModal(false);
-    await router.reload();
+    setOpenModal(false);
+    router.reload();
     e.target.reset();
   } catch (error) {
     toast.error("Abbiamo problemi a realizzare la prenotazione!");

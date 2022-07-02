@@ -41,7 +41,7 @@ module.exports = {
             Client.findOne({
               where: { telephone, name },
             }).then(async (res) => {
-              Reserved.create({
+              await Reserved.create({
                 pax,
                 idClient: res.id,
                 hour,
