@@ -13,7 +13,7 @@ export default function ListReserved({
   setDataHour,
   setReload,
   reload,
-  allReservedTimeZone,
+  reserved,
 }) {
   const [showIconEdit, setShowIconEdit] = useState(false);
   const [dataReserved, setDataReserved] = useState();
@@ -48,15 +48,15 @@ export default function ListReserved({
         </button>
         <div className="flex flex-row justify-end w-1/3">
           {`${
-            allReservedTimeZone?.filter((item) => item.hour === orari).length
-          } Table/${allReservedTimeZone
+            reserved?.filter((item) => item.hour === orari).length
+          } Table/${reserved
             ?.filter((item) => item.hour === orari)
             .map((i) => i.pax)
             .reduce((prev, curr) => prev + curr, 0)}Pax`}
         </div>
       </div>
       <div className="grid w-full grid-cols-1 gap-2 px-2 pb-1 md:grid-cols-2 md:gap-2">
-        {allReservedTimeZone
+        {reserved
           ?.filter((item) => item.hour === orari)
           .map((res) => (
             <div key={res.id} className="p-1 my-1">
@@ -113,7 +113,7 @@ export default function ListReserved({
                   <ModalTables
                     setShowModalTable={setShowModalTable}
                     res={dataReserved}
-                    allReservedTimeZone={allReservedTimeZone}
+                    reserved={reserved}
                   />
                 ) : null}
               </div>

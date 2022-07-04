@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Head from "next/head";
 import {
   getAuthentication,
   fetchDataRestaurant,
   fetchGetTable,
   fetchGetWaiters,
+  GetReservedTimeZone,
 } from "../../../AllFetchApi/index";
 import { useRouter } from "next/router";
 import NavBarReserver from "../../../components/navbar/NavBarReserver";
@@ -13,24 +14,31 @@ import Dinner from "../../../components/orari/Dinner";
 
 export default function HomeRestaurant() {
   const router = useRouter();
-  const { id, timezone } = router.query;
+  const { id, timezone, day } = router.query;
   const [data, setData] = useState([]);
   const [selectedDate, setSelectDate] = useState(new Date());
   const [daySelected, setDaySelected] = useState(false);
-  /*  const [allWaiters, setAllWaiters] = useState();
-  const [allTables, setAllTables] = useState(); */
+  const [allReservedTimeZone, setAllReservedTimeZone] = useState();
 
   useEffect(() => {
     getAuthentication()
       .then((resp) => {
         fetchDataRestaurant(id, setData);
-        /* fetchGetTable(id, setAllTables);
-        fetchGetWaiters(id, setAllWaiters); */
+        GetReservedTimeZone(id, day, /* , timezone,*/ setAllReservedTimeZone);
+        console.log("siamo sulla pagina [day]");
       })
       .catch((e) => {
         router.push("/");
       });
-  }, [id, selectedDate, daySelected]);
+  }, [selectedDate, daySelected, id]);
+
+  const timeZoneLunch = allReservedTimeZone?.filter(
+    (zone) => zone.timezone === "lunch"
+  );
+
+  const timeZoneDinner = allReservedTimeZone?.filter(
+    (zone) => zone.timezone === "dinner"
+  );
 
   return (
     <>
@@ -47,20 +55,41 @@ export default function HomeRestaurant() {
         daySelected={daySelected}
         setDaySelected={setDaySelected}
       />
-
       {timezone === "lunch" ? (
         <Lunch
           daySelected={daySelected}
-          /*  allTables={allTables}
-          allWaiters={allWaiters} */
+          timeZoneLunch={timeZoneLunch}
+          id={id}
+          day={day}
         />
       ) : (
         <Dinner
           daySelected={daySelected}
-          /* allTables={allTables}
-          allWaiters={allWaiters} */
+          timeZoneDinner={timeZoneDinner}
+          id={id}
+          day={day}
         />
       )}
     </>
   );
 }
+
+/* {
+  timezone === "lunch" ? (
+    <Lunch
+      daySelected={daySelected}
+      id={id}
+      day={day}
+      /*  allTables={allTables}
+      allWaiters={allWaiters}
+     />
+  ) : (
+     <Dinner
+      daySelected={daySelected}
+      id={id}
+      day={day}
+      /* allTables={allTables}
+      allWaiters={allWaiters}
+     />
+  );
+} */

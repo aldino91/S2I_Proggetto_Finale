@@ -120,8 +120,8 @@ export const fetchDataRestaurant = async (id, setData) => {
   const url = process.env.NEXT_PUBLIC_URL_DATA_RESTAURANT;
   try {
     const resp = await axios.get(url + id);
-
     setData(resp.data);
+    console.log("chiediamo i dati del ristorante!");
     return resp;
   } catch (error) {
     console.log(error);
@@ -156,23 +156,27 @@ export const fetchAddReserved = async (
   setOpenModal,
   router
 ) => {
+  console.log(pax, name, telephone, hour, day, waiter, idRestaurant, timezone);
   const url = process.env.NEXT_PUBLIC_URL_RESERVED;
 
   try {
-    await axios.post(url, {
-      pax: pax,
-      name: name,
-      telephone: telephone,
-      hour: hour,
-      data: day,
-      waiter: waiter,
-      idRestaurant: idRestaurant,
-      timezone: timezone,
-    });
-
-    setOpenModal(false);
-    router.reload();
-    e.target.reset();
+    await axios
+      .post(url, {
+        pax: pax,
+        name: name,
+        telephone: telephone,
+        hour: hour,
+        data: day,
+        waiter: waiter,
+        idRestaurant: idRestaurant,
+        timezone: timezone,
+      })
+      .then((resp) => {
+        console.log(resp);
+        setOpenModal(false);
+        router.reload();
+        e.target.reset();
+      });
   } catch (error) {
     toast.error("Abbiamo problemi a realizzare la prenotazione!");
     console.log(error);
@@ -215,14 +219,15 @@ export const fetchUpdateReserved = async (
 export const GetReservedTimeZone = async (
   id,
   day,
-  timezone,
+  /* timezone, */
   setallReservedTimeZone
 ) => {
   const url = process.env.NEXT_PUBLIC_URL_RESERVED_TIMEZONE;
-  const query = `?idRestaurant=${id}&data=${day}&timezone=${timezone}`;
+  const query = `?idRestaurant=${id}&data=${day}`; /* &timezone=${timezone} */
   try {
     const resp = await axios.get(url + query);
     setallReservedTimeZone(resp.data);
+    console.log("chiediamo i dati  delle prenotazioni");
     return resp;
   } catch (error) {
     console.log(error);

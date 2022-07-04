@@ -12,6 +12,7 @@ export default function home() {
   const [reload, setReload] = useState(false);
   const [allRestaurant, setAllRestaurant] = useState([]);
   const router = useRouter();
+  const { id, day } = router.query;
 
   useEffect(() => {
     getAuthentication()

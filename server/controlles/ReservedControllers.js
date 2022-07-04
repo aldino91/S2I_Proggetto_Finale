@@ -4,6 +4,17 @@ module.exports = {
   async AddReserved(req, res) {
     const { pax, name, telephone, hour, data, waiter, idRestaurant, timezone } =
       req.body;
+    console.log(
+      /* pax,
+      name,
+      telephone,
+      hour,
+      data,
+      waiter,
+      idRestaurant,
+      timezone */
+      "stiamo aggiungengo una prenotazione!"
+    );
 
     await Client.findOne({
       where: { telephone: telephone, name: name },
@@ -14,23 +25,23 @@ module.exports = {
             name,
             telephone,
             idRestaurant,
-          });
-
-          await State.create({
-            statereserved: "reservation made",
-          }).then((resp) => {
-            Client.findOne({
-              where: { telephone, name },
-            }).then(async (res) => {
-              Reserved.create({
-                pax,
-                idClient: res.id,
-                hour,
-                data,
-                waiter,
-                idRestaurant,
-                timezone,
-                idState: resp.id,
+          }).then((response) => {
+            State.create({
+              statereserved: "reservation made",
+            }).then((resp) => {
+              Client.findOne({
+                where: { telephone, name },
+              }).then((res) => {
+                Reserved.create({
+                  pax,
+                  idClient: res.id,
+                  hour,
+                  data,
+                  waiter,
+                  idRestaurant,
+                  timezone,
+                  idState: resp.id,
+                });
               });
             });
           });
@@ -40,8 +51,8 @@ module.exports = {
           }).then((resp) => {
             Client.findOne({
               where: { telephone, name },
-            }).then(async (res) => {
-              await Reserved.create({
+            }).then((res) => {
+              Reserved.create({
                 pax,
                 idClient: res.id,
                 hour,
@@ -63,16 +74,23 @@ module.exports = {
   },
 
   SearchReservedTimezone(req, res) {
-    const { idRestaurant, data, timezone } = req.query;
+    const { idRestaurant, data /* timezone */ } = req.query;
+    console.log(
+      "questi sono i dati passati: ",
+      idRestaurant,
+      data /* timezone */
+    );
     Reserved.findAll({
-      where: { idRestaurant, data, timezone },
+      where: { idRestaurant, data /* timezone */ },
       include: [{ model: Client }, { model: State }],
     })
       .then((resp) => {
         res.send(resp);
+        console.log("Stiamo chiedendo le prenotazioni fatte!");
       })
       .catch((e) => {
         console.log(e);
+        console.log("Non possiamo chiedere le prenotazioni!");
       });
   },
 

@@ -8,31 +8,30 @@ import { GetReservedTimeZone } from "../../AllFetchApi";
 import { useRouter } from "next/router";
 import ModalWarnig from "../modal/ModalWarnig";
 
-export default function Dinner({ daySelected }) {
+export default function Dinner({
+  daySelected,
+  timeZoneDinner: reserved,
+  id,
+  day,
+}) {
   const router = useRouter();
-  const { day, id } = router.query;
   const [openModal, setOpenModal] = useState(false);
   const [dataHour, setDataHour] = useState(null);
   const [reload, setReload] = useState(false);
-  const [allReservedTimeZone, setallReservedTimeZone] = useState([]);
-  const [showModalWarning, setshowModalWarning] = useState(false);
-
-  const totalPax = allReservedTimeZone
-    .map((i) => i.pax)
-    .reduce((prev, curr) => prev + curr, 0);
 
   const timezone = "dinner";
 
-  useEffect(() => {
-    GetReservedTimeZone(id, day, timezone, setallReservedTimeZone);
-    /* setshowModalWarning(true); */
-  }, [reload, day, id, daySelected]);
+  const totalPax = reserved?
+    .map((i) => i.pax)
+    .reduce((prev, curr) => prev + curr, 0);
 
   return (
     <div className="w-full">
       <div className="flex flex-row justify-between py-2 text-white w-ful bg-slate-500">
         <h2 className="pl-2 text-left">Reserved Tables</h2>
-        <div className="pr-2">{`${allReservedTimeZone.length} Table/${totalPax} Pax`}</div>
+        {
+          <div className="pr-2">{`${reserved?.length} Table/${totalPax} Pax`}</div>
+        }
       </div>
 
       <div className="w-full">
@@ -47,7 +46,7 @@ export default function Dinner({ daySelected }) {
             setReload={setReload}
             reload={reload}
             daySelected={daySelected}
-            allReservedTimeZone={allReservedTimeZone}
+            reserved={reserved}
           />
         ))}
       </div>
@@ -71,10 +70,6 @@ export default function Dinner({ daySelected }) {
           />
         </BaseModal>
       ) : null}
-
-      {/* {showModalWarning ? (
-        <ModalWarnig setshowModalWarning={setshowModalWarning} />
-      ) : null} */}
     </div>
   );
 }
