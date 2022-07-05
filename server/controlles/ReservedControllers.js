@@ -12,6 +12,7 @@ module.exports = {
       idRestaurant,
       timezone,
     } = req.body;
+    console.log(client);
 
     try {
       console.log("stiamo aggiungengo una prenotazione!");

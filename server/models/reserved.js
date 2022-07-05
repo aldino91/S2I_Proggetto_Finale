@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Reserved.init(
     {
       pax: DataTypes.INTEGER,
+      client: DataTypes.STRING,
       hour: DataTypes.STRING,
       data: DataTypes.STRING,
       waiter: DataTypes.STRING,

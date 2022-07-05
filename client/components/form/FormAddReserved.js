@@ -43,7 +43,6 @@ export default function FormAddReserved({
       setLoading,
       setOpenModal
     );
-    /* setOpenModal(false); */
   };
 
   return (

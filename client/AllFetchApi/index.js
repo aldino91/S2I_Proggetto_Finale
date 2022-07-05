@@ -155,6 +155,7 @@ export const fetchAddReserved = async (
   setLoading,
   setOpenModal
 ) => {
+  console.log(name);
   const url = process.env.NEXT_PUBLIC_URL_RESERVED;
   try {
     setLoading(true);
