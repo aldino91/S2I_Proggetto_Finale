@@ -41,7 +41,8 @@ export default function FormAddReserved({
       idRestaurant,
       timezone,
       setLoading,
-      setOpenModal
+      setOpenModal,
+      router
     );
   };
 

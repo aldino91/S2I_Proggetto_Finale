@@ -13,11 +13,13 @@ export default function Dinner({
   timeZoneDinner: reserved,
   id,
   day,
+  router,
+  setReload,
+  reload,
 }) {
-  const router = useRouter();
   const [openModal, setOpenModal] = useState(false);
   const [dataHour, setDataHour] = useState(null);
-  const [reload, setReload] = useState(false);
+
 
   const timezone = "dinner";
 

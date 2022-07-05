@@ -10,7 +10,6 @@ import {
   fetchGetWaiters,
   GetReservedTimeZone,
 } from "../../AllFetchApi";
-import { useRouter } from "next/router";
 import ModalWarnig from "../modal/ModalWarnig";
 
 export default function Lunch({
@@ -18,11 +17,14 @@ export default function Lunch({
   timeZoneLunch: reserved,
   id,
   day,
+  router,
+  setReload,
+  reload
 }) {
-  const router = useRouter();
+
   const [openModal, setOpenModal] = useState(false);
   const [dataHour, setDataHour] = useState(null);
-  const [reload, setReload] = useState(false);
+
 
   const timezone = "lunch";
 

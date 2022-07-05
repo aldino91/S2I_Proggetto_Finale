@@ -7,15 +7,11 @@ import IconClose from "../icons/IconClose";
 import StateCurrent from "../listReserved/StateCurrent";
 import BaseModal from "./BaseModal";
 
-export default function ModalTables({
-  setShowModalTable,
-  res,
-  allReservedTimeZone,
-}) {
+export default function ModalTables({ setShowModalTable, res, reserved }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const allTablesReservation = allReservedTimeZone.map((tab) => tab.tables);
+  const allTablesReservation = reserved.map((tab) => tab.tables);
   const stringAllTables = allTablesReservation.toString();
   const arrayTables = stringAllTables.split(",");
 
@@ -83,7 +79,7 @@ export default function ModalTables({
             <div>
               <div className="flex flex-row items-center justify-between px-2">
                 <StateCurrent stateCurrent={res.State.statereserved} />
-                <p className="font-semibold capitalize">{res.Client.name}</p>
+                <p className="font-semibold capitalize">{res.client}</p>
                 <p>{res.pax} pax</p>
               </div>
 

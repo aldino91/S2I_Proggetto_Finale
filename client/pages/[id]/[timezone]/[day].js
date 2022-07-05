@@ -19,6 +19,7 @@ export default function HomeRestaurant() {
   const [selectedDate, setSelectDate] = useState(new Date());
   const [daySelected, setDaySelected] = useState(false);
   const [allReservedTimeZone, setAllReservedTimeZone] = useState();
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     getAuthentication()
@@ -29,7 +30,7 @@ export default function HomeRestaurant() {
       .catch((e) => {
         router.push("/");
       });
-  }, [selectedDate, daySelected, id]);
+  }, [selectedDate, daySelected, id, reload]);
 
   const timeZoneLunch = allReservedTimeZone?.filter(
     (zone) => zone.timezone === "lunch"
@@ -60,6 +61,9 @@ export default function HomeRestaurant() {
           timeZoneLunch={timeZoneLunch}
           id={id}
           day={day}
+          router={router}
+          setReload={setReload}
+          reload={reload}
         />
       ) : (
         <Dinner
@@ -67,6 +71,9 @@ export default function HomeRestaurant() {
           timeZoneDinner={timeZoneDinner}
           id={id}
           day={day}
+          router={router}
+          setReload={setReload}
+          reload={reload}
         />
       )}
     </>

@@ -59,7 +59,7 @@ export default function StateReserved({ state, res, reload, setReload }) {
                   <div>|</div>
                   <div>{res.pax}PAX</div>
                   <div>|</div>
-                  <div className="capitalize">{res.Client.name}</div>
+                  <div className="capitalize">{res.client}</div>
                 </div>
               </div>
               <div className="flex flex-col space-y-4">

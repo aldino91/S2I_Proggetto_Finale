@@ -15,7 +15,6 @@ module.exports = {
     console.log(client);
 
     try {
-      console.log("stiamo aggiungengo una prenotazione!");
       State.create({
         statereserved: "reservation made",
       })

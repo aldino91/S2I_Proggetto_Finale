@@ -153,9 +153,9 @@ export const fetchAddReserved = async (
   idRestaurant,
   timezone,
   setLoading,
-  setOpenModal
+  setOpenModal,
+  router
 ) => {
-  console.log(name);
   const url = process.env.NEXT_PUBLIC_URL_RESERVED;
   try {
     setLoading(true);
@@ -172,6 +172,7 @@ export const fetchAddReserved = async (
     toast.success("prenotazione realizzata");
     setLoading(false);
     setOpenModal(false);
+    router.reload();
   } catch (error) {
     console.log(error);
     setLoading(false);
