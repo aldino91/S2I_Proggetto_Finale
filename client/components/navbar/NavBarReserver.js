@@ -15,6 +15,7 @@ import ModalConfiguration from "../modal/ModalConfiguration";
 
 export default function NavBarReserver({
   data,
+  selectedDate,
   setSelectDate,
   id,
   daySelected,

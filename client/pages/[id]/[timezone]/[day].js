@@ -30,7 +30,7 @@ export default function HomeRestaurant() {
       .catch((e) => {
         router.push("/");
       });
-  }, [selectedDate, daySelected, id, reload]);
+  }, [selectedDate, daySelected, id, day]);
 
   const timeZoneLunch = allReservedTimeZone?.filter(
     (zone) => zone.timezone === "lunch"
@@ -79,23 +79,3 @@ export default function HomeRestaurant() {
     </>
   );
 }
-
-/* {
-  timezone === "lunch" ? (
-    <Lunch
-      daySelected={daySelected}
-      id={id}
-      day={day}
-      /*  allTables={allTables}
-      allWaiters={allWaiters}
-     />
-  ) : (
-     <Dinner
-      daySelected={daySelected}
-      id={id}
-      day={day}
-      /* allTables={allTables}
-      allWaiters={allWaiters}
-     />
-  );
-} */
