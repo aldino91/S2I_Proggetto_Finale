@@ -25,8 +25,8 @@ export default function FormEditReserved({
 }) {
   const [allWaiters, setAllWaiters] = useState();
   const [pax, setPax] = useState(res.pax);
-  const name = res.Client.name;
-  const telephone = res.Client.telephone;
+  const name = res.client;
+  const telephone = res.telephone;
   const [hour, setHour] = useState(res.hour);
   const [waiter, setWaiter] = useState();
   const [chosenDay, setChosenDay] = useState();

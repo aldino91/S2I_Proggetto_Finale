@@ -24,6 +24,7 @@ module.exports = {
             client,
             hour,
             data,
+            telephone,
             waiter,
             idRestaurant,
             timezone,
