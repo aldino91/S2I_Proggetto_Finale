@@ -31,7 +31,7 @@ router.delete("/restaurant/delete/:id", RestaurantControllers.deleteRestaurant);
 // Reserved
 
 router.post("/reserved", ReservedControllers.AddReserved);
-router.get("/reserved/timezone", ReservedControllers.SearchReservedTimezone);
+router.get("/reserved/", ReservedControllers.getReserved);
 router.put("/reserved", ReservedControllers.UpdateResereved);
 router.put("/addtables", ReservedControllers.AddTablesReserved);
 

@@ -211,7 +211,7 @@ export const fetchUpdateReserved = async (
   }
 };
 
-export const GetReservedTimeZone = async (
+export const GetReserved = async (
   id,
   day,
   /* timezone, */

@@ -8,11 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "idRestaurant",
         onDelete: "CASCADE",
       });
-      Reserved.belongsTo(models.Client, {
-        foreignKey: "idClient",
-        onDelete: "CASCADE",
-      });
-
       Reserved.belongsTo(models.State, {
         foreignKey: "idState",
         onDelete: "CASCADE",
@@ -22,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
   Reserved.init(
     {
       pax: DataTypes.INTEGER,
-      idClient: DataTypes.INTEGER,
       hour: DataTypes.STRING,
       data: DataTypes.STRING,
       waiter: DataTypes.STRING,

@@ -5,7 +5,7 @@ import {
   fetchDataRestaurant,
   fetchGetTable,
   fetchGetWaiters,
-  GetReservedTimeZone,
+  GetReserved,
 } from "../../../AllFetchApi/index";
 import { useRouter } from "next/router";
 import NavBarReserver from "../../../components/navbar/NavBarReserver";
@@ -24,7 +24,7 @@ export default function HomeRestaurant() {
     getAuthentication()
       .then((resp) => {
         fetchDataRestaurant(id, setData);
-        GetReservedTimeZone(id, day, /* , timezone,*/ setAllReservedTimeZone);
+        GetReserved(id, day, setAllReservedTimeZone);
       })
       .catch((e) => {
         router.push("/");
