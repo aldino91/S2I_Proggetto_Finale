@@ -4,6 +4,7 @@ import IconPlusSmall from "../icons/IconPlusSmall";
 import IconReserved from "../icons/IconReserved";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
+import RingLoader from "react-spinners/RingLoader";
 
 export default function FormAddReserved({
   dataHour,
@@ -20,8 +21,8 @@ export default function FormAddReserved({
   const day = data;
   const idRestaurant = id;
   const [waiter, setWaiter] = useState(null);
-
   const [allWaiters, setAllWaiters] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchGetWaiters(id, setAllWaiters);
@@ -39,9 +40,10 @@ export default function FormAddReserved({
       waiter,
       idRestaurant,
       timezone,
-      setOpenModal,
-      router
+      setLoading,
+      setOpenModal
     );
+    /* setOpenModal(false); */
   };
 
   return (
@@ -114,10 +116,14 @@ export default function FormAddReserved({
           type="submit"
           className="flex flex-row justify-center p-2 text-white bg-green-500 rounded-md"
         >
-          <div className="flex flex-row items-center">
-            <IconPlusSmall />
-            <IconReserved />
-          </div>
+          {!loading ? (
+            <div className="flex flex-row items-center">
+              <IconPlusSmall />
+              <IconReserved />
+            </div>
+          ) : (
+            <RingLoader color="#ffffff" loading={loading} size={20} />
+          )}
         </button>
       </div>
     </form>

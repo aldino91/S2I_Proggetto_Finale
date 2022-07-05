@@ -25,7 +25,6 @@ export default function HomeRestaurant() {
       .then((resp) => {
         fetchDataRestaurant(id, setData);
         GetReservedTimeZone(id, day, /* , timezone,*/ setAllReservedTimeZone);
-        console.log("siamo sulla pagina [day]");
       })
       .catch((e) => {
         router.push("/");

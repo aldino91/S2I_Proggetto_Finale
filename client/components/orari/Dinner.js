@@ -63,8 +63,6 @@ export default function Dinner({
             data={day}
             id={id}
             setOpenModal={setOpenModal}
-            setReload={setReload}
-            reload={reload}
             timezone={timezone}
             router={router}
           />

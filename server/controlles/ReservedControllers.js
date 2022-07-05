@@ -4,34 +4,29 @@ module.exports = {
   async AddReserved(req, res) {
     const { pax, name, telephone, hour, data, waiter, idRestaurant, timezone } =
       req.body;
-    console.log(
-      /* pax,
-      name,
-      telephone,
-      hour,
-      data,
-      waiter,
-      idRestaurant,
-      timezone */
-      "stiamo aggiungengo una prenotazione!"
-    );
 
-    await Client.findOne({
-      where: { telephone: telephone, name: name },
-    })
-      .then(async (res) => {
+    try {
+      await console.log("stiamo aggiungengo una prenotazione!");
+
+      await Client.findOne({
+        where: { telephone: telephone, name: name },
+      }).then((res) => {
+        console.log("Cliente trovato! 1");
         if (!res) {
-          await Client.create({
+          Client.create({
             name,
             telephone,
             idRestaurant,
           }).then((response) => {
+            console.log("Cliente Creato! 1");
             State.create({
               statereserved: "reservation made",
             }).then((resp) => {
+              console.log("STATE CREATO! 1");
               Client.findOne({
                 where: { telephone, name },
               }).then((res) => {
+                console.log("Cliente trovato! 2");
                 Reserved.create({
                   pax,
                   idClient: res.id,
@@ -41,17 +36,21 @@ module.exports = {
                   idRestaurant,
                   timezone,
                   idState: resp.id,
+                }).then((reserved) => {
+                  console.log("prenotazione creata! 1");
                 });
               });
             });
           });
         } else {
-          await State.create({
+          State.create({
             statereserved: "reservation made",
           }).then((resp) => {
+            console.log("STATE CREATO! 2");
             Client.findOne({
               where: { telephone, name },
             }).then((res) => {
+              console.log("Cliente trovato! 3");
               Reserved.create({
                 pax,
                 idClient: res.id,
@@ -61,16 +60,18 @@ module.exports = {
                 idRestaurant,
                 timezone,
                 idState: resp.id,
+              }).then((response) => {
+                console.log("Cliente creato correttamente! 3");
               });
             });
           });
         }
-      })
-      .then(
-        (usuario) => res.status(200).send(usuario),
-        res.json({ msg: "dati salvati correttamente!" })
-      )
-      .catch((error) => res.send(error.messagge));
+      });
+
+      res.status().send(200);
+    } catch (error) {
+      console.log(error.messagge);
+    }
   },
 
   SearchReservedTimezone(req, res) {
@@ -166,3 +167,66 @@ module.exports = {
       });
   },
 };
+/* Client.findOne({
+      where: { telephone: telephone, name: name },
+    })
+      .then((res) => {
+        console.log("Cliente trovato! 1");
+        if (!res) {
+          Client.create({
+            name,
+            telephone,
+            idRestaurant,
+          }).then((response) => {
+            console.log("Cliente Creato! 1");
+            State.create({
+              statereserved: "reservation made",
+            }).then((resp) => {
+              console.log("STATE CREATO! 1");
+              Client.findOne({
+                where: { telephone, name },
+              }).then((res) => {
+                console.log("Cliente trovato! 2");
+                Reserved.create({
+                  pax,
+                  idClient: res.id,
+                  hour,
+                  data,
+                  waiter,
+                  idRestaurant,
+                  timezone,
+                  idState: resp.id,
+                }).then((reserved) => console.log("prenotazione creata! 1"));
+              });
+            });
+          });
+        } else {
+          State.create({
+            statereserved: "reservation made",
+          }).then((resp) => {
+            console.log("STATE CREATO! 2");
+            Client.findOne({
+              where: { telephone, name },
+            }).then((res) => {
+              console.log("Cliente trovato! 2");
+              Reserved.create({
+                pax,
+                idClient: res.id,
+                hour,
+                data,
+                waiter,
+                idRestaurant,
+                timezone,
+                idState: resp.id,
+              }).then((res) => console.log("Cliente trovato! 3"));
+            });
+          });
+        } */
+/* }).then(
+        (usuario) => res.status(200)
+            res.json({ msg: "dati salvati correttamente!" })
+            console.log("prenotazione realizzata con successo!! 2")
+
+      )
+      .catch((error) => res.send(error.messagge));
+    console.log("abbiamo problemi ad realizzare la prenotazione!! 2"); */

@@ -121,7 +121,6 @@ export const fetchDataRestaurant = async (id, setData) => {
   try {
     const resp = await axios.get(url + id);
     setData(resp.data);
-    console.log("chiediamo i dati del ristorante!");
     return resp;
   } catch (error) {
     console.log(error);
@@ -153,33 +152,29 @@ export const fetchAddReserved = async (
   waiter,
   idRestaurant,
   timezone,
-  setOpenModal,
-  router
+  setLoading,
+  setOpenModal
 ) => {
-  console.log(pax, name, telephone, hour, day, waiter, idRestaurant, timezone);
   const url = process.env.NEXT_PUBLIC_URL_RESERVED;
-
   try {
-    await axios
-      .post(url, {
-        pax: pax,
-        name: name,
-        telephone: telephone,
-        hour: hour,
-        data: day,
-        waiter: waiter,
-        idRestaurant: idRestaurant,
-        timezone: timezone,
-      })
-      .then((resp) => {
-        console.log(resp);
-        setOpenModal(false);
-        router.reload();
-        e.target.reset();
-      });
+    setLoading(true);
+    await axios.post(url, {
+      pax: pax,
+      name: name,
+      telephone: telephone,
+      hour: hour,
+      data: day,
+      waiter: waiter,
+      idRestaurant: idRestaurant,
+      timezone: timezone,
+    });
+    toast.success("prenotazione realizzata");
+    setLoading(false);
+    setOpenModal(false);
   } catch (error) {
-    toast.error("Abbiamo problemi a realizzare la prenotazione!");
     console.log(error);
+    setLoading(false);
+    toast.error("Abbiamo problemi a realizzare la prenotazione!");
   }
 };
 
@@ -227,7 +222,6 @@ export const GetReservedTimeZone = async (
   try {
     const resp = await axios.get(url + query);
     setallReservedTimeZone(resp.data);
-    console.log("chiediamo i dati  delle prenotazioni");
     return resp;
   } catch (error) {
     console.log(error);
