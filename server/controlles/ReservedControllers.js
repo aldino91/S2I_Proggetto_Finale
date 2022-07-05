@@ -2,8 +2,16 @@ const { Reserved, State } = require("../models/index");
 
 module.exports = {
   async AddReserved(req, res) {
-    const { pax, name, telephone, hour, data, waiter, idRestaurant, timezone } =
-      req.body;
+    const {
+      pax,
+      client,
+      telephone,
+      hour,
+      data,
+      waiter,
+      idRestaurant,
+      timezone,
+    } = req.body;
 
     try {
       console.log("stiamo aggiungengo una prenotazione!");
@@ -13,6 +21,7 @@ module.exports = {
         .then((resp) => {
           Reserved.create({
             pax,
+            client,
             hour,
             data,
             waiter,

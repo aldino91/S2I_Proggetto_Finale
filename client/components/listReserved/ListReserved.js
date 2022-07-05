@@ -70,7 +70,7 @@ export default function ListReserved({
                   />
                   <div className="flex flex-col">
                     <div className="text-xl capitalize font-base">
-                      {res.Client.name}
+                      {res.client}
                     </div>
                     <div className="flex flex-row items-center">
                       <p className="capitalize font-base text-normal">

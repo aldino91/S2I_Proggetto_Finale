@@ -160,7 +160,7 @@ export const fetchAddReserved = async (
     setLoading(true);
     await axios.post(url, {
       pax: pax,
-      name: name,
+      client: name,
       telephone: telephone,
       hour: hour,
       data: day,
@@ -211,14 +211,9 @@ export const fetchUpdateReserved = async (
   }
 };
 
-export const GetReserved = async (
-  id,
-  day,
-  /* timezone, */
-  setallReservedTimeZone
-) => {
+export const GetReserved = async (id, day, setallReservedTimeZone) => {
   const url = process.env.NEXT_PUBLIC_URL_RESERVED_TIMEZONE;
-  const query = `?idRestaurant=${id}&data=${day}`; /* &timezone=${timezone} */
+  const query = `?idRestaurant=${id}&data=${day}`;
   try {
     const resp = await axios.get(url + query);
     setallReservedTimeZone(resp.data);
