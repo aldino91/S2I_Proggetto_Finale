@@ -32,7 +32,7 @@ export default function FormAddWaiter({ setReload, reload, id }) {
 
         <button
           type="submit"
-          className="flex flex-row justify-center p-2 text-white bg-green-400 rounded-md"
+          className="flex flex-row justify-center p-2 text-white bg-green-500 rounded-md"
         >
           <IconWaiter />
         </button>

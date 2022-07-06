@@ -14,7 +14,7 @@ module.exports = {
     } = req.body;
 
     try {
-      State.create({
+      await State.create({
         statereserved: "reservation made",
       })
         .then((resp) => {
@@ -41,13 +41,13 @@ module.exports = {
 
   getReserved(req, res) {
     const { idRestaurant, data } = req.query;
+    console.log("get Reserved");
     Reserved.findAll({
       where: { idRestaurant, data },
       include: [{ model: State }],
     })
       .then((resp) => {
         res.send(resp);
-        console.log("Stiamo chiedendo le prenotazioni fatte!");
       })
       .catch((e) => {
         console.log(e);

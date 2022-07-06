@@ -154,7 +154,8 @@ export const fetchAddReserved = async (
   timezone,
   setLoading,
   setOpenModal,
-  router
+  reload,
+  setReload
 ) => {
   const url = process.env.NEXT_PUBLIC_URL_RESERVED;
   try {
@@ -172,7 +173,7 @@ export const fetchAddReserved = async (
     toast.success("prenotazione realizzata");
     setLoading(false);
     setOpenModal(false);
-    router.reload();
+    setReload(!reload);
   } catch (error) {
     console.log(error);
     setLoading(false);
@@ -289,7 +290,14 @@ export const fetchUpdateStateReserved = async (
   }
 };
 
-export const fetchAddTable = async (name, id, setLoading) => {
+export const fetchAddTable = async (
+  e,
+  name,
+  id,
+  setLoading,
+  realod,
+  setRealod
+) => {
   const url = process.env.NEXT_PUBLIC_URL_TABLE;
 
   try {
@@ -297,6 +305,8 @@ export const fetchAddTable = async (name, id, setLoading) => {
     await axios.post(url, { name: name, idRestaurant: id });
     toast.success("tavolo salvato");
     setLoading(false);
+    setRealod(!realod);
+    e.target.reset();
   } catch (error) {
     console.log(error);
     toast.error("Non riusciamo a salvare il tavolo!");
@@ -310,7 +320,7 @@ export const fetchGetTable = async (id, setAllTables) => {
     const tables = await axios.get(url);
     await setAllTables(tables.data);
   } catch (error) {
-    console.log(tables);
+    console.log(error);
   }
 };
 

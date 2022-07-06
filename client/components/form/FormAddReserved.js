@@ -12,7 +12,8 @@ export default function FormAddReserved({
   id,
   setOpenModal,
   timezone,
-  router,
+  reload,
+  setReload,
 }) {
   const [name, setName] = useState("");
   const [pax, setPax] = useState(2);
@@ -42,7 +43,8 @@ export default function FormAddReserved({
       timezone,
       setLoading,
       setOpenModal,
-      router
+      reload,
+      setReload
     );
   };
 

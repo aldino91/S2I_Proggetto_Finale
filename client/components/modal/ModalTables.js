@@ -111,14 +111,13 @@ export default function ModalTables({ setShowModalTable, res, reserved }) {
             </div>
           </div>
         </div>
-        <div className="w-full h-2/4 bg-slate-100">
-          <GridAllTables
-            allTables={allTables}
-            chosenTables={chosenTables}
-            busyTable={busyTable}
-            localStorageTables={localStorageTables}
-          />
-        </div>
+
+        {/* <GridAllTables
+          allTables={allTables}
+          chosenTables={chosenTables}
+          busyTable={busyTable}
+          localStorageTables={localStorageTables}
+        /> */}
       </div>
     </BaseModal>
   );

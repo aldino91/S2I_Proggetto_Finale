@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import NavBarReserver from "../../../components/navbar/NavBarReserver";
 import Lunch from "../../../components/orari/Lunch";
 import Dinner from "../../../components/orari/Dinner";
+import ModalWarnig from "../../../components/modal/ModalWarnig";
 
 export default function HomeRestaurant() {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function HomeRestaurant() {
   const [daySelected, setDaySelected] = useState(false);
   const [allReservedTimeZone, setAllReservedTimeZone] = useState();
   const [reload, setReload] = useState(false);
+  const [showModalWarning, setShowModalWarning] = useState(true);
 
   useEffect(() => {
     getAuthentication()
@@ -30,7 +32,7 @@ export default function HomeRestaurant() {
       .catch((e) => {
         router.push("/");
       });
-  }, [selectedDate, daySelected, id, day]);
+  }, [selectedDate, daySelected, id, day, reload]);
 
   const timeZoneLunch = allReservedTimeZone?.filter(
     (zone) => zone.timezone === "lunch"
@@ -61,7 +63,6 @@ export default function HomeRestaurant() {
           timeZoneLunch={timeZoneLunch}
           id={id}
           day={day}
-          router={router}
           setReload={setReload}
           reload={reload}
         />
@@ -71,11 +72,14 @@ export default function HomeRestaurant() {
           timeZoneDinner={timeZoneDinner}
           id={id}
           day={day}
-          router={router}
           setReload={setReload}
           reload={reload}
         />
       )}
+
+      {showModalWarning ? (
+        <ModalWarnig id={id} setShowModalWarning={setShowModalWarning} />
+      ) : null}
     </>
   );
 }

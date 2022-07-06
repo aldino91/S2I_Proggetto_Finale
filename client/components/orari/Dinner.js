@@ -13,7 +13,6 @@ export default function Dinner({
   timeZoneDinner: reserved,
   id,
   day,
-  router,
   setReload,
   reload,
 }) {
@@ -66,7 +65,8 @@ export default function Dinner({
             id={id}
             setOpenModal={setOpenModal}
             timezone={timezone}
-            router={router}
+            reload={reload}
+            setReload={setReload}
           />
         </BaseModal>
       ) : null}

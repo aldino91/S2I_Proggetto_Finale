@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import AddTables from "../../components/AddTables";
 import Navbar from "../../components/navbar/Navbar";
 import { getAuthentication, fetchGetTable } from "../../AllFetchApi";
 import { useRouter } from "next/router";
 import GridAllTables from "../../components/GridAllTables";
+import FormAddTable from "../../components/form/FormAddTable";
+import IconBack from "../../components/icons/IconBack";
 
 export default function restaurant() {
-  const [allTables, setAllTables] = useState([]);
+  const [reload, setReload] = useState(false);
 
   const router = useRouter();
   const { id } = router.query;
@@ -15,13 +16,13 @@ export default function restaurant() {
   useEffect(() => {
     getAuthentication()
       .then((resp) => {
-        fetchGetTable(id, setAllTables);
+        console.log("usuario Autenticato");
       })
       .catch((e) => {
         console.log(e);
         router.push("/");
       });
-  }, [id]);
+  }, [id, reload]);
   return (
     <>
       <Head>
@@ -30,8 +31,14 @@ export default function restaurant() {
         <link rel="icon" href="/icono-app.ico" />
       </Head>
       <Navbar />
-      <AddTables />
-      <GridAllTables allTables={allTables} />
+      <div
+        onClick={() => router.back()}
+        className="absolute p-2 rounded-md top-2 left-2 hover:bg-green-300 md:mr-10"
+      >
+        <IconBack />
+      </div>
+      <FormAddTable id={id} reload={reload} setReload={setReload} />
+      <GridAllTables id={id} reload={reload} setReload={setReload} />
     </>
   );
 }

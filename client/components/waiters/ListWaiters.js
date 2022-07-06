@@ -7,7 +7,7 @@ export default function ListWaiters({ id, reload, setReload }) {
 
   useEffect(() => {
     fetchGetWaiters(id, setAllWaiters);
-  }, [reload]);
+  }, [id, reload]);
 
   function deleteWaiter(idWaiter, setReload, reload) {
     fetchDeleteWaiter(idWaiter, setReload, reload);
@@ -20,7 +20,7 @@ export default function ListWaiters({ id, reload, setReload }) {
         {allWaiters?.map((resp) => (
           <div
             key={resp.id}
-            className="flex flex-row justify-between w-full p-2 text-white bg-green-400 border-2 rounded-md"
+            className="flex flex-row justify-between w-full p-2 text-white bg-green-500 border-2 rounded-md"
           >
             {resp.name}
             <div

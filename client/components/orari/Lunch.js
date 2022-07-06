@@ -10,14 +10,12 @@ import {
   fetchGetWaiters,
   GetReservedTimeZone,
 } from "../../AllFetchApi";
-import ModalWarnig from "../modal/ModalWarnig";
 
 export default function Lunch({
   daySelected,
   timeZoneLunch: reserved,
   id,
   day,
-  router,
   setReload,
   reload
 }) {
@@ -75,7 +73,8 @@ export default function Lunch({
             id={id}
             setOpenModal={setOpenModal}
             timezone={timezone}
-            router={router}
+            reload={reload}
+            setReload={setReload}
           />
         </BaseModal>
       ) : null}
