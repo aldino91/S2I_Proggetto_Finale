@@ -3,7 +3,7 @@ import Head from "next/head";
 import Navbar from "../../components/navbar/Navbar";
 import { getAuthentication, fetchGetTable } from "../../AllFetchApi";
 import { useRouter } from "next/router";
-import GridAllTables from "../../components/GridAllTables";
+import GridAllTables from "../../components/tables/GridAllTables";
 import FormAddTable from "../../components/form/FormAddTable";
 import IconBack from "../../components/icons/IconBack";
 

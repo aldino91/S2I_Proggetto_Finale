@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 
 import { useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -80,4 +80,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp
+export default MyApp;

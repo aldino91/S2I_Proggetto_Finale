@@ -12,8 +12,11 @@ export default function FormAddTable({ id, reload, setReload }) {
     fetchAddTable(e, name, id, setLoading, reload, setReload);
   };
   return (
-    <form className="w-full mx-auto my-10" onSubmit={handleSubmit}>
-      <div className="flex flex-col w-5/6 lg:w-3/6 p-3 mx-auto space-y-4 bg-white rounded-md shadow-md shadow-slate-400">
+    <form
+      className="w-full mx-auto  mt-10 mb-10 lg:w-2/3"
+      onSubmit={handleSubmit}
+    >
+      <div className="flex flex-col  lg:w-5/6 p-3 mx-auto space-y-4 bg-white rounded-md shadow-md shadow-slate-400">
         <div className="text-center text-green-500">New Table</div>
 
         <input

@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { fetchGetTable, fetchSaveTables } from "../../AllFetchApi";
-import GridAllTables from "../GridAllTables";
 
 import IconClose from "../icons/IconClose";
 import StateCurrent from "../listReserved/StateCurrent";

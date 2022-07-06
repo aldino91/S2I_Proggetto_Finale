@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchGetTable } from "../AllFetchApi";
+import { fetchGetTable } from "../../AllFetchApi/index";
 
 export default function GridAllTables({
   id,
