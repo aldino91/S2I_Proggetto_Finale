@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .sfondo {
-  background-image: url(../public/sfondo.jpg);
+  background-image: url(../public/Sfondo.jpg);
   background-color: #cccccc;
   height: 100vh;
   background-position: center;
