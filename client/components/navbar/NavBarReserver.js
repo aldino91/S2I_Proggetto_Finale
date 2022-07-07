@@ -61,7 +61,7 @@ export default function NavBarReserver({
   }
 
   return (
-    <div className="w-full font-mono bg-green-500">
+    <div className="w-full font-mono bg-green-500 shadow-md shadow-slate-400">
       <div className="flex flex-row items-center justify-center py-4 border-b-2 border-slate-100">
         <Image
           src="/reserved-table.png"
@@ -69,7 +69,7 @@ export default function NavBarReserver({
           width={40}
           height={40}
         />
-        <div className="px-2 text-xl text-white">TControl</div>
+        <div className="px-2 text-xl text-white">T-Control</div>
       </div>
 
       <div className="flex flex-col justify-around p-1 lg:flex-row">

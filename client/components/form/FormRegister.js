@@ -17,7 +17,7 @@ export default function FormRegister({ changeForm }) {
   return (
     <div className="w-full font-mono">
       <form className="w-full mx-auto my-20 lg:w-1/2" onSubmit={handleSubmit}>
-        <div className="flex flex-col w-2/3 p-3 mx-auto space-y-4 rounded-md shadow-md shadow-slate-400">
+        <div className="flex flex-col w-2/3 p-3 mx-auto space-y-4 rounded-md shadow-md shadow-slate-400 bg-white">
           <div className="text-center text-green-500">Register</div>
           <input
             type="text"

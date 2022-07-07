@@ -37,8 +37,10 @@ export default function restaurant() {
       >
         <IconBack />
       </div>
-      <FormAddTable id={id} reload={reload} setReload={setReload} />
-      <GridAllTables id={id} reload={reload} setReload={setReload} />
+      <div className="sfondo">
+        <FormAddTable id={id} reload={reload} setReload={setReload} />
+        <GridAllTables id={id} reload={reload} setReload={setReload} />
+      </div>
     </>
   );
 }

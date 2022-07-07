@@ -16,8 +16,8 @@ export default function GridAllTables({
   }, [id, reload]);
 
   return (
-    <div className="w-full h-2/4 bg-slate-100 shadow-md shadow-slate-400 border rounded-md">
-      <div className="grid w-full grid-cols-4 gap-1 p-4 bg-gray-100 md:grid-cols-7 lg:grid-cols-8 lg:gap-2">
+    <div className="w-full h-2/4 bg-neutral-300 bg-opacity-70 shadow-md shadow-slate-400 border rounded-md">
+      <div className="grid w-full grid-cols-4 gap-1 p-4 md:grid-cols-7 lg:grid-cols-8 lg:gap-2">
         {chosenTables
           ? allTables?.map((rest) => (
               <div
