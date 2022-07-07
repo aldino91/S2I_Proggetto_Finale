@@ -10,6 +10,8 @@ import {
   fetchGetWaiters,
   GetReservedTimeZone,
 } from "../../AllFetchApi";
+import Navbar from "../navbar/Navbar";
+import ModalAddReserved from "../modal/ModalAddReserved";
 
 export default function Lunch({
   daySelected,
@@ -60,23 +62,7 @@ export default function Lunch({
         ))}
       </div>
       {openModal ? (
-        <BaseModal>
-          <div
-            onClick={() => setOpenModal(false)}
-            className="absolute top-2 right-2"
-          >
-            <IconClose />
-          </div>
-          <FormAddReserved
-            dataHour={dataHour}
-            data={day}
-            id={id}
-            setOpenModal={setOpenModal}
-            timezone={timezone}
-            reload={reload}
-            setReload={setReload}
-          />
-        </BaseModal>
+        <ModalAddReserved dataHour={dataHour} day={day} id={id} setOpenModal={setOpenModal} timezone={timezone} reload={reload} setReload={setReload} />
       ) : null}
     </div>
   );
