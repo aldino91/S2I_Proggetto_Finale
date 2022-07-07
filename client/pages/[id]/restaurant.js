@@ -5,7 +5,7 @@ import { getAuthentication, fetchGetTable } from "../../AllFetchApi";
 import { useRouter } from "next/router";
 import GridAllTables from "../../components/tables/GridAllTables";
 import FormAddTable from "../../components/form/FormAddTable";
-import IconBack from "../../components/icons/IconBack";
+import IconClose from "../../components/icons/IconClose";
 import ListTables from "../../components/tables/ListTables";
 
 export default function restaurant() {
@@ -32,11 +32,8 @@ export default function restaurant() {
         <link rel="icon" href="/icono-app.ico" />
       </Head>
       <Navbar />
-      <div
-        onClick={() => router.back()}
-        className="absolute p-2 rounded-md top-2 left-2 hover:bg-green-300 md:mr-10"
-      >
-        <IconBack />
+      <div onClick={() => router.back()} className="absolute top-2 right-2">
+        <IconClose />
       </div>
 
       <FormAddTable id={id} reload={reload} setReload={setReload} />

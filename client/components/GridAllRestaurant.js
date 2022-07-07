@@ -26,11 +26,18 @@ export default function GridAllRestaurant({ allRestaurant }) {
                 height={45}
               />
             </div>
-            <div className="w-full text-center underline capitalize">
+            <div className="w-full text-center underline capitalize overflow-x-scroll">
               {rest.name}
             </div>
-            <div className="w-full text-center capitalize">{rest.city}</div>
-            <div className="w-full text-center capitalize">{rest.address}</div>
+            <div className="w-full text-center capitalize overflow-x-scroll">
+              {rest.city}
+            </div>
+            <div className="w-full text-center capitalize overflow-x-scroll">
+              {rest.address}
+            </div>
+            <div className="w-full text-center capitalize overflow-x-scroll">
+              {rest.telephone}
+            </div>
           </a>
         </Link>
       ))}

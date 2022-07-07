@@ -39,7 +39,8 @@ module.exports = {
         },
       }).then((table) => {
         if (!table) {
-          res.send("Non abbiamo trovato il ristorante!");
+          res.send("Non abbiamo trovato il tavolo!");
+          console.log("non abbiamo trovato il tavolo");
         } else {
           Table.destroy({
             where: {
@@ -47,6 +48,7 @@ module.exports = {
             },
           });
           res.json({ msg: "tavolo cancellato con successo" });
+          console.log("tavolo cancellato con successo!");
         }
       });
     } catch (error) {

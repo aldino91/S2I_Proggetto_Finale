@@ -61,7 +61,7 @@ export default function NavBarReserver({
   }
 
   return (
-    <div className="w-full font-mono bg-green-500 shadow-md shadow-slate-400">
+    <div className="w-full font-mono bg-green-500 shadow-md shadow-white">
       <div className="flex flex-row items-center justify-center py-4 border-b-2 border-slate-100">
         <Image
           src="/reserved-table.png"
@@ -75,14 +75,15 @@ export default function NavBarReserver({
       <div className="flex flex-col justify-around p-1 lg:flex-row">
         <div className="flex flex-row justify-between w-full lg:w-1/4">
           <div
-            className="p-2 rounded-md hover:bg-green-300 md:mr-10"
+            className="w-1/4 flex flex-col justify-center pl-1"
             onClick={() => setShowConfiguration(true)}
           >
             <IconConfiguration />
           </div>
-          <div className="w-5/6 p-2 text-center underline capitalize">
+          <div className="w-2/4 p-2 text-center underline capitalize">
             {data.name}
           </div>
+          <div className="w-1/4">{""}</div>
         </div>
 
         <div className="flex flex-row justify-between w-full py-1 lg:justify-around lg:w-2/4 lg:py-0">
