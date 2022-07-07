@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import GridAllTables from "../../components/tables/GridAllTables";
 import FormAddTable from "../../components/form/FormAddTable";
 import IconBack from "../../components/icons/IconBack";
+import ListTables from "../../components/tables/ListTables";
 
 export default function restaurant() {
   const [reload, setReload] = useState(false);
@@ -39,7 +40,7 @@ export default function restaurant() {
       </div>
 
       <FormAddTable id={id} reload={reload} setReload={setReload} />
-      <GridAllTables id={id} reload={reload} setReload={setReload} />
+      <ListTables id={id} reload={reload} setReload={setReload} />
     </div>
   );
 }
