@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchGetTable } from "../../AllFetchApi";
+import { fetchDeleteTables, fetchGetTable } from "../../AllFetchApi";
 import IconDelete from "../icons/IconDelete";
 
 export default function ListTables({ id, reload, setReload }) {
@@ -9,7 +9,9 @@ export default function ListTables({ id, reload, setReload }) {
     fetchGetTable(id, setAllTables);
   }, [id, reload]);
 
-  function deleteTables(idTables, setReload, reload) {}
+  function deleteTables(idTables, reload, setReload) {
+    fetchDeleteTables(idTables, reload, setReload);
+  }
   return (
     <div className="w-full mx-auto lg:w-2/3">
       <div className="flex flex-col w-5/6 h-56 p-3 mx-auto space-y-4 overflow-scroll bg-white rounded-md shadow-md md:h-96 shadow-slate-400">
@@ -25,7 +27,7 @@ export default function ListTables({ id, reload, setReload }) {
             </div>
             <div
               className="border rounded-md hover:bg-green-300"
-              onClick={() => deleteTables(resp.id, setReload, reload)}
+              onClick={() => deleteTables(resp.id, reload, setReload)}
             >
               <IconDelete />
             </div>

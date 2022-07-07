@@ -29,4 +29,28 @@ module.exports = {
         console.log(e);
       });
   },
+
+  DeleteTables(req, res) {
+    const id = req.params.id;
+    try {
+      Table.findOne({
+        where: {
+          id: id,
+        },
+      }).then((table) => {
+        if (!table) {
+          res.send("Non abbiamo trovato il ristorante!");
+        } else {
+          Table.destroy({
+            where: {
+              id: id,
+            },
+          });
+          res.json({ msg: "tavolo cancellato con successo" });
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };

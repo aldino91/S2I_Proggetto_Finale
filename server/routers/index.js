@@ -49,5 +49,6 @@ router.put("/state-reserved", StateReserved.updateStateReserved);
 
 router.post("/tables", TableControllers.AddTables);
 router.get("/tables/:id", TableControllers.GetTables);
+router.delete("/tables/:id", TableControllers.DeleteTables);
 
 module.exports = router;

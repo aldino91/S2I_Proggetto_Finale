@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { fetchAddTable } from "../../AllFetchApi";
 import RingLoader from "react-spinners/RingLoader";
+import Image from "next/image";
 
 export default function FormAddTable({ id, reload, setReload }) {
   const [name, setName] = useState();
@@ -16,7 +17,7 @@ export default function FormAddTable({ id, reload, setReload }) {
       className="w-full mx-auto mb-10 lg:w-2/3 pt-10"
       onSubmit={handleSubmit}
     >
-      <div className="flex flex-col  lg:w-5/6 p-3 mx-auto space-y-4 bg-white rounded-md shadow-md shadow-slate-400">
+      <div className="flex flex-col  w-5/6 p-3 mx-auto space-y-4 bg-white rounded-md shadow-md shadow-slate-400">
         <div className="text-center text-green-500">New Table</div>
 
         <input
@@ -32,10 +33,15 @@ export default function FormAddTable({ id, reload, setReload }) {
 
         <button
           type="submit"
-          className="p-2 text-white bg-green-500 rounded-md flex flex-row justify-center"
+          className="p-2 text-white bg-green-500 rounded-md flex flex-row justify-center hover:bg-green-400"
         >
           {!loading ? (
-            <div>Add</div>
+            <Image
+              src="/Icon-table.png"
+              alt="icon-table"
+              width={25}
+              height={25}
+            />
           ) : (
             <RingLoader color="#008000" loading={loading} size={20} />
           )}

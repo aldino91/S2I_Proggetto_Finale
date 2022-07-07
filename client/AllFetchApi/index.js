@@ -341,3 +341,15 @@ export const fetchSaveTables = async (
     console.log(error);
   }
 };
+
+export const fetchDeleteTables = async (id, reload, setRealod) => {
+  const url = `process.env.NEXT_PUBLIC_URL_TABLE/${id}`;
+
+  try {
+    await axios.delete(url);
+    toast.success("Tavolo eliminato con successo!");
+    setRealod(!reload);
+  } catch (error) {
+    console.log(error);
+  }
+};
