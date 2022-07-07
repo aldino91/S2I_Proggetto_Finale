@@ -3,6 +3,7 @@ import IconClose from "../icons/IconClose";
 import BaseModal from "./BaseModal";
 import { useRouter } from "next/router";
 import FormEditReserved from "../form/FormEditReserved";
+import Navbar from "../navbar/Navbar";
 
 export default function ModalEditResereved({ res, setShowIconEdit }) {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function ModalEditResereved({ res, setShowIconEdit }) {
       >
         <IconClose />
       </div>
+      <Navbar />
 
       <FormEditReserved
         id={id}

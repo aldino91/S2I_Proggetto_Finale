@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FormAddWaiter from "../form/FormAddWaiter";
 import IconClose from "../icons/IconClose";
+import Navbar from "../navbar/Navbar";
 
 import ListWaiters from "../waiters/ListWaiters";
 import BaseModal from "./BaseModal";
@@ -15,6 +16,7 @@ export default function ModalAddWaiter({ id, setOpenAddWaiter }) {
       >
         <IconClose />
       </div>
+      <Navbar />
 
       <FormAddWaiter setReload={setReload} reload={reload} id={id} />
       <ListWaiters id={id} reload={reload} setReload={setReload} />

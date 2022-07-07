@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { fetchGetTable, fetchSaveTables } from "../../AllFetchApi";
-
 import IconClose from "../icons/IconClose";
 import StateCurrent from "../listReserved/StateCurrent";
+import Navbar from "../navbar/Navbar";
+import GridAllTables from "../tables/GridAllTables";
 import BaseModal from "./BaseModal";
 
 export default function ModalTables({ setShowModalTable, res, reserved }) {
@@ -28,9 +29,9 @@ export default function ModalTables({ setShowModalTable, res, reserved }) {
     tablesSelected ? tablesSelected : []
   );
 
-  useEffect(() => {
+  /* useEffect(() => {
     fetchGetTable(id, setAllTables);
-  }, [id]);
+  }, [id]); */
 
   async function chosenTables(tab) {
     if (busyTable.includes(tab)) {
@@ -66,6 +67,7 @@ export default function ModalTables({ setShowModalTable, res, reserved }) {
       >
         <IconClose />
       </div>
+      <Navbar />
       <div className="flex flex-col items-center w-full h-full overflow-scroll lg:flex-row">
         <div className="flex flex-col items-center justify-center w-full py-0 bg-white lg:w-1/3 h-2/4 md:h-1/3 lg:h-2/4 md:py-7">
           <div className="flex flex-col justify-around w-full h-full p-0 space-y-0 rounded-md md:w-5/6 lg:justify-between lg:p-2 md:space-y-7 bg-slate-100">
@@ -111,12 +113,13 @@ export default function ModalTables({ setShowModalTable, res, reserved }) {
           </div>
         </div>
 
-        {/* <GridAllTables
+        <GridAllTables
+          id={id}
           allTables={allTables}
           chosenTables={chosenTables}
           busyTable={busyTable}
           localStorageTables={localStorageTables}
-        /> */}
+        />
       </div>
     </BaseModal>
   );
