@@ -9,7 +9,12 @@ import ListWaiters from "../waiters/ListWaiters";
 import BaseModal from "./BaseModal";
 import ListTables from "../tables/ListTables";
 
-export default function ModalWarnig({ id, setShowModalWarning }) {
+export default function ModalWarnig({
+  id,
+  setShowModalWarning,
+  setControlTables,
+  setControlWaiters,
+}) {
   const [reload, setReload] = useState(false);
   return (
     <BaseModal>
@@ -30,11 +35,21 @@ export default function ModalWarnig({ id, setShowModalWarning }) {
         <div className="flex flex-col lg:flex-row w-screen items-center lg:items-start">
           <div className="flex flex-col w-full lg:w-1/2">
             <FormAddWaiter setReload={setReload} reload={reload} id={id} />
-            <ListWaiters id={id} reload={reload} setReload={setReload} />
+            <ListWaiters
+              id={id}
+              reload={reload}
+              setReload={setReload}
+              setControlWaiters={setControlWaiters}
+            />
           </div>
           <div className="flex flex-col w-full lg:w-1/2">
             <FormAddTable id={id} reload={reload} setReload={setReload} />
-            <ListTables id={id} reload={reload} setReload={setReload} />
+            <ListTables
+              id={id}
+              reload={reload}
+              setReload={setReload}
+              setControlTables={setControlTables}
+            />
           </div>
         </div>
       </div>

@@ -87,10 +87,7 @@ export default function NavBarReserver({
         </div>
 
         <div className="flex flex-row justify-between w-full py-1 lg:justify-around lg:w-2/4 lg:py-0">
-          <div
-            className="p-2 rounded-md hover:bg-green-300 md:mr-10"
-            onClick={() => router.reload()}
-          >
+          <div className="p-2" onClick={() => router.reload()}>
             <IconRefresh />
           </div>
           <div className="bg-white rounded-md bg-opacity-60">
@@ -118,7 +115,7 @@ export default function NavBarReserver({
           </div>
 
           <Link href={`/${id}/${timezone}/${toDay}`}>
-            <a className="p-2 rounded-md hover:bg-green-300 md:mr-10">
+            <a className="p-2">
               <IconToday />
             </a>
           </Link>

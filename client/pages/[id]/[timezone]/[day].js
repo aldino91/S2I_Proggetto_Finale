@@ -21,7 +21,7 @@ export default function HomeRestaurant() {
   const [daySelected, setDaySelected] = useState(false);
   const [allReservedTimeZone, setAllReservedTimeZone] = useState();
   const [reload, setReload] = useState(false);
-  const [showModalWarning, setShowModalWarning] = useState(true);
+  const [showModalWarning, setShowModalWarning] = useState(false);
 
   useEffect(() => {
     getAuthentication()
@@ -41,6 +41,7 @@ export default function HomeRestaurant() {
   const timeZoneDinner = allReservedTimeZone?.filter(
     (zone) => zone.timezone === "dinner"
   );
+  console.log(data);
 
   return (
     <>

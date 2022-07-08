@@ -16,9 +16,7 @@ export default function restaurant() {
 
   useEffect(() => {
     getAuthentication()
-      .then((resp) => {
-        console.log("usuario Autenticato");
-      })
+      .then((resp) => {})
       .catch((e) => {
         console.log(e);
         router.push("/");
