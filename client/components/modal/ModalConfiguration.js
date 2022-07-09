@@ -3,6 +3,7 @@ import Link from "next/link";
 import ModalDeleteRestaurant from "./ModalDeleteRestaurant";
 import ModalAddWaiter from "./ModalAddWaiter";
 import IconClose from "../icons/IconClose";
+import ModalAddTables from "../modal/ModalAddTable";
 
 export default function ModalConfiguration({
   setShowConfiguration,
@@ -10,6 +11,8 @@ export default function ModalConfiguration({
   setOpenModal,
   openAddWaiter,
   setOpenAddWaiter,
+  openAddTables,
+  setOpenAddTables,
   id,
 }) {
   return (
@@ -22,11 +25,13 @@ export default function ModalConfiguration({
           <IconClose />
         </div>
         <div className="flex flex-col justify-between h-2/3">
-          <Link href={`/${id}/restaurant`}>
-            <a className="w-3/4 p-2 text-white transition-all duration-300 ease-in bg-green-400 rounded-r-md hover:bg-green-300">
-              Add Tables
-            </a>
-          </Link>
+          <div
+            className="w-3/4 p-2 text-white transition-all duration-300 ease-in bg-green-400 rounded-r-md hover:bg-green-300"
+            onClick={() => setOpenAddTables(true)}
+          >
+            Add Tables
+          </div>
+
           <div
             className="w-3/4 p-2 text-white transition-all duration-300 ease-in bg-green-400 rounded-r-md hover:bg-green-300 cursor-pointer"
             onClick={() => setOpenAddWaiter(true)}
@@ -49,7 +54,18 @@ export default function ModalConfiguration({
       {openModal ? <ModalDeleteRestaurant setOpenModal={setOpenModal} /> : null}
 
       {openAddWaiter ? (
-        <ModalAddWaiter id={id} setOpenAddWaiter={setOpenAddWaiter} />
+        <ModalAddWaiter
+          id={id}
+          setOpenAddWaiter={setOpenAddWaiter}
+          setShowConfiguration={setShowConfiguration}
+        />
+      ) : null}
+
+      {openAddTables ? (
+        <ModalAddTables
+          setOpenAddTables={setOpenAddTables}
+          setShowConfiguration={setShowConfiguration}
+        />
       ) : null}
     </div>
   );

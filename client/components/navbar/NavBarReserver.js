@@ -25,6 +25,7 @@ export default function NavBarReserver({
   const { day, timezone } = router.query;
   const [openModal, setOpenModal] = useState(false);
   const [openAddWaiter, setOpenAddWaiter] = useState(false);
+  const [openAddTables, setOpenAddTables] = useState(false);
   const [showConfiguration, setShowConfiguration] = useState(false);
 
   const [chosenDay, setChosenDay] = useState(chosenDay);
@@ -149,6 +150,8 @@ export default function NavBarReserver({
           setOpenModal={setOpenModal}
           openAddWaiter={openAddWaiter}
           setOpenAddWaiter={setOpenAddWaiter}
+          openAddTables={openAddTables}
+          setOpenAddTables={setOpenAddTables}
           id={id}
         />
       ) : null}

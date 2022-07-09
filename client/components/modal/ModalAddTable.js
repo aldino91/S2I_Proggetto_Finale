@@ -1,22 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import FormAddTable from "../form/FormAddTable";
 import IconClose from "../icons/IconClose";
 import BaseModal from "./BaseModal";
 import { useRouter } from "next/router";
+import Navbar from "../navbar/Navbar";
+import ListTables from "../tables/ListTables";
 
-export default function ModalAddRestaurant({ setOpenModal }) {
+export default function ModalAddRestaurant({
+  setOpenAddTables,
+  setShowConfiguration,
+}) {
   const router = useRouter();
   const { id } = router.query;
-
-  function closeModal(params) {
-    setOpenModal(false), router.reload();
+  const [reload, setReload] = useState(false);
+  function closeModals() {
+    setOpenAddTables(false);
+    setShowConfiguration(false);
   }
+
   return (
     <BaseModal>
-      <div onClick={closeModal} className="absolute top-2 right-2">
+      <Navbar />
+      <div onClick={closeModals} className="absolute top-2 right-2">
         <IconClose />
       </div>
-      <FormAddTable setOpenModal={setOpenModal} id={id} />
+
+      <FormAddTable id={id} reload={reload} setReload={setReload} />
+      <ListTables id={id} reload={reload} setReload={setReload} />
     </BaseModal>
   );
 }

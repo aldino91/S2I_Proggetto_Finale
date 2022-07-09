@@ -21,20 +21,11 @@ export default function HomeRestaurant() {
   const [daySelected, setDaySelected] = useState(false);
   const [allReservedTimeZone, setAllReservedTimeZone] = useState();
   const [reload, setReload] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [controlTables, setControlTables] = useState([]);
 
   useEffect(() => {
     getAuthentication()
-      .then(() => {
-        fetchGetTable(id, setControlTables).then((resp) => {
-          if (resp === 0) {
-            setShowModal(true);
-          } else {
-            setShowModal(false);
-          }
-        });
-      })
       .then(() => {
         fetchDataRestaurant(id, setData);
         GetReserved(id, day, setAllReservedTimeZone);

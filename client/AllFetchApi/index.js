@@ -313,7 +313,7 @@ export const fetchAddTable = async (
   }
 };
 
-export const fetchGetTable = async (id, setAllTables) => {
+export const fetchGetTable = async (id, setAllTables, controlTables) => {
   const url = `${process.env.NEXT_PUBLIC_URL_TABLE}/${id}`;
   try {
     const tables = await axios.get(url);
