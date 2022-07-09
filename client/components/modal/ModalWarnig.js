@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormAddTable from "../form/FormAddTable";
 import FormAddWaiter from "../form/FormAddWaiter";
 import GridAllTables from "../tables/GridAllTables";
@@ -9,13 +9,17 @@ import ListWaiters from "../waiters/ListWaiters";
 import BaseModal from "./BaseModal";
 import ListTables from "../tables/ListTables";
 
-export default function ModalWarnig({ id, setShowModal, showModal }) {
+export default function ModalWarnig({ id, setShowModal }) {
   const [reload, setReload] = useState(false);
+  useEffect(() => {
+    localStorage.setItem(id, true + id);
+  }, []);
+
   return (
     <BaseModal>
       <div
         className="absolute top-2 right-2"
-        onClick={() => setShowModal(!showModal)}
+        onClick={() => setShowModal(false)}
       >
         <IconClose />
       </div>

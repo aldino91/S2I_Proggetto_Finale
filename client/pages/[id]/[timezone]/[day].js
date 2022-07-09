@@ -3,8 +3,6 @@ import Head from "next/head";
 import {
   getAuthentication,
   fetchDataRestaurant,
-  fetchGetTable,
-  fetchGetWaiters,
   GetReserved,
 } from "../../../AllFetchApi/index";
 import { useRouter } from "next/router";
@@ -21,14 +19,21 @@ export default function HomeRestaurant() {
   const [daySelected, setDaySelected] = useState(false);
   const [allReservedTimeZone, setAllReservedTimeZone] = useState();
   const [reload, setReload] = useState(false);
-  const [showModal, setShowModal] = useState(true);
-  const [controlTables, setControlTables] = useState([]);
+  const [showModal, setShowModal] = useState();
+
+  const controlLocal = localStorage.getItem(id);
+  const idLocal = true + id;
 
   useEffect(() => {
     getAuthentication()
       .then(() => {
         fetchDataRestaurant(id, setData);
         GetReserved(id, day, setAllReservedTimeZone);
+        if (controlLocal && controlLocal == idLocal) {
+          setShowModal(false);
+        } else {
+          setShowModal(true);
+        }
       })
       .catch(() => {
         router.push("/");
@@ -78,13 +83,7 @@ export default function HomeRestaurant() {
         />
       )}
 
-      {showModal ? (
-        <ModalWarnig
-          id={id}
-          setShowModal={setShowModal}
-          showModal={showModal}
-        />
-      ) : null}
+      {showModal ? <ModalWarnig id={id} setShowModal={setShowModal} /> : null}
     </>
   );
 }
