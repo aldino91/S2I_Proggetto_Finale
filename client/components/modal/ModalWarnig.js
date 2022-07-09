@@ -9,18 +9,13 @@ import ListWaiters from "../waiters/ListWaiters";
 import BaseModal from "./BaseModal";
 import ListTables from "../tables/ListTables";
 
-export default function ModalWarnig({
-  id,
-  setShowModalWarning,
-  setControlTables,
-  setControlWaiters,
-}) {
+export default function ModalWarnig({ id, setShowModal, showModal }) {
   const [reload, setReload] = useState(false);
   return (
     <BaseModal>
       <div
         className="absolute top-2 right-2"
-        onClick={() => setShowModalWarning(false)}
+        onClick={() => setShowModal(!showModal)}
       >
         <IconClose />
       </div>
@@ -35,21 +30,11 @@ export default function ModalWarnig({
         <div className="flex flex-col lg:flex-row w-screen items-center lg:items-start">
           <div className="flex flex-col w-full lg:w-1/2">
             <FormAddWaiter setReload={setReload} reload={reload} id={id} />
-            <ListWaiters
-              id={id}
-              reload={reload}
-              setReload={setReload}
-              setControlWaiters={setControlWaiters}
-            />
+            <ListWaiters id={id} reload={reload} setReload={setReload} />
           </div>
           <div className="flex flex-col w-full lg:w-1/2">
             <FormAddTable id={id} reload={reload} setReload={setReload} />
-            <ListTables
-              id={id}
-              reload={reload}
-              setReload={setReload}
-              setControlTables={setControlTables}
-            />
+            <ListTables id={id} reload={reload} setReload={setReload} />
           </div>
         </div>
       </div>

@@ -253,8 +253,7 @@ export const fetchGetWaiters = async (id, setAllWaiters) => {
 
   try {
     const resp = await axios.get(url + id);
-    setAllWaiters(resp.data);
-    return resp;
+    await setAllWaiters(resp.data);
   } catch (error) {
     console.log(error);
   }
@@ -319,6 +318,7 @@ export const fetchGetTable = async (id, setAllTables) => {
   try {
     const tables = await axios.get(url);
     await setAllTables(tables.data);
+    return tables.data;
   } catch (error) {
     console.log(error);
   }
@@ -342,15 +342,13 @@ export const fetchSaveTables = async (
   }
 };
 
-export const fetchDeleteTables = async (id, reload, setRealod, setLoading) => {
+export const fetchDeleteTables = async (id, reload, setRealod) => {
   const url = `${process.env.NEXT_PUBLIC_URL_TABLE}/${id}`;
 
   try {
-    await setLoading(true);
     await axios.delete(url);
     toast.success("Tavolo eliminato con successo!");
     setRealod(!reload);
-    setLoading(false);
   } catch (error) {
     console.log(error);
   }

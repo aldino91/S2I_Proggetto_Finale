@@ -21,15 +21,25 @@ export default function HomeRestaurant() {
   const [daySelected, setDaySelected] = useState(false);
   const [allReservedTimeZone, setAllReservedTimeZone] = useState();
   const [reload, setReload] = useState(false);
-  const [showModalWarning, setShowModalWarning] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [controlTables, setControlTables] = useState([]);
 
   useEffect(() => {
     getAuthentication()
-      .then((resp) => {
+      .then(() => {
+        fetchGetTable(id, setControlTables).then((resp) => {
+          if (resp === 0) {
+            setShowModal(true);
+          } else {
+            setShowModal(false);
+          }
+        });
+      })
+      .then(() => {
         fetchDataRestaurant(id, setData);
         GetReserved(id, day, setAllReservedTimeZone);
       })
-      .catch((e) => {
+      .catch(() => {
         router.push("/");
       });
   }, [selectedDate, daySelected, id, day, reload]);
@@ -41,7 +51,6 @@ export default function HomeRestaurant() {
   const timeZoneDinner = allReservedTimeZone?.filter(
     (zone) => zone.timezone === "dinner"
   );
-  console.log(data);
 
   return (
     <>
@@ -78,8 +87,12 @@ export default function HomeRestaurant() {
         />
       )}
 
-      {showModalWarning ? (
-        <ModalWarnig id={id} setShowModalWarning={setShowModalWarning} />
+      {showModal ? (
+        <ModalWarnig
+          id={id}
+          setShowModal={setShowModal}
+          showModal={showModal}
+        />
       ) : null}
     </>
   );

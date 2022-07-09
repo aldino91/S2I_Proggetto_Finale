@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
-import RingLoader from "react-spinners/RingLoader";
 import { fetchDeleteTables, fetchGetTable } from "../../AllFetchApi";
 import IconDelete from "../icons/IconDelete";
 
 export default function ListTables({ id, reload, setReload }) {
   const [allTables, setAllTables] = useState();
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchGetTable(id, setAllTables);
   }, [id, reload]);
 
   function deleteTables(idTables, reload, setReload) {
-    fetchDeleteTables(idTables, reload, setReload, setLoading);
+    fetchDeleteTables(idTables, reload, setReload);
   }
   return (
     <div className="w-full mx-auto lg:w-2/3">
@@ -31,11 +29,7 @@ export default function ListTables({ id, reload, setReload }) {
               className="border rounded-md hover:bg-green-300 flex flex-col justify-center"
               onClick={() => deleteTables(resp.id, reload, setReload)}
             >
-              {!loading ? (
-                <IconDelete />
-              ) : (
-                <RingLoader color="#ffffff" loading={loading} size={20} />
-              )}
+              <IconDelete />
             </div>
           </div>
         ))}
