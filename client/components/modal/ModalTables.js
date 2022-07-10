@@ -93,19 +93,21 @@ export default function ModalTables({ setShowModalTable, res, reserved }) {
                 onClick={() => saveTables(res.id)}
               >
                 {busyTable?.length > 0 ? (
-                  <div className="flex flex-row overflow-scroll text-white">
+                  <div className="flex flex-row overflow-scroll text-white border border-white">
                     {busyTable.map((select) => (
-                      <div key={select}>
-                        <p className="mr-2">{select}</p>
+                      <div key={select} className="border border-white">
+                        <p className="px-1">{select}</p>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div
-                    className="text-white"
+                    className="text-white border border-white "
                     onClick={() => saveTables(res.id)}
                   >
-                    nessun tavolo
+                    <div className="border border-white">
+                      <p className="px-1">nessun tavolo</p>
+                    </div>
                   </div>
                 )}
               </div>

@@ -27,11 +27,11 @@ export default function GridAllTables({
                 <div
                   className={`flex flex-col justify-center w-5/6 mx-auto rounded-md h-5/6 ${
                     busyTable?.find((tab) => tab == rest.name)
-                      ? "bg-green-400"
+                      ? "bg-green-400 cursor-pointer"
                       : localStorageTables?.find((tab) => tab == rest.name)
-                      ? "bg-gray-400"
+                      ? "bg-gray-400 pointer-events-none"
                       : !localStorageTables?.find((tab) => tab == rest.name)
-                      ? "bg-gray-100"
+                      ? "bg-gray-100 cursor-pointer"
                       : null
                   }`}
                   onClick={() => chosenTables(rest.name)}
