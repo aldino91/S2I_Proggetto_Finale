@@ -191,11 +191,13 @@ export const fetchUpdateReserved = async (
   idReserved,
   idState,
   setShowIconEdit,
-  router
+  setLoading,
+  reload,
+  setReload
 ) => {
   const url = process.env.NEXT_PUBLIC_URL_RESERVED;
-
   try {
+    setLoading(true);
     await axios.put(url, {
       pax,
       hour,
@@ -207,7 +209,8 @@ export const fetchUpdateReserved = async (
       idState,
     });
     await setShowIconEdit(false);
-    await router.reload();
+    await setLoading(false);
+    await setReload(!reload);
   } catch (error) {
     toast.error("Non riusciamo ad aggiornarlo!!");
     console.log(error);
@@ -231,17 +234,20 @@ export const fetchAddWaiter = async (
   name,
   idRestaurant,
   setReload,
-  reload
+  reload,
+  setLoading
 ) => {
   const url = process.env.NEXT_PUBLIC_URL_ADD_WAITER;
 
   try {
+    setLoading(true);
     await axios.post(url, {
       name: name,
       idRestaurant: idRestaurant,
     });
     setReload(!reload);
     toast.success("Il cameriere é stato salvato!!");
+    setLoading(false);
     e.target.reset();
   } catch (error) {
     console.log(error);

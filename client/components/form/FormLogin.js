@@ -48,6 +48,7 @@ export default function FormLogin({ changeForm }) {
 
           <button
             type="submit"
+            disabled={loading ? true : false}
             className="p-2 text-white bg-green-500 rounded-md flex flex-row justify-center"
           >
             {!loading ? (

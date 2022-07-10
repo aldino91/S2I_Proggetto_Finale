@@ -116,6 +116,7 @@ export default function FormAddReserved({
 
         <button
           type="submit"
+          disabled={loading ? true : false}
           className="flex flex-row justify-center p-2 text-white bg-green-500 rounded-md"
         >
           {!loading ? (

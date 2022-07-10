@@ -5,7 +5,12 @@ import { useRouter } from "next/router";
 import FormEditReserved from "../form/FormEditReserved";
 import Navbar from "../navbar/Navbar";
 
-export default function ModalEditResereved({ res, setShowIconEdit }) {
+export default function ModalEditResereved({
+  res,
+  setShowIconEdit,
+  reload,
+  setReload,
+}) {
   const router = useRouter();
   const { id, day } = router.query;
   return (
@@ -23,7 +28,8 @@ export default function ModalEditResereved({ res, setShowIconEdit }) {
         day={day}
         res={res}
         setShowIconEdit={setShowIconEdit}
-        router={router}
+        reload={reload}
+        setReload={setReload}
       />
     </BaseModal>
   );

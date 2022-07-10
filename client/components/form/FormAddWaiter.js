@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import IconWaiter from "../icons/IconWaiter";
 import { fetchAddWaiter } from "../../AllFetchApi";
+import RingLoader from "react-spinners/RingLoader";
 
 export default function FormAddWaiter({ setReload, reload, id }) {
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false);
   const idRestaurant = id;
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetchAddWaiter(e, name, idRestaurant, setReload, reload);
+    fetchAddWaiter(e, name, idRestaurant, setReload, reload, setLoading);
   };
   return (
     <form
@@ -32,9 +34,14 @@ export default function FormAddWaiter({ setReload, reload, id }) {
 
         <button
           type="submit"
+          disabled={loading ? true : false}
           className="flex flex-row justify-center p-2 text-white bg-green-500 rounded-md hover:bg-green-400"
         >
-          <IconWaiter />
+          {!loading ? (
+            <IconWaiter />
+          ) : (
+            <RingLoader color="#ffffff" loading={loading} size={20} />
+          )}
         </button>
       </div>
     </form>

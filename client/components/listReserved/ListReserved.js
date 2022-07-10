@@ -107,6 +107,8 @@ export default function ListReserved({
                   <ModalEditResereved
                     res={dataReserved}
                     setShowIconEdit={setShowIconEdit}
+                    reload={reload}
+                    setReload={setReload}
                   />
                 ) : null}
                 {showModalTable ? (

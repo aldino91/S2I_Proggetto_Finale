@@ -15,13 +15,15 @@ import {
   dateSetting,
   updateDaySelected,
 } from "../../utils/function";
+import RingLoader from "react-spinners/RingLoader";
 
 export default function FormEditReserved({
   id,
   day,
   res,
   setShowIconEdit,
-  router,
+  reload,
+  setReload,
 }) {
   const [allWaiters, setAllWaiters] = useState();
   const [pax, setPax] = useState(res.pax);
@@ -31,6 +33,7 @@ export default function FormEditReserved({
   const [waiter, setWaiter] = useState();
   const [chosenDay, setChosenDay] = useState();
   const [selectDay, setSelectDay] = useState();
+  const [loading, setLoading] = useState(false);
 
   const timezone = hour < "19:00" ? "lunch" : "dinner";
 
@@ -78,7 +81,9 @@ export default function FormEditReserved({
       idReserved,
       idState,
       setShowIconEdit,
-      router
+      setLoading,
+      reload,
+      setReload
     );
   };
   return (
@@ -160,12 +165,17 @@ export default function FormEditReserved({
 
         <button
           type="submit"
+          disabled={loading ? true : false}
           className="flex flex-row justify-center p-2 text-white bg-green-500 rounded-md"
         >
-          <div className="flex flex-row items-center">
-            <IconPlusSmall />
-            <IconReserved />
-          </div>
+          {!loading ? (
+            <div className="flex flex-row items-center">
+              <IconPlusSmall />
+              <IconReserved />
+            </div>
+          ) : (
+            <RingLoader color="#ffffff" loading={loading} size={20} />
+          )}
         </button>
       </div>
     </form>
