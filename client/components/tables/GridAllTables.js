@@ -16,13 +16,13 @@ export default function GridAllTables({
   }, [id, reload]);
 
   return (
-    <div className="w-full h-2/4 bg-neutral-300 bg-opacity-70 shadow-md shadow-slate-400 border rounded-md">
+    <div className="w-full h-3/5 bg-neutral-300 bg-opacity-70 shadow-md shadow-slate-400 border rounded-md overflow-y-scroll">
       <div className="grid w-full grid-cols-4 gap-1 p-4 md:grid-cols-7 lg:grid-cols-8 lg:gap-2">
         {chosenTables
           ? allTables?.map((rest) => (
               <div
                 key={rest.id}
-                className="flex flex-col justify-around w-16 h-16 mx-auto border-2 border-green-500 rounded-md md:w-25 md:h-25 lg:w-35 lg:h-35 "
+                className="flex flex-col justify-around w-16 h-16 mx-auto border-2 border-green-500 rounded-md md:w-25 md:h-25 lg:w-35 lg:h-35"
               >
                 <div
                   className={`flex flex-col justify-center w-5/6 mx-auto rounded-md h-5/6 ${
@@ -43,7 +43,7 @@ export default function GridAllTables({
           : allTables?.map((rest) => (
               <div
                 key={rest.id}
-                className="flex flex-col justify-around w-16 h-16 mx-auto border-2 border-green-500 rounded-md md:w-25 md:h-25 lg:w-35 lg:h-35 "
+                className="flex flex-col justify-around w-16 h-16 mx-auto border-2 border-green-500 rounded-md md:w-25 md:h-25 lg:w-35 lg:h-35"
               >
                 <div className="flex flex-col justify-center w-5/6 mx-auto rounded-md h-5/6 hover:bg-green-200">
                   <div className="w-full text-center">{rest.name}</div>
