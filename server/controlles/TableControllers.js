@@ -9,48 +9,46 @@ module.exports = {
         name,
         idRestaurant,
       });
-      await res.json({ msg: "tavolo aggiunto" });
+      res.json({ msg: "tavolo aggiunto" });
     } catch (error) {
       console.log(error);
     }
   },
 
-  GetTables(req, res) {
+  async GetTables(req, res) {
     const idRestaurant = req.params.id;
-    Table.findAll({
-      where: {
-        idRestaurant: idRestaurant,
-      },
-    })
-      .then((resp) => {
-        res.send(resp);
-      })
-      .catch((e) => {
-        console.log(e);
+    try {
+      const table = await Table.findAll({
+        where: {
+          idRestaurant: idRestaurant,
+        },
       });
+      res.send(table);
+    } catch (error) {
+      console.log(error);
+    }
   },
 
-  DeleteTables(req, res) {
+  async DeleteTables(req, res) {
     const id = req.params.id;
     try {
-      Table.findOne({
+      const table = await Table.findOne({
         where: {
           id: id,
         },
-      }).then((table) => {
-        if (!table) {
-          res.send("Non abbiamo trovato il tavolo!");
-          console.log("non abbiamo trovato il tavolo");
-        } else {
-          Table.destroy({
-            where: {
-              id: id,
-            },
-          });
-          res.json({ msg: "tavolo cancellato con successo" });
-          console.log("tavolo cancellato con successo!");
-        }
       });
+
+      if (!table) {
+        res.send("Non abbiamo trovato il tavolo!");
+        console.log("non abbiamo trovato il tavolo");
+      } else {
+        Table.destroy({
+          where: {
+            id: id,
+          },
+        });
+        res.sendStatus(200);
+      }
     } catch (error) {
       console.log(error);
     }

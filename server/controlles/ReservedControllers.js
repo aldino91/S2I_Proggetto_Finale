@@ -14,116 +14,112 @@ module.exports = {
     } = req.body;
 
     try {
-      await State.create({
+      const state = await State.create({
         statereserved: "reservation made",
-      })
-        .then((resp) => {
-          Reserved.create({
-            pax,
-            client,
-            hour,
-            data,
-            telephone,
-            waiter,
-            idRestaurant,
-            timezone,
-            idState: resp.id,
-          });
-        })
-        .then((response) => {
-          console.log("Cliente creato correttamente! 3");
-          res.sendStatus(200);
-        });
+      });
+
+      await Reserved.create({
+        pax,
+        client,
+        hour,
+        data,
+        telephone,
+        waiter,
+        idRestaurant,
+        timezone,
+        idState: state.id,
+      });
+
+      res.sendStatus(200);
     } catch (error) {
       console.log(error.messagge);
     }
   },
 
-  getReserved(req, res) {
+  async getReserved(req, res) {
     const { idRestaurant, data } = req.query;
-    console.log("get Reserved");
-    Reserved.findAll({
-      where: { idRestaurant, data },
-      include: [{ model: State }],
-    })
-      .then((resp) => {
-        res.send(resp);
-      })
-      .catch((e) => {
-        console.log(e);
-        console.log("Non possiamo chiedere le prenotazioni!");
+    try {
+      const reserved = await Reserved.findAll({
+        where: { idRestaurant, data },
+        include: [{ model: State }],
       });
+      res.send(reserved);
+    } catch (error) {
+      console.log(e);
+      console.log("Non possiamo chiedere le prenotazioni!");
+    }
   },
 
-  UpdateResereved(req, res) {
+  async UpdateResereved(req, res) {
     const { pax, hour, data, waiter, idRestaurant, timezone, idReserved } =
       req.body;
-    Reserved.findOne({
-      where: {
-        id: idReserved,
-        idRestaurant: idRestaurant,
-      },
-    })
-      .then(async (resp) => {
-        await Reserved.update(
-          {
-            pax: pax,
-            hour: hour,
-            data: data,
-            waiter: waiter,
-            timezone: timezone,
-          },
-          {
-            where: {
-              id: resp.id,
-            },
-          }
-        );
 
-        await State.update(
-          {
-            statereserved: "reservation made",
-          },
-          {
-            where: {
-              id: resp.idState,
-            },
-          }
-        );
-
-        res.send("prenotazione aggiornata");
-      })
-      .catch((err) => {
-        res.send("problema per aggiornarlo!!");
-        console.log(err);
+    try {
+      const reserved = await Reserved.findOne({
+        where: {
+          id: idReserved,
+          idRestaurant: idRestaurant,
+        },
       });
+
+      const update = await Reserved.update(
+        {
+          pax: pax,
+          hour: hour,
+          data: data,
+          waiter: waiter,
+          timezone: timezone,
+        },
+        {
+          where: {
+            id: reserved.id,
+          },
+        }
+      );
+
+      await State.update(
+        {
+          statereserved: "reservation made",
+        },
+        {
+          where: {
+            id: reserved.idState,
+          },
+        }
+      );
+
+      res.send("prenotazione aggiornata");
+    } catch (error) {
+      res.send("problema per aggiornarlo!!");
+      console.log(err);
+    }
   },
 
-  AddTablesReserved(req, res) {
+  async AddTablesReserved(req, res) {
     const { tables, idReserved, idRestaurant } = req.query;
 
-    Reserved.findOne({
-      where: {
-        id: idReserved,
-        idRestaurant: idRestaurant,
-      },
-    })
-      .then(async (resp) => {
-        await Reserved.update(
-          {
-            tables: tables,
-          },
-          {
-            where: {
-              id: resp.id,
-            },
-          }
-        );
-        await res.send("tavoli aggiunti");
-      })
-      .catch((err) => {
-        res.send("abbiamo problemi per aggiungere il tavolo");
-        console.log(err);
+    try {
+      const reserved = await Reserved.findOne({
+        where: {
+          id: idReserved,
+          idRestaurant: idRestaurant,
+        },
       });
+
+      await Reserved.update(
+        {
+          tables: tables,
+        },
+        {
+          where: {
+            id: reserved.id,
+          },
+        }
+      );
+      await res.send("tavoli aggiunti");
+    } catch (error) {
+      res.send("abbiamo problemi per aggiungere il tavolo");
+      console.log(err);
+    }
   },
 };

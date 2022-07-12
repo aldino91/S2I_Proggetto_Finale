@@ -1,60 +1,57 @@
 const { Restaurant } = require("../models/index");
 
 module.exports = {
-  AddRestaurant(req, res) {
+  async AddRestaurant(req, res) {
     const name = req.body.name;
     const city = req.body.city;
     const telephone = req.body.telephone;
     const address = req.body.address;
     const idUser = req.body.idUser;
-
-    Restaurant.create({
-      name,
-      city,
-      telephone,
-      address,
-      idUser,
-    })
-      .then((resp) => {
-        res.json({ msg: "dati salvati correttamente!" });
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log("non siamo riusciti a salvare il ristorante!");
+    try {
+      const restaurant = Restaurant.create({
+        name,
+        city,
+        telephone,
+        address,
+        idUser,
       });
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+      console.log("non siamo riusciti a salvare il ristorante!");
+    }
   },
 
-  getAllRestaurant(req, res) {
+  async getAllRestaurant(req, res) {
     const idUser = req.params.idUser;
 
-    Restaurant.findAll({
-      where: { idUser: idUser },
-    })
-      .then((resp) => {
-        res.send(resp);
-      })
-      .catch((e) => {
-        console.log(e);
+    try {
+      const restaurant = await Restaurant.findAll({
+        where: { idUser: idUser },
       });
+      res.send(restaurant);
+    } catch (error) {
+      console.log(error);
+    }
   },
 
-  getDataRestaurant(req, res) {
+  async getDataRestaurant(req, res) {
     const id = req.params.id;
-    Restaurant.findOne({
-      where: { id: id },
-    })
-      .then((resp) => {
-        res.send(resp);
-      })
-      .catch((e) => {
-        console.log(e);
-      }); 
+
+    try {
+      const restaurant = await Restaurant.findOne({
+        where: { id: id },
+      });
+      res.send(restaurant);
+    } catch (error) {
+      console.log(error);
+    }
   },
 
-  deleteRestaurant(req, res) {
+  async deleteRestaurant(req, res) {
     const id = req.params.id;
     try {
-      const restaurant = Restaurant.findOne({
+      const restaurant = await Restaurant.findOne({
         where: {
           id: id,
         },
@@ -67,7 +64,7 @@ module.exports = {
             id: id,
           },
         });
-        res.json({ msg: "Ristorante calcellato con successo!" });
+        res.sendStatus(200);
       }
     } catch (error) {
       console.log(error);
