@@ -24,11 +24,22 @@ export default function ModalWarnig({ id, setShowModal }) {
         <IconClose />
       </div>
       <div className="flex flex-col justify-around">
-        <div className="w-full text-center  bg-neutral-300 bg-opacity-50 p-4 mt-10 text-green-700 font-mono text-lg">
-          <h2>
-            Benvenuto a T-Control! Prima d'iniziare a riempire il tuo ristorante
-            di prenotazioni, aggiungi Camerieri e Tavoli! Buon servizio!
-          </h2>
+        <div className="w-full text-center  bg-neutral-600 bg-opacity-50 p-2 lg:p-4 mt-10 text-green-700 font-mono text-lg flex flex-col justify-center">
+          <div>
+            <h1>
+              Benvenuto a T-Control! Prima d'iniziare a riempire il tuo
+              ristorante di prenotazioni, aggiungi Camerieri e Tavoli! Buon
+              servizio!
+            </h1>
+          </div>
+          <div className="flex flex-col mt-3 lg:flex-row lg:justify-around">
+            <div className="flex flex-row justify-around w-full lg:w-2/5">
+              <h2>ps: puoi sempre andare a </h2> <IconConfiguration />
+            </div>
+            <div className=" w-full lg:w-3/5">
+              per cambiare a tuo piacimento tutte le configurazioni!
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row w-screen items-center lg:items-start">
