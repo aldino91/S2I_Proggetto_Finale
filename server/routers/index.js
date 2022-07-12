@@ -43,7 +43,7 @@ router.post("/waiters", WaiterControllers.AddWaiter);
 router.get("/waiters/:idRestaurant", WaiterControllers.GetWaiters);
 router.delete("/waiters/:id", WaiterControllers.DeleteWaiter);
 
-// State reserved
+// State Reserved
 
 router.put("/state", StateReserved.updateStateReserved);
 
