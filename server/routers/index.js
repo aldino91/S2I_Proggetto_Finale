@@ -23,32 +23,35 @@ router.get("/authentication", authentication, AuthControlles.getUser);
 
 //  Restaurant
 
-router.post("/add-restaurant", RestaurantControllers.AddRestaurant);
-router.get("/restaurant/:idUser", RestaurantControllers.getAllRestaurant);
-router.get("/restaurant/data/:id", RestaurantControllers.getDataRestaurant);
-router.delete("/restaurant/delete/:id", RestaurantControllers.deleteRestaurant);
+router.post("/restaurants", RestaurantControllers.AddRestaurant);
+router.get("/restaurants/:idUser", RestaurantControllers.getAllRestaurant);
+router.get("/restaurants/data/:id", RestaurantControllers.getDataRestaurant);
+router.delete(
+  "/restaurants/delete/:id",
+  RestaurantControllers.deleteRestaurant
+);
 
 // Reserved
 
 router.post("/reserved", ReservedControllers.AddReserved);
 router.get("/reserved/", ReservedControllers.getReserved);
 router.put("/reserved", ReservedControllers.UpdateResereved);
-router.put("/addtables", ReservedControllers.AddTablesReserved);
 
 // Waiter
 
-router.post("/add-waiter", WaiterControllers.AddWaiter);
-router.get("/waiter/:idRestaurant", WaiterControllers.GetWaiters);
-router.delete("/deletewaiter/:id", WaiterControllers.DeleteWaiter);
+router.post("/waiters", WaiterControllers.AddWaiter);
+router.get("/waiters/:idRestaurant", WaiterControllers.GetWaiters);
+router.delete("/waiters/:id", WaiterControllers.DeleteWaiter);
 
 // State reserved
 
-router.put("/state-reserved", StateReserved.updateStateReserved);
+router.put("/state", StateReserved.updateStateReserved);
 
 // Tables
 
 router.post("/tables", TableControllers.AddTables);
 router.get("/tables/:id", TableControllers.GetTables);
 router.delete("/tables/:id", TableControllers.DeleteTables);
+router.put("/tables", ReservedControllers.AddTablesReserved);
 
 module.exports = router;

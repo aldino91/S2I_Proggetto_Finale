@@ -83,7 +83,7 @@ export const fetchAddRestaurant = async (
 ) => {
   const token = getToken();
   const idUser = jwtDecode(token).user.id;
-  const url = process.env.NEXT_PUBLIC_URL_ADD_RESTAURANT;
+  const url = process.env.NEXT_PUBLIC_URL_RESTAURANTS;
 
   try {
     await setLoading(true);
@@ -106,9 +106,9 @@ export const fetchAddRestaurant = async (
 };
 
 export const fetchGetRestaurant = async (idUser, setAllRestaurant) => {
-  const url = process.env.NEXT_PUBLIC_URL_GET_RESTAURANT;
+  const url = `${process.env.NEXT_PUBLIC_URL_RESTAURANTS}/${idUser}`;
   try {
-    const resp = await axios.get(url + idUser);
+    const resp = await axios.get(url);
     setAllRestaurant(resp.data);
     return resp;
   } catch (error) {
@@ -117,9 +117,9 @@ export const fetchGetRestaurant = async (idUser, setAllRestaurant) => {
 };
 
 export const fetchDataRestaurant = async (id, setData) => {
-  const url = process.env.NEXT_PUBLIC_URL_DATA_RESTAURANT;
+  const url = `${process.env.NEXT_PUBLIC_URL_RESTAURANTS}/data/${id}`;
   try {
-    const resp = await axios.get(url + id);
+    const resp = await axios.get(url);
     setData(resp.data);
     return resp;
   } catch (error) {
@@ -128,10 +128,10 @@ export const fetchDataRestaurant = async (id, setData) => {
 };
 
 export const fetchDeleteRestaurant = async (id, router, setLoading) => {
-  const url = process.env.NEXT_PUBLIC_URL_DELETE_RESTAURANT;
+  const url = `${process.env.NEXT_PUBLIC_URL_RESTAURANTS}/delete/${id}`;
   try {
     setLoading(true);
-    await axios.delete(url + id);
+    await axios.delete(url);
     toast.success("I dati sono stati cancellati con successo!");
     setLoading(false);
     router.push("/home");
@@ -218,10 +218,9 @@ export const fetchUpdateReserved = async (
 };
 
 export const GetReserved = async (id, day, setallReservedTimeZone) => {
-  const url = process.env.NEXT_PUBLIC_URL_RESERVED_TIMEZONE;
-  const query = `?idRestaurant=${id}&data=${day}`;
+  const url = `${process.env.NEXT_PUBLIC_URL_RESERVED}?idRestaurant=${id}&data=${day}`;
   try {
-    const resp = await axios.get(url + query);
+    const resp = await axios.get(url);
     setallReservedTimeZone(resp.data);
     return resp;
   } catch (error) {
@@ -237,7 +236,7 @@ export const fetchAddWaiter = async (
   reload,
   setLoading
 ) => {
-  const url = process.env.NEXT_PUBLIC_URL_ADD_WAITER;
+  const url = process.env.NEXT_PUBLIC_URL_WAITERS;
 
   try {
     setLoading(true);
@@ -255,10 +254,10 @@ export const fetchAddWaiter = async (
 };
 
 export const fetchGetWaiters = async (id, setAllWaiters) => {
-  const url = process.env.NEXT_PUBLIC_URL_GET_WAITERS;
+  const url = `${process.env.NEXT_PUBLIC_URL_WAITERS}/${id}`;
 
   try {
-    const resp = await axios.get(url + id);
+    const resp = await axios.get(url);
     await setAllWaiters(resp.data);
   } catch (error) {
     console.log(error);
@@ -266,9 +265,9 @@ export const fetchGetWaiters = async (id, setAllWaiters) => {
 };
 
 export const fetchDeleteWaiter = async (id, setReload, reload) => {
-  const url = process.env.NEXT_PUBLIC_URL_DELETE_WAITER;
+  const url = `${process.env.NEXT_PUBLIC_URL_WAITERS}/${id}`;
   try {
-    await axios.delete(url + id);
+    await axios.delete(url);
     setReload(!reload);
     toast.success("Cameriere eliminato!!");
   } catch (error) {
@@ -303,7 +302,7 @@ export const fetchAddTable = async (
   realod,
   setRealod
 ) => {
-  const url = process.env.NEXT_PUBLIC_URL_TABLE;
+  const url = process.env.NEXT_PUBLIC_URL_TABLES;
 
   try {
     setLoading(true);
@@ -320,7 +319,7 @@ export const fetchAddTable = async (
 };
 
 export const fetchGetTable = async (id, setAllTables, controlTables) => {
-  const url = `${process.env.NEXT_PUBLIC_URL_TABLE}/${id}`;
+  const url = `${process.env.NEXT_PUBLIC_URL_TABLES}/${id}`;
   try {
     const tables = await axios.get(url);
     await setAllTables(tables.data);
@@ -337,7 +336,7 @@ export const fetchSaveTables = async (
   setShowModalTable,
   router
 ) => {
-  const url = process.env.NEXT_PUBLIC_URL_SAVE_TABLES;
+  const url = process.env.NEXT_PUBLIC_URL_TABLES;
   const query = `?idReserved=${idReserved}&idRestaurant=${idRestaurant}&tables=${tables}`;
   try {
     await axios.put(url + query);
@@ -349,7 +348,7 @@ export const fetchSaveTables = async (
 };
 
 export const fetchDeleteTables = async (id, reload, setRealod) => {
-  const url = `${process.env.NEXT_PUBLIC_URL_TABLE}/${id}`;
+  const url = `${process.env.NEXT_PUBLIC_URL_TABLES}/${id}`;
 
   try {
     await axios.delete(url);
