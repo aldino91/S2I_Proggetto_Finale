@@ -47,7 +47,7 @@ export default function ModalWarnig({ id, setShowModal }) {
             <FormAddWaiter setReload={setReload} reload={reload} id={id} />
             <ListWaiters id={id} reload={reload} setReload={setReload} />
           </div>
-          <div className="flex flex-col w-full lg:w-1/2">
+          <div className="flex flex-col w-full lg:w-1/2 pb-10">
             <FormAddTable id={id} reload={reload} setReload={setReload} />
             <ListTables id={id} reload={reload} setReload={setReload} />
           </div>
