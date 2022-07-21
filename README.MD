@@ -15,4 +15,4 @@ Per provare la app dopo aver fatto il clone dovresti installare i vari moduli.
 
     npm install body-parser cors dotenv express mysql2 sequelize-cli sequelize jsonwebtoken bcrypt
 
-Vi lascio il link per provare la app.web in produzione https://s2-i-proggetto-finale.vercel.app/
+Vi lascio il link per provare la app.web in produzione https://s2i-progetto-finale.vercel.app/
